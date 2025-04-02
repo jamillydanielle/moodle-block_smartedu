@@ -12,7 +12,7 @@ Current features
 Roadmap
 --------
 
-- Generate quizzes from lecture notes provided by the teacher in various [file formats](available-file-formats.md).
+- Generate quizzes from lecture notes provided by the teacher in various [file formats](file-formats.md).
 
 - Support other types of generative AI
 
