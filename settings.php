@@ -25,5 +25,5 @@
 defined('MOODLE_INTERNAL') || die();
 
 if ($hassiteconfig) {
-    $settings->add(new admin_setting_configtext('blocks/smartedu', get_string('apikey', 'block_smartedu'), null, "", PARAM_TEXT));
+    $settings->add(new admin_setting_configtext('block_smartedu/apikey', get_string('apikey', 'block_smartedu'), null, "", PARAM_TEXT));
 }

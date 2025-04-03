@@ -1,0 +1,41 @@
+# Arquivos de sistema
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# Diretórios e arquivos do Moodle que não devem ser versionados
+config.php
+config.php.local
+config-dist.php
+install.xml
+node_modules/
+vendor/
+composer.lock
+
+# Cache, logs e arquivos temporários
+moodledata/
+moodledata/*
+!moodledata/.htaccess
+cache/
+localcache/
+sessions/
+trashdir/
+temp/
+logs/
+
+# Arquivos de build
+/build/
+*.zip
+*.tar.gz
+
+# Arquivos específicos de IDEs e editores de código
+.idea/
+.vscode/
+*.iml
+
+# Arquivos gerados por testes
+phpunit.xml
+tests/behat/*
+tests/phpunit/*
+coverage.xml

@@ -22,6 +22,8 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+require_once('text_extraction.php');
+
 class block_smartedu extends block_base {
 
     /**
@@ -47,7 +49,7 @@ class block_smartedu extends block_base {
 
         $termsofuse = get_string('termsofuse', 'block_smartedu');
         $noresources = get_string('noresources', 'block_smartedu');
-        
+
         $this->content = new stdClass();
         $this->content->footer = <<<HTML
             <footer class="bg-light text-center text-muted mt-2">
@@ -71,7 +73,7 @@ class block_smartedu extends block_base {
 
 
         foreach ($resources as $key => $item) {
-            $url = new moodle_url('/blocks/smartedu/quizz.php', ['resourceid' => $item->id]);
+            $url = new moodle_url('/blocks/smartedu/results.php', ['resourceid' => $item->id, 'summarytype' => $this->config->summarytype]);
 
             $resources_content = $resources_content . <<<HTML
                     <li class="list-group-item d-flex align-items-center">
@@ -95,7 +97,7 @@ class block_smartedu extends block_base {
     private function get_resources_list() {
         global $COURSE;
         
-        $allowed_extensions = ['PDF', 'DOCX', 'PPTX', 'TXT'];
+        $allowed_extensions = Text_Extraction::get_valid_file_types();
         $course_info = get_fast_modinfo($COURSE->id);
         $resourses = array();
 
@@ -104,7 +106,7 @@ class block_smartedu extends block_base {
             if ($item->modname != 'resource') {
                 continue;
             }
-            
+
             if (!$item->uservisible) {
                 continue;
             }
@@ -114,13 +116,18 @@ class block_smartedu extends block_base {
 
 
             $file_extension = $resource_details['filedetails']['extension'];
-            if (!in_array($file_extension, $allowed_extensions)) {
+            if (!in_array(strtolower($file_extension), $allowed_extensions)) {
                 continue;
             }
 
             $res = new stdClass();
             $res->id = $item->id;
             $res->name = $item->name;
+            
+            if (!$item->visible) {
+                $res->name .= get_string('studentinvisible', 'block_smartedu'); 
+            }
+            
             $res->icon_url = $item->get_icon_url();
 
             $resourses[] = $res;
