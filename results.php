@@ -65,15 +65,15 @@ if (!$cm = get_coursemodule_from_id('resource', $resourceid)) {
             $content = Text_Extraction::convert_to_text($fulpath);
 
             $api_key = get_config('block_smartedu', 'apikey');
-            $api_url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=$api_key";
+            $ai_provider = get_config('block_smartedu', 'aiprovider');
 
-            $prompt = "Com base no seguinte conteúdo da aula intitulada '$resource->name', escreva um resumo simples, de no máximo 5 frases, destacando os principais conceitos abordados de forma objetiva e clara para um aluno de graduação. O retorno deve utilizar a tag <strong> para destacar os termos importantes. Conteúdo da aula: $content";
+            $prompt = "Com base no seguinte conteúdo da aula intitulada '$resource->name', escreva um resumo simples de no máximo 5 frases, destacando os principais conceitos abordados de forma objetiva e clara para um aluno de graduação. O texto retornado deve estar em HTML válido, mas sem formatá-lo como bloco de código. Todas as palavras em destaque devem estar envolvidas pela tag <strong>. Não crie um título para o resumo da aula e não use Markdown para formatar o texto. Conteúdo da aula: $content";
             
             if ($summary_type == 'detailed') {
-                $prompt = "Com base no seguinte conteúdo da aula intitulada '$resource->name', escreva um resumo detalhado, entre 200 e 300 palavras, explicando os principais conceitos apresentados para um aluno de graduação. Inclua informações sobre teorias, métodos, exemplos práticos ou desafios apresentados, conforme aplicável. O retorno deve utilizar a tag <h5> para seções principais, <p> para parágrafos e <strong> para destacar termos importantes. Conteúdo da aula: $content";
+                $prompt = "Com base no seguinte conteúdo da aula intitulada '$resource->name', escreva um resumo detalhado de até 300 palavras, explicando os principais conceitos apresentados para um aluno de graduação. Inclua informações sobre teorias, métodos, exemplos práticos ou desafios apresentados, conforme aplicável. O texto retornado deve estar em HTML válido, mas sem formatá-lo como bloco de código. Utilize a tag <h5> para seções principais, a tag <p> para parágrafos e a tag <strong> para destacar termos importantes. Não crie um título para o resumo da aula e não use Markdown para formatar o texto. Conteúdo da aula: $content";
             }
 
-            $summary = Summary_Generator::generate_with_gemini($api_url, $prompt);
+            $summary = Summary_Generator::summarize($ai_provider, $api_key, $prompt);
 
         } catch (Exception $e) {
             $has_error = true;

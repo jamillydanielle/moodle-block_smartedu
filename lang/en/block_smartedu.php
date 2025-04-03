@@ -25,11 +25,12 @@
 $string['pluginname'] = 'SmartEdu – Intelligent Learning';
 $string['termsofuse'] = 'By using the SmartEdu block, you agree to its <a href="https://github.com/dired-ufla/moodle-block_smartedu/blob/main/terms-of-use.md" target="_blank">Terms of Use</a>.';
 $string['noresources'] = 'No <a href="https://github.com/dired-ufla/moodle-block_smartedu/blob/main/file-formats.md" target="_blank">compatible files</a> are available for this course.';
-$string['apikey'] = "Please insert your Gemini's API Key";
+$string['aiprovider'] = "Choose your Generative AI provider";
+$string['apikey'] = "Insert your API Key";
 $string['summarytype'] = "Summary type";
 $string['summarytype:simple'] = "Simple";
 $string['summarytype:detailed'] = "Detailed";
 $string['studentinvisible'] = " - hidden from students";  
 $string['resourcenotfound'] = "The specified resource could not be found.";  
 $string['internalerror'] = "Internal system error.";  
-$string['summaryfor'] = "Summary for ";
+$string['summaryfor'] = "Summary about ";
