@@ -112,13 +112,13 @@ class block_smartedu extends block_base {
             }
 
             // Exclude resources not allowed
-            $resource_details = unserialize($item->customdata["displayoptions"]);
+            // $resource_details = unserialize($item->customdata["displayoptions"]);
 
 
-            $file_extension = $resource_details['filedetails']['extension'];
-            if (!in_array(strtolower($file_extension), $allowed_extensions)) {
-                continue;
-            }
+            // $file_extension = $resource_details['filedetails']['extension'];
+            // if (!in_array(strtolower($file_extension), $allowed_extensions)) {
+                // continue;
+            // }
 
             $res = new stdClass();
             $res->id = $item->id;
