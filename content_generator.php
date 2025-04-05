@@ -1,8 +1,8 @@
 <?php
 
-class Summary_Generator
+class Content_Generator
 {
-    protected static function summarize_with_google( $api_key, $prompt )
+    protected static function generate_with_google( $api_key, $prompt )
     {
         $api_url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=$api_key";
 
@@ -31,13 +31,15 @@ class Summary_Generator
         $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         
         if (curl_errno($ch)) {
-            throw new \Exception(get_string('internalerror', 'block_smartedu') . ' ' . curl_error($ch) );
+            error_log('CURL error: ' . curl_error($ch));
+            throw new \Exception();
         }
         
         curl_close($ch);
         
         if ($httpCode != 200) {
-            throw new \Exception(get_string('internalerror', 'block_smartedu') . ' HTTP CODE: ' . $httpCode ); 
+            error_log('HTTP error: ' . $httpCode);
+            throw new \Exception(); 
         }
         
         $chat_response = json_decode($response, true);
@@ -45,7 +47,7 @@ class Summary_Generator
         return $chat_content;
     }
 
-    protected static function summarize_with_openai( $api_key, $prompt )
+    protected static function generate_with_openai( $api_key, $prompt )
     {
         $api_url = "https://api.openai.com/v1/chat/completions";
 
@@ -75,13 +77,15 @@ class Summary_Generator
         $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         
         if (curl_errno($ch)) {
-            throw new \Exception(get_string('internalerror', 'block_smartedu') . ' ' . curl_error($ch) );
+            error_log('CURL error: ' . curl_error($ch));
+            throw new \Exception();
         }
         
         curl_close($ch);
         
         if ($httpCode != 200) {
-            throw new \Exception(get_string('internalerror', 'block_smartedu') . ' HTTP CODE: ' . $httpCode ); 
+            error_log('HTTP error: ' . $httpCode);
+            throw new \Exception(); 
         }
         
         $chat_response = json_decode($response, true);
@@ -102,28 +106,24 @@ class Summary_Generator
      * @return bool|mixed|string
      * @throws Exception
      */
-    public static function summarize( $ai_provider, $api_key, $prompt )
+    public static function generate( $ai_provider, $api_key, $prompt )
     {
+        $response = '';
+        
         if (isset($ai_provider) && isset($api_key) && isset($prompt)) {
 
             $valid_ai_providers = self::get_valid_ai_providers();
             $ai_provider = strtolower($ai_provider);
 
             if (in_array( $ai_provider, $valid_ai_providers )) {
-                $method   = 'summarize_with_' . $ai_provider;
+                $method   = 'generate_with_' . $ai_provider;
                 $response = self::$method( $api_key, $prompt );
             } else {
-
-                throw new \Exception('aqui1' . get_string('internalerror', 'block_smartedu'));
-
+                debugging('AI provider not allowed', DEBUG_DEVELOPER);
+                throw new \Exception(); 
             }
 
-        } else {
-
-            throw new \Exception('aqui2' . get_string('internalerror', 'block_smartedu'));
-
-        }
-        
+        }        
 
         return $response;
     }
