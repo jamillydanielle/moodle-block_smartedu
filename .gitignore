@@ -10,7 +10,6 @@ config.php.local
 config-dist.php
 install.xml
 node_modules/
-vendor/
 composer.lock
 
 # Cache, logs e arquivos temporários
