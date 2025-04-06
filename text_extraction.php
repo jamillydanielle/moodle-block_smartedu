@@ -18,8 +18,8 @@ class Text_Extraction
             $response = $pdf->getText();
 
         } else {
-
-            throw new \Exception(get_string('internalerror', 'block_smartedu') ); 
+            error_log('Error while parsing PDF file');
+            throw new \Exception(get_string('resourcenotprocessable', 'block_smartedu') ); 
         }
 
         return $response;
@@ -131,14 +131,14 @@ class Text_Extraction
                 $response = self::$method( $path_to_file );
 
             } else {
-
-                throw new \Exception(get_string('internalerror', 'block_smartedu'));
+                error_log('Error invalid file type');
+                throw new \Exception(get_string('resourcenotprocessable', 'block_smartedu'));
 
             }
 
         } else {
-
-            throw new \Exception(get_string('internalerror', 'block_smartedu'));
+            error_log('Error file does not exist');
+            throw new \Exception(get_string('resourcenotfound', 'block_smartedu'));
 
         }
         

@@ -31,6 +31,7 @@ $string['summarytype'] = "Tipo de resumo";
 $string['summarytype:simple'] = "Simples";
 $string['summarytype:detailed'] = "Detalhado";
 $string['studentinvisible'] = " - oculto para estudantes";
+$string['resourcenotprocessable'] = "Não foi possível processar o conteúdo do recurso informado.";
 $string['resourcenotfound'] = "Não foi possível encontrar o recurso informado.";
 $string['internalerror'] = "Erro interno do sistema.";
 $string['summaryfor'] = "Resumo sobre ";

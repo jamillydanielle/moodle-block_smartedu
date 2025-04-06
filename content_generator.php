@@ -32,14 +32,14 @@ class Content_Generator
         
         if (curl_errno($ch)) {
             error_log('CURL error: ' . curl_error($ch));
-            throw new \Exception();
+            throw new \Exception(get_string('internalerror', 'block_smartedu'));
         }
         
         curl_close($ch);
         
         if ($httpCode != 200) {
             error_log('HTTP error: ' . $httpCode);
-            throw new \Exception(); 
+            throw new \Exception(get_string('internalerror', 'block_smartedu'));
         }
         
         $chat_response = json_decode($response, true);
@@ -78,14 +78,14 @@ class Content_Generator
         
         if (curl_errno($ch)) {
             error_log('CURL error: ' . curl_error($ch));
-            throw new \Exception();
+            throw new \Exception(get_string('internalerror', 'block_smartedu'));
         }
         
         curl_close($ch);
         
         if ($httpCode != 200) {
             error_log('HTTP error: ' . $httpCode);
-            throw new \Exception(); 
+            throw new \Exception(get_string('internalerror', 'block_smartedu'));
         }
         
         $chat_response = json_decode($response, true);
@@ -119,8 +119,8 @@ class Content_Generator
                 $method   = 'generate_with_' . $ai_provider;
                 $response = self::$method( $api_key, $prompt );
             } else {
-                debugging('AI provider not allowed', DEBUG_DEVELOPER);
-                throw new \Exception(); 
+                error_log('AI provider not allowed');
+                throw new \Exception(get_string('internalerror', 'block_smartedu'));
             }
 
         }        

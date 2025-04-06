@@ -38,48 +38,52 @@ $summary_type = optional_param('summarytype', "", PARAM_TEXT);
 $has_error = false;
 $error_message = '';
 
-if (!$cm = get_coursemodule_from_id('resource', $resourceid)) {
-    $has_error = true;
-    $error_message = get_string('resourcenotfound', 'block_smartedu');
-} else {
-    $resource = $DB->get_record('resource', array('id'=>$cm->instance), '*', MUST_EXIST);
+try {
 
+    if (!$cm = get_coursemodule_from_id('resource', $resourceid)) {
+        throw new \Exception(get_string('resourcenotfound', 'block_smartedu'));
+    } 
+    
+    $resource = $DB->get_record('resource', array('id'=>$cm->instance), '*', MUST_EXIST);
     $context = context_module::instance($cm->id);
+    
     require_capability('mod/resource:view', $context);
-        
+           
     $fs = get_file_storage();
     $files = $fs->get_area_files($context->id, 'mod_resource', 'content', 0, 'sortorder DESC, id ASC', false); 
+    
     if (count($files) < 1) {
-        $has_error = true;
-        $error_message = get_string('resourcenotfound', 'block_smartedu');
-    } else {
-        $file = reset($files);
-        unset($files);
-        
-        $filename = $file->get_filename();
-        $fulpath = "$CFG->tempdir/$filename";
-        
-        $file->copy_content_to($fulpath);
-
-        try {
-            $content = Text_Extraction::convert_to_text($fulpath);
-
-            $api_key = get_config('block_smartedu', 'apikey');
-            $ai_provider = get_config('block_smartedu', 'aiprovider');
-
-            $prompt = get_string('prompt:simple_summary', 'block_smartedu', ['resource_name' => $resource->name, 'resource_content' => $content]);
+        throw new \Exception(get_string('resourcenotfound', 'block_smartedu'));
+    } 
+    
+    $file = reset($files);
+    unset($files);
             
-            if ($summary_type == 'detailed') {
-                $prompt = get_string('prompt:detailed_summary', 'block_smartedu', ['resource_name' => $resource->name, 'resource_content' => $content]);
-            }
-
-            $summary = Content_Generator::generate($ai_provider, $api_key, $prompt);
-
-        } catch (Exception $e) {
-            $has_error = true;
-            $error_message = get_string('internalerror', 'block_smartedu');
-        }
+    $filename = $file->get_filename();
+    $fulpath = "$CFG->tempdir/$filename";
+            
+    $file->copy_content_to($fulpath);
+    
+    $content = Text_Extraction::convert_to_text($fulpath);
+    
+    if ($content == "") {
+        throw new \Exception(get_string('resourcenotprocessable', 'block_smartedu'));
     }
+
+    $api_key = get_config('block_smartedu', 'apikey');
+    $ai_provider = get_config('block_smartedu', 'aiprovider');
+
+    $prompt = get_string('prompt:simple_summary', 'block_smartedu', ['resource_name' => $resource->name, 'resource_content' => $content]);
+                
+    if ($summary_type == 'detailed') {
+        $prompt = get_string('prompt:detailed_summary', 'block_smartedu', ['resource_name' => $resource->name, 'resource_content' => $content]);
+    }
+    
+    $summary = Content_Generator::generate($ai_provider, $api_key, $prompt);
+    
+} catch (Exception $e) {
+    $has_error = true;
+    $error_message = $e->getMessage();
 }
 
 echo $OUTPUT->header();

@@ -32,6 +32,7 @@ $string['summarytype:simple'] = "Simple";
 $string['summarytype:detailed'] = "Detailed";
 $string['studentinvisible'] = " - hidden from students";  
 $string['resourcenotfound'] = "The specified resource could not be found.";  
+$string['resourcenotprocessable'] = "The content of the specified resource could not be processed.";
 $string['internalerror'] = "Internal system error.";  
 $string['summaryfor'] = "Summary about ";
 $string['prompt:simple_summary'] = 'Based on the following content from the lesson entitled "{$a->resource_name}", write a simple summary in no more than 5 sentences, highlighting the main concepts in a clear and objective way for an undergraduate student. Do not format the text as a code block. All highlighted words must be enclosed within the <strong> tag. Do not create a title for the lesson summary and do not use Markdown to format the text. Lesson content: {$a->resource_content}';
