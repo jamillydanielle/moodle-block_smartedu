@@ -73,7 +73,7 @@ class block_smartedu extends block_base {
 
 
         foreach ($resources as $key => $item) {
-            $url = new moodle_url('/blocks/smartedu/results.php', ['resourceid' => $item->id, 'summarytype' => $this->config->summarytype]);
+            $url = new moodle_url('/blocks/smartedu/results.php', ['resourceid' => $item->id]);
 
             $resources_content = $resources_content . <<<HTML
                     <li class="list-group-item d-flex align-items-center">

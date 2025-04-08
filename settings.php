@@ -27,10 +27,8 @@ defined('MOODLE_INTERNAL') || die();
 if ($hassiteconfig) {
     $options = array(
         'google' => 'Google (Gemini)',
-        'openai' => 'OpenAI (ChatGPT)',
     );
     
     $settings->add(new admin_setting_configselect('block_smartedu/aiprovider', get_string('aiprovider', 'block_smartedu'), null, 'google', $options));
-
     $settings->add(new admin_setting_configtext('block_smartedu/apikey', get_string('apikey', 'block_smartedu'), null, "", PARAM_TEXT));
 }

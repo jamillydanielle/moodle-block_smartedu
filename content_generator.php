@@ -10,7 +10,7 @@ class Content_Generator
             'contents' => 
                 [
                     'parts' => [
-                        'text' => $prompt
+                        'text' => $prompt,
                     ]
                 ]
         ];
@@ -54,10 +54,8 @@ class Content_Generator
         $data = [
             'model' => 'gpt-4o-mini', 
             'messages' => [
-                ['role' => 'system', 'content' => 'Você é um gerador de resumos acadêmicos para o ensino superior.'],
                 ['role' => 'user', 'content' => $prompt],
-            ],
-            'temperature' => 0.7
+            ]
         ];
         
         $headers = [
@@ -110,20 +108,17 @@ class Content_Generator
     {
         $response = '';
         
-        if (isset($ai_provider) && isset($api_key) && isset($prompt)) {
+        $valid_ai_providers = self::get_valid_ai_providers();
+        $ai_provider = strtolower($ai_provider);
 
-            $valid_ai_providers = self::get_valid_ai_providers();
-            $ai_provider = strtolower($ai_provider);
+        if (in_array( $ai_provider, $valid_ai_providers )) {
+            $method   = 'generate_with_' . $ai_provider;
+            $response = self::$method( $api_key, $prompt );
+        } else {
+            error_log('AI provider not allowed');
+            throw new \Exception(get_string('internalerror', 'block_smartedu'));
+        }
 
-            if (in_array( $ai_provider, $valid_ai_providers )) {
-                $method   = 'generate_with_' . $ai_provider;
-                $response = self::$method( $api_key, $prompt );
-            } else {
-                error_log('AI provider not allowed');
-                throw new \Exception(get_string('internalerror', 'block_smartedu'));
-            }
-
-        }        
 
         return $response;
     }

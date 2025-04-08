@@ -24,13 +24,5 @@
 
 class block_smartedu_edit_form extends block_edit_form {
     protected function specific_definition($mform) {
-        // A sample string variable with a default value.
-        $options = array(
-            'simple' => get_string('summarytype:simple', 'block_smartedu'),
-            'detailed' => get_string('summarytype:detailed', 'block_smartedu'),
-        );
-        $select = $mform->addElement('select', 'config_summarytype', get_string('summarytype', 'block_smartedu'), $options);
-        // This will select the colour blue.
-        $select->setSelected('simple');
     }
 }

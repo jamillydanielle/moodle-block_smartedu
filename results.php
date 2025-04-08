@@ -33,7 +33,6 @@ $PAGE->set_url(new moodle_url('/blocks/smartedu/results.php', ['resourceid' => $
 $PAGE->set_title(get_string('pluginname', 'block_smartedu'));
 
 $resourceid = required_param('resourceid', PARAM_INT);
-$summary_type = optional_param('summarytype', "", PARAM_TEXT);
 
 $has_error = false;
 $error_message = '';
@@ -73,14 +72,12 @@ try {
     $api_key = get_config('block_smartedu', 'apikey');
     $ai_provider = get_config('block_smartedu', 'aiprovider');
 
-    $prompt = get_string('prompt:simple_summary', 'block_smartedu', ['resource_name' => $resource->name, 'resource_content' => $content]);
-                
-    if ($summary_type == 'detailed') {
-        $prompt = get_string('prompt:detailed_summary', 'block_smartedu', ['resource_name' => $resource->name, 'resource_content' => $content]);
-    }
-    
-    $summary = Content_Generator::generate($ai_provider, $api_key, $prompt);
-    
+    $prompt = get_string('prompt', 'block_smartedu', ['title' => $resource->name, 'content' => $content]);
+    $response = Content_Generator::generate($ai_provider, $api_key, $prompt);
+
+    $response = preg_replace('/```json\s*(.*?)\s*```/s', '$1', $response);
+    $data = json_decode($response);
+
 } catch (Exception $e) {
     $has_error = true;
     $error_message = $e->getMessage();
@@ -97,23 +94,66 @@ if ($has_error) {
 
     echo $error_component;
 } else {
-    $summary_title = get_string('summaryfor', 'block_smartedu');
-
-    $content_component = <<<HTML
+    $summary_component = <<<HTML
             <div class="card">
                 <div class="card-header">
-                    <strong>$summary_title "$resource->name"</strong>
+                    <strong>$resource->name</strong>
                 </div>
                 <div class="card-body">
-                    <p class="card-text">$summary</p>
-                    
+                    <p class="card-text">$data->summary</p>                    
                 </div>
             </div>
         HTML;
 
-    echo $content_component;
+    echo $summary_component;
+
+    $index = 0;
+    $quizz_responses = '';
+    
+    foreach($data->questions as $question) {
+        $index++;
+        $quizz_question = get_string('quizz:question', 'block_smartedu') . $index;
+        $quizz_responses .= $quizz_question . ': ' . $question->correct_option . '<br>'; 
+
+        $option_a = $question->options->A;
+        $option_b = $question->options->B;
+        $option_c = $question->options->C;
+        $option_d = $question->options->D;
+
+        $quizz_component = <<<HTML
+            <div class="card mt-2">
+                <div class="card-header">
+                    <strong>$quizz_question: $question->question</strong>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">(A) $option_a</p>
+                    <p class="card-text">(B) $option_b</p>
+                    <p class="card-text">(C) $option_c</p>
+                    <p class="card-text">(D) $option_d</p>
+                </div>
+            </div>
+            HTML;
+        echo $quizz_component;
+    }
+    
+    $quizz_showresponses = get_string('quizz:showresponses', 'block_smartedu');
+    $quizz_response = <<<HTML
+            <div class="accordion mt-2" id="myAccordion">
+                <div class="card">
+                    <div class="card-header">
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#colapseOne" aria-expanded="false">
+                            $quizz_showresponses
+                        </button>
+                    </div>
+                    <div id="colapseOne" class="collapse" data-parent="#myAccordion">
+                        <div class="card-body">
+                            $quizz_responses
+                        </div>
+                    </div>
+                </div>
+            </div>
+            HTML;
+    echo $quizz_response;
 }
-
-
 
 echo $OUTPUT->footer();
