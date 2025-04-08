@@ -22,12 +22,9 @@
 */
 
 
-require_once('../../config.php');
-require_once($CFG->dirroot.'/mod/resource/lib.php');
-require_once($CFG->dirroot.'/mod/resource/locallib.php');
-require_once($CFG->libdir.'/completionlib.php');
 require_once('text_extraction.php');
 require_once('content_generator.php');
+require_once('resource_reader.php');
 
 const MAX_QUESTIONS_NUMBER = 7;
 const DEFAULT_QUESTIONS_NUMBER = 5;
@@ -43,31 +40,14 @@ $has_error = false;
 $error_message = '';
 
 try {
-    if (!$cm = get_coursemodule_from_id('resource', $resourceid)) {
-        throw new \Exception(get_string('resourcenotfound', 'block_smartedu'));
-    } 
+    $res = Resource_Reader::read($resourceid);
+
+    $filename = $res->file->get_filename();
+    $fullpath = "$CFG->tempdir/$filename";
+
+    $res->file->copy_content_to($fullpath);
     
-    $resource = $DB->get_record('resource', array('id'=>$cm->instance), '*', MUST_EXIST);
-    $context = context_module::instance($cm->id);
-    
-    require_capability('mod/resource:view', $context);
-           
-    $fs = get_file_storage();
-    $files = $fs->get_area_files($context->id, 'mod_resource', 'content', 0, 'sortorder DESC, id ASC', false); 
-    
-    if (count($files) < 1) {
-        throw new \Exception(get_string('resourcenotfound', 'block_smartedu'));
-    } 
-    
-    $file = reset($files);
-    unset($files);
-            
-    $filename = $file->get_filename();
-    $fulpath = "$CFG->tempdir/$filename";
-            
-    $file->copy_content_to($fulpath);
-    
-    $content = Text_Extraction::convert_to_text($fulpath);
+    $content = Text_Extraction::convert_to_text($fullpath);
     
     if ($content == "") {
         throw new \Exception(get_string('resourcenotprocessable', 'block_smartedu'));
@@ -76,10 +56,10 @@ try {
     $api_key = get_config('block_smartedu', 'apikey');
     $ai_provider = get_config('block_smartedu', 'aiprovider');
 
-    $prompt = get_string('prompt:simplesummary', 'block_smartedu', $resource->name);
+    $prompt = get_string('prompt:simplesummary', 'block_smartedu', $res->name);
 
     if ($summary_type == 'detailed') {
-        $prompt = get_string('prompt:detailedsummary', 'block_smartedu', $resource->name);
+        $prompt = get_string('prompt:detailedsummary', 'block_smartedu', $res->name);
     } 
     
     if ($questions_number < 1 || $questions_number > MAX_QUESTIONS_NUMBER) {
@@ -113,7 +93,7 @@ if ($has_error) {
     $summary_component = <<<HTML
             <div class="card">
                 <div class="card-header">
-                    <strong>$resource->name</strong>
+                    <strong>$res->name</strong>
                 </div>
                 <div class="card-body">
                     <p class="card-text">$data->summary</p>                    

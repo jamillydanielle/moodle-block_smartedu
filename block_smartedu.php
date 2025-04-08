@@ -23,6 +23,7 @@
  */
 
 require_once('text_extraction.php');
+require_once('resource_reader.php');
 
 class block_smartedu extends block_base {
 
@@ -111,27 +112,24 @@ class block_smartedu extends block_base {
                 continue;
             }
 
-            // Exclude resources not allowed
-            $resource_details = unserialize($item->customdata["displayoptions"]);
-
-            if (isset($resource_details['filedetails']['extension'])) {
-                $file_extension = $resource_details['filedetails']['extension'];
-                if (!in_array(strtolower($file_extension), $allowed_extensions)) {
-                    continue;
-                }
+            $res = Resource_Reader::read($item->id);
+            $filename = $res->file->get_filename();
+            $file_extension = substr(strrchr($filename, '.'), 1);
+            if (!in_array(strtolower($file_extension), $allowed_extensions)) {
+                continue;
             }
 
-            $res = new stdClass();
-            $res->id = $item->id;
-            $res->name = $item->name;
+            $obj = new stdClass();
+            $obj->id = $item->id;
+            $obj->name = $item->name;
             
             if (!$item->visible) {
-                $res->name .= get_string('studentinvisible', 'block_smartedu'); 
+                $obj->name .= get_string('studentinvisible', 'block_smartedu'); 
             }
             
-            $res->icon_url = $item->get_icon_url();
+            $obj->icon_url = $item->get_icon_url();
 
-            $resourses[] = $res;
+            $resourses[] = $obj;
         }
 
 
