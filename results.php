@@ -29,16 +29,20 @@ require_once($CFG->libdir.'/completionlib.php');
 require_once('text_extraction.php');
 require_once('content_generator.php');
 
+const MAX_QUESTIONS_NUMBER = 7;
+const DEFAULT_QUESTIONS_NUMBER = 5;
+
 $PAGE->set_url(new moodle_url('/blocks/smartedu/results.php', ['resourceid' => $resourceid]));
 $PAGE->set_title(get_string('pluginname', 'block_smartedu'));
 
 $resourceid = required_param('resourceid', PARAM_INT);
+$summary_type = optional_param('summarytype', "", PARAM_TEXT);
+$questions_number = optional_param('nquestions', DEFAULT_QUESTIONS_NUMBER, PARAM_INT);
 
 $has_error = false;
 $error_message = '';
 
 try {
-
     if (!$cm = get_coursemodule_from_id('resource', $resourceid)) {
         throw new \Exception(get_string('resourcenotfound', 'block_smartedu'));
     } 
@@ -72,7 +76,19 @@ try {
     $api_key = get_config('block_smartedu', 'apikey');
     $ai_provider = get_config('block_smartedu', 'aiprovider');
 
-    $prompt = get_string('prompt', 'block_smartedu', ['title' => $resource->name, 'content' => $content]);
+    $prompt = get_string('prompt:simplesummary', 'block_smartedu', $resource->name);
+
+    if ($summary_type == 'detailed') {
+        $prompt = get_string('prompt:detailedsummary', 'block_smartedu', $resource->name);
+    } 
+    
+    if ($questions_number < 1 || $questions_number > MAX_QUESTIONS_NUMBER) {
+        $questions_number = DEFAULT_QUESTIONS_NUMBER;
+    } 
+    
+    $prompt .= get_string('prompt:quizz', 'block_smartedu', $questions_number);
+    $prompt .= get_string('prompt:return', 'block_smartedu', $content);
+
     $response = Content_Generator::generate($ai_provider, $api_key, $prompt);
 
     $response = preg_replace('/```json\s*(.*?)\s*```/s', '$1', $response);

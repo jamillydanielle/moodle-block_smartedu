@@ -28,6 +28,7 @@ $string['noresources'] = 'No <a href="https://github.com/dired-ufla/moodle-block
 $string['aiprovider'] = "Choose your Generative AI provider";
 $string['apikey'] = "Insert your API Key";
 $string['summarytype'] = "Summary type";
+$string['nquestions'] = "Number of questions";
 $string['summarytype:simple'] = "Simple";
 $string['summarytype:detailed'] = "Detailed";
 $string['studentinvisible'] = " - hidden from students";  
@@ -36,4 +37,7 @@ $string['resourcenotprocessable'] = "The content of the specified resource could
 $string['internalerror'] = "Internal system error.";  
 $string['quizz:question'] = "Question ";
 $string['quizz:showresponses'] = "Show responses";
-$string['prompt'] = 'Based on the following content from the lecture titled "{$a->title}", write a simple summary of no more than 10 sentences, highlighting the main concepts in a clear and objective way for an undergraduate student. Also create 5 multiple-choice questions, each with 4 options (A, B, C, D), with only one correct answer. Each question should also include a brief justification for the correct answer. Return the summary and the questions in a JSON file with the following structure: {"summary": "Lecture summary", "questions": [{"question": "Question text", "options": {"A": "Option A text", "B": "Option B text", "C": "Option C text", "D": "Option D text", },"correct_option": "Letter of the correct option (e.g., C)", "justification": "Brief explanation of why this is the correct answer"}]}. Lecture content: {$a->content}.';
+$string['prompt:simplesummary'] = 'Based on the following content from the lecture titled "{$a}", write a simple summary of no more than 10 sentences, highlighting the main concepts in a clear and objective way for an undergraduate student. ';
+$string['prompt:detailedsummary'] = 'Based on the following content from the lecture titled "{$a}", write a detailed summary of no more than 300 words, highlighting and explaining the main concepts for an undergraduate student. ';
+$string['prompt:quizz'] = 'Also create {$a} multiple-choice questions, each with 4 options (A, B, C, D), with only one correct answer. ';
+$string['prompt:return'] = 'Return the summary and the questions in a JSON file with the following structure: {"summary": "Lecture summary", "questions": [{"question": "Question text", "options": {"A": "Option A text", "B": "Option B text", "C": "Option C text", "D": "Option D text", },"correct_option": "Letter of the correct option (e.g., C)"}]}. Lecture content: {$a}';

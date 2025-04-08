@@ -24,5 +24,23 @@
 
 class block_smartedu_edit_form extends block_edit_form {
     protected function specific_definition($mform) {
+        $options = array(
+            'simple' => get_string('summarytype:simple', 'block_smartedu'),
+            'detailed' => get_string('summarytype:detailed', 'block_smartedu'),
+        );
+        $select1 = $mform->addElement('select', 'config_summarytype', get_string('summarytype', 'block_smartedu'), $options);
+        $select1->setSelected('simple'); 
+
+        $nquestions = array(
+            '1' => 1,
+            '2' => 2,
+            '3' => 3,
+            '4' => 4,
+            '5' => 5,
+            '6' => 6,
+            '7' => 7,
+        );
+        $select2 = $mform->addElement('select', 'config_nquestions', get_string('nquestions', 'block_smartedu'), $nquestions);
+        $select2->setSelected('5'); 
     }
 }
