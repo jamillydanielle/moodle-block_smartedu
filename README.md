@@ -10,12 +10,9 @@ Current features
 
 - Generates simple or detailed summaries, based on user preference.
 
-Roadmap
---------
-
 - Generate quizzes from lecture notes.
 
-- Currently, the plugin supports the following generative AI providers: Google (Gemini) and OpenAI (ChatGPT). We intent to support other types of providers soon.
+- Currently, the plugin supports the following generative AI providers: Google (Gemini) and OpenAI (ChatGPT). 
 
 Requirements
 ------------
@@ -30,7 +27,7 @@ Simply install the plugin and add the block to a course page.
 What type of generative AI does the SmartEdu plugin use?
 -------------------------------------
 
-Currently, the plugin only supports Gemini and ChatGPT. There are plans to include other types of generative AI providers in the future (see _Roadmap_ section).
+Currently, the plugin only supports Gemini and ChatGPT. There are plans to include other types of generative AI providers in the future.
 
 What aspects should be considered when using the plugin?
 ------------------------------------
