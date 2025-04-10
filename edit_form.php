@@ -32,6 +32,7 @@ class block_smartedu_edit_form extends block_edit_form {
         $select1->setSelected('simple'); 
 
         $nquestions = array(
+            '0' => 0,
             '1' => 1,
             '2' => 2,
             '3' => 3,

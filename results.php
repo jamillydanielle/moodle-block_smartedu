@@ -62,7 +62,7 @@ try {
         $prompt = get_string('prompt:detailedsummary', 'block_smartedu', $res->name);
     } 
     
-    if ($questions_number < 1 || $questions_number > MAX_QUESTIONS_NUMBER) {
+    if ($questions_number < 0 || $questions_number > MAX_QUESTIONS_NUMBER) {
         $questions_number = DEFAULT_QUESTIONS_NUMBER;
     } 
     
@@ -103,53 +103,56 @@ if ($has_error) {
 
     echo $summary_component;
 
-    $index = 0;
-    $quizz_responses = '';
     
-    foreach($data->questions as $question) {
-        $index++;
-        $quizz_question = get_string('quizz:question', 'block_smartedu') . $index;
-        $quizz_responses .= $quizz_question . ': ' . $question->correct_option . '<br>'; 
+    if ($questions_number != 0) {
+        $index = 0;
+        $quizz_responses = '';    
 
-        $option_a = $question->options->A;
-        $option_b = $question->options->B;
-        $option_c = $question->options->C;
-        $option_d = $question->options->D;
+        foreach($data->questions as $question) {
+            $index++;
+            $quizz_question = get_string('quizz:question', 'block_smartedu') . $index;
+            $quizz_responses .= $quizz_question . ': ' . $question->correct_option . '<br>'; 
 
-        $quizz_component = <<<HTML
-            <div class="card mt-2">
-                <div class="card-header">
-                    <strong>$quizz_question: $question->question</strong>
-                </div>
-                <div class="card-body">
-                    <p class="card-text">(A) $option_a</p>
-                    <p class="card-text">(B) $option_b</p>
-                    <p class="card-text">(C) $option_c</p>
-                    <p class="card-text">(D) $option_d</p>
-                </div>
-            </div>
-            HTML;
-        echo $quizz_component;
-    }
-    
-    $quizz_showresponses = get_string('quizz:showresponses', 'block_smartedu');
-    $quizz_response = <<<HTML
-            <div class="accordion mt-2" id="myAccordion">
-                <div class="card">
+            $option_a = $question->options->A;
+            $option_b = $question->options->B;
+            $option_c = $question->options->C;
+            $option_d = $question->options->D;
+
+            $quizz_component = <<<HTML
+                <div class="card mt-2">
                     <div class="card-header">
-                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#colapseOne" aria-expanded="false">
-                            $quizz_showresponses
-                        </button>
+                        <strong>$quizz_question: $question->question</strong>
                     </div>
-                    <div id="colapseOne" class="collapse" data-parent="#myAccordion">
-                        <div class="card-body">
-                            $quizz_responses
+                    <div class="card-body">
+                        <p class="card-text">(A) $option_a</p>
+                        <p class="card-text">(B) $option_b</p>
+                        <p class="card-text">(C) $option_c</p>
+                        <p class="card-text">(D) $option_d</p>
+                    </div>
+                </div>
+                HTML;
+            echo $quizz_component;
+        }
+        
+        $quizz_showresponses = get_string('quizz:showresponses', 'block_smartedu');
+        $quizz_response = <<<HTML
+                <div class="accordion mt-2" id="myAccordion">
+                    <div class="card">
+                        <div class="card-header">
+                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#colapseOne" aria-expanded="false">
+                                $quizz_showresponses
+                            </button>
+                        </div>
+                        <div id="colapseOne" class="collapse" data-parent="#myAccordion">
+                            <div class="card-body">
+                                $quizz_responses
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            HTML;
-    echo $quizz_response;
+                HTML;
+        echo $quizz_response;
+    }
 }
 
 echo $OUTPUT->footer();
