@@ -41,3 +41,4 @@ $string['prompt:simplesummary'] = 'Com base no seguinte conteúdo da aula intitu
 $string['prompt:detailedsummary'] = 'Com base no seguinte conteúdo da aula intitulada "{$a}", escreva um resumo detalhado de no máximo 300 palavras, destacando e explicando os principais conceitos abordados para um aluno de graduação. ';
 $string['prompt:quizz'] = 'Elabore também {$a} questões de múltipla escolha, com 4 alternativas (A, B, C, D), sendo apenas uma correta. ';
 $string['prompt:return'] = 'Retorne o resumo e as questões em um arquivo JSON, com a seguinte estrutura: {"summary": "Resumo da aula", "questions": [{"question": "Texto da pergunta", "options": {"A": "Texto da alternativa A", "B": "Texto da alternativa B", "C": "Texto da alternativa C", "D": "Texto da alternativa D", },"correct_option": "Letra da alternativa correta"}]}. Conteúdo da aula: {$a}';
+$string['privacy:metadata'] = 'O bloco SmartEdu apenas exibe dados do curso já existentes.';

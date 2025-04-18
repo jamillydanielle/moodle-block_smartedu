@@ -41,3 +41,4 @@ $string['prompt:simplesummary'] = 'Based on the following content from the lectu
 $string['prompt:detailedsummary'] = 'Based on the following content from the lecture titled "{$a}", write a detailed summary of no more than 300 words, highlighting and explaining the main concepts for an undergraduate student. ';
 $string['prompt:quizz'] = 'Also create {$a} multiple-choice questions, each with 4 options (A, B, C, D), with only one correct answer. ';
 $string['prompt:return'] = 'Return the summary and the questions in a JSON file with the following structure: {"summary": "Lecture summary", "questions": [{"question": "Question text", "options": {"A": "Option A text", "B": "Option B text", "C": "Option C text", "D": "Option D text", },"correct_option": "Letter of the correct option"}]}. Lecture content: {$a}';
+$string['privacy:metadata'] = 'The SmartEdu block only displays existing course data.';

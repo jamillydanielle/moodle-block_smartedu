@@ -15,16 +15,26 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Version metadata for the block_smartedu plugin.
+ * Block definition class for the block_smartedu plugin.
  *
  * @package   block_smartedu
  * @copyright 2025, Paulo Júnior <pauloa.junior@ufla.br>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
+ namespace block_calendar_month\privacy;
 
-$plugin->version = 2025041802;
-$plugin->requires = 2020061500;
-$plugin->component = 'block_smartedu';
-$plugin->maturity = MATURITY_STABLE;
+ class provider implements
+     // This plugin does not store any personal user data.
+     \core_privacy\local\metadata\null_provider {
+ 
+     /**
+      * Get the language string identifier with the component's language
+      * file to explain why this plugin stores no data.
+      *
+      * @return  string
+      */
+     public static function get_reason(): string {
+         return 'privacy:metadata';
+     }
+ }
