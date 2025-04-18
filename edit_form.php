@@ -43,5 +43,8 @@ class block_smartedu_edit_form extends block_edit_form {
         );
         $select2 = $mform->addElement('select', 'config_nquestions', get_string('nquestions', 'block_smartedu'), $nquestions);
         $select2->setSelected('5'); 
+ 
+        $mform->setDefault('config_summarytype', 'simple');
+        $mform->setDefault('config_nquestions', 5);
     }
 }
