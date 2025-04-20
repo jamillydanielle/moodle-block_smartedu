@@ -26,10 +26,10 @@ require_once($CFG->dirroot.'/mod/resource/lib.php');
 require_once($CFG->dirroot.'/mod/resource/locallib.php');
 require_once($CFG->libdir.'/completionlib.php');
 
-class Resource_Reader
+class resource_reader
 {
 
-    public static function read( $resourceid ) {
+    public static function block_smartedu_read( $resourceid ) {
         global $DB, $CFG;
 
         if (!$cm = get_coursemodule_from_id('resource', $resourceid)) {

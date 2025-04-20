@@ -22,7 +22,7 @@
 */
 
 
-require_once('text_extraction.php');
+require_once('text_extractor.php');
 require_once('content_generator.php');
 require_once('resource_reader.php');
 
@@ -40,14 +40,14 @@ $has_error = false;
 $error_message = '';
 
 try {
-    $res = Resource_Reader::read($resourceid);
+    $res = resource_reader::block_smartedu_read($resourceid);
 
     $filename = $res->file->get_filename();
     $fullpath = "$CFG->tempdir/$filename";
 
     $res->file->copy_content_to($fullpath);
     
-    $content = Text_Extraction::convert_to_text($fullpath);
+    $content = text_extractor::block_smartedu_convert_to_text($fullpath);
     
     if ($content == "") {
         throw new \Exception(get_string('resourcenotprocessable', 'block_smartedu'));

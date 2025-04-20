@@ -24,14 +24,14 @@
 
 require_once('vendor/autoload.php');
 
-class Text_Extraction
+class text_extractor
 {
     /**
      * @param $path_to_file
      * @return string
      * @throws Exception
      */
-    protected static function pdf_to_text( $path_to_file ) {
+    protected static function block_smartedu_pdf_to_text( $path_to_file ) {
 
         if ( class_exists( '\\Smalot\\PdfParser\\Parser') ) {
 
@@ -50,7 +50,7 @@ class Text_Extraction
     /**
      * @return bool|string
      */
-    protected static function docx_to_text( $path_to_file )
+    protected static function block_smartedu_docx_to_text( $path_to_file )
     {
         $response = '';
         $zip      = zip_open($path_to_file);
@@ -82,7 +82,7 @@ class Text_Extraction
     /**
      * @return string
      */
-    protected static function pptx_to_text( $path_to_file )
+    protected static function block_smartedu_pptx_to_text( $path_to_file )
     {
         $zip_handle = new ZipArchive();
         $response   = '';
@@ -113,7 +113,7 @@ class Text_Extraction
     /**
      * @return string
      */
-    protected static function txt_to_text( $path_to_file )
+    protected static function block_smartedu_txt_to_text( $path_to_file )
     {
         $response   = file_get_contents($path_to_file);
         return $response;
@@ -122,7 +122,7 @@ class Text_Extraction
     /**
      * @return array
      */
-    public static function get_valid_file_types()
+    public static function block_smartedu_get_valid_file_types()
     {
         return [
             'docx',
@@ -137,11 +137,11 @@ class Text_Extraction
      * @return bool|mixed|string
      * @throws Exception
      */
-    public static function convert_to_text( $path_to_file )
+    public static function block_smartedu_convert_to_text( $path_to_file )
     {
         if (isset($path_to_file) && file_exists($path_to_file)) {
 
-            $valid_extensions = self::get_valid_file_types();
+            $valid_extensions = self::block_smartedu_get_valid_file_types();
 
             $file_info = pathinfo($path_to_file);
             $file_ext  = strtolower($file_info['extension']);
@@ -149,7 +149,7 @@ class Text_Extraction
             if (in_array( $file_ext, $valid_extensions )) {
 
 
-                $method   = $file_ext . '_to_text';
+                $method   = 'block_smartedu_' . $file_ext . '_to_text';
                 $response = self::$method( $path_to_file );
 
             } else {

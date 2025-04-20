@@ -22,7 +22,7 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-require_once('text_extraction.php');
+require_once('text_extractor.php');
 require_once('resource_reader.php');
 
 class block_smartedu extends block_base {
@@ -97,7 +97,7 @@ class block_smartedu extends block_base {
     private function get_resources_list() {
         global $COURSE;
         
-        $allowed_extensions = Text_Extraction::get_valid_file_types();
+        $allowed_extensions = text_extractor::block_smartedu_get_valid_file_types();
         $course_info = get_fast_modinfo($COURSE->id);
         $resourses = array();
 
@@ -111,7 +111,7 @@ class block_smartedu extends block_base {
                 continue;
             }
 
-            $res = Resource_Reader::read($item->id);
+            $res = resource_reader::block_smartedu_read($item->id);
             $filename = $res->file->get_filename();
             $file_extension = substr(strrchr($filename, '.'), 1);
             if (!in_array(strtolower($file_extension), $allowed_extensions)) {
