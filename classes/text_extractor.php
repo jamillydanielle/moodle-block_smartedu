@@ -22,7 +22,12 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-require_once('vendor/autoload.php');
+
+namespace block_smartedu;
+
+require_once(__DIR__ . '/../vendor/autoload.php');
+
+use Smalot\PdfParser\Parser;
 
 class text_extractor {
     /**
@@ -33,15 +38,13 @@ class text_extractor {
      * @throws Exception If the PDF parser class is not available or an error occurs.
      */
     protected static function block_smartedu_pdf_to_text( $path_to_file ) {
-
-        if ( class_exists( '\\Smalot\\PdfParser\\Parser') ) {
-
-            $parser   = new \Smalot\PdfParser\Parser();
+        try {
+            $parser = new Parser();
             $pdf      = $parser->parseFile( $path_to_file );
             $response = $pdf->getText();
 
-        } else {
-            error_log('Error while parsing PDF file');
+        } catch (\Exception $e) {
+            error_log('Error while parsing PDF file: ' . $e->getMessage());
             throw new \Exception(get_string('resourcenotprocessable', 'block_smartedu') ); 
         }
 

@@ -21,18 +21,14 @@
 * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
 */
 
-require_once(__DIR__ . '/../../config.php');
-require_once($CFG->dirroot.'/mod/resource/lib.php');
-require_once($CFG->dirroot.'/mod/resource/locallib.php');
-require_once($CFG->libdir.'/completionlib.php');
+namespace block_smartedu;
 
 /**
  * Class resource_reader
  *
  * Provides functionality to read and retrieve resource details.
  */
-class resource_reader
-{
+class resource_reader {
 
     /**
      * Reads a resource by its ID and retrieves its details.
@@ -51,7 +47,7 @@ class resource_reader
             
         // Retrieve the resource record from the database.
         $resource = $DB->get_record('resource', array('id'=>$cm->instance), '*', MUST_EXIST);
-        $context = context_module::instance($cm->id);
+        $context = \context_module::instance($cm->id);
             
         // Ensure the user has the capability to view the resource.
         require_capability('mod/resource:view', $context);
@@ -69,7 +65,7 @@ class resource_reader
         unset($files);
 
         // Create an object to store the resource details.
-        $obj = new StdClass();
+        $obj = new \StdClass();
         $obj->name = $resource->name;
         $obj->file = $file;
     

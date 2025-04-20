@@ -11,6 +11,10 @@ class ComposerStaticInitf7c071b38f69a0b82ff94c1527c44426
     );
 
     public static $prefixLengthsPsr4 = array (
+        'b' => 
+        array (
+            'block_smartedu\\' => 15,
+        ),
         'S' => 
         array (
             'Symfony\\Polyfill\\Mbstring\\' => 26,
@@ -18,6 +22,10 @@ class ComposerStaticInitf7c071b38f69a0b82ff94c1527c44426
     );
 
     public static $prefixDirsPsr4 = array (
+        'block_smartedu\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/classes',
+        ),
         'Symfony\\Polyfill\\Mbstring\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',

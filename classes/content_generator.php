@@ -22,8 +22,7 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-require_once(__DIR__ . '/../../config.php'); 
-require_once($CFG->libdir . '/filelib.php'); 
+namespace block_smartedu;
 
 class content_generator {
     /**
@@ -50,7 +49,7 @@ class content_generator {
             'Content-Type: application/json',
         ];
 
-        $curl = new curl();
+        $curl = new \curl();
         $options = [
             'CURLOPT_HTTPHEADER' => $headers,
             'CURLOPT_TIMEOUT' => 30,
@@ -97,7 +96,7 @@ class content_generator {
             'Authorization: Bearer ' . $api_key, // API Key da OpenAI
         ];
     
-        $curl = new curl();
+        $curl = new \curl();
         $options = [
             'CURLOPT_HTTPHEADER' => $headers,
             'CURLOPT_TIMEOUT' => 30,

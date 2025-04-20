@@ -22,11 +22,13 @@
 */
 
 
-require_once('text_extractor.php');
-require_once('content_generator.php');
-require_once('resource_reader.php');
+use block_smartedu\text_extractor;
+use block_smartedu\content_generator;
+use block_smartedu\resource_reader;
 
-require_login();
+require_once(__DIR__ . '/../../config.php');
+
+\require_login();
 
 /**
  * Define the max questions number for a quizz.

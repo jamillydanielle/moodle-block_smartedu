@@ -1,5 +1,10 @@
 {
     "require": {
         "smalot/pdfparser": "^2.12"
+    },
+    "autoload": {
+        "psr-4": {
+            "block_smartedu\\": "classes/"
+        }
     }
 }

@@ -22,8 +22,8 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-require_once('text_extractor.php');
-require_once('resource_reader.php');
+ use block_smartedu\text_extractor;
+ use block_smartedu\resource_reader;
 
 /**
  * Class block_smartedu
