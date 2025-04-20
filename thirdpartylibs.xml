@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<thirdpartylibs>
+    <library>
+        <name>PDF Parser</name>
+        <version>2.12</version> <!-- Replace with the actual version you're using -->
+        <license>MIT</license>
+        <licenseurl>https://opensource.org/licenses/MIT</licenseurl>
+        <origin>https://github.com/smalot/pdfparser</origin>
+        <homepage>https://github.com/smalot/pdfparser</homepage>
+        <downloadurl>https://github.com/smalot/pdfparser/releases</downloadurl>
+        <issuesurl>https://github.com/smalot/pdfparser/issues</issuesurl>
+        <credits>Smalot</credits>
+    </library>
+    <library>
+        <name>Symfony Polyfill Mbstring</name>
+        <version>1.18</version> <!-- Replace with the actual version you're using -->
+        <license>MIT</license>
+        <licenseurl>https://opensource.org/licenses/MIT</licenseurl>
+        <origin>https://github.com/symfony/polyfill-mbstring</origin>
+        <homepage>https://github.com/symfony/polyfill-mbstring</homepage>
+        <downloadurl>https://github.com/symfony/polyfill-mbstring/releases</downloadurl>
+        <issuesurl>https://github.com/symfony/polyfill-mbstring/issues</issuesurl>
+        <credits>Symfony</credits>
+    </library>
+</thirdpartylibs>
