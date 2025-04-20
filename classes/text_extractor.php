@@ -59,29 +59,19 @@ class text_extractor {
      */
     protected static function block_smartedu_docx_to_text( $path_to_file ) {
         $response = '';
-        $zip      = zip_open($path_to_file);
+        $zip = new \ZipArchive();
 
-        if (!$zip || is_numeric($zip)) return false;
-
-        while ($zip_entry = zip_read($zip)) {
-
-            if (zip_entry_open($zip, $zip_entry) == FALSE)
-                continue;
-
-            if (zip_entry_name($zip_entry) != 'word/document.xml')
-                continue;
-
-            $response .= zip_entry_read($zip_entry, zip_entry_filesize($zip_entry));
-
-            zip_entry_close($zip_entry);
+        if ($zip->open($path_to_file) === true) {
+            $index = $zip->locateName('word/document.xml');
+            if ($index !== false) {
+                $content = $zip->getFromIndex($index);
+                $response = strip_tags($content);
+            }
+            $zip->close();
+        } else {
+            throw new \Exception('Error opening DOCX file.');
         }
-
-        zip_close($zip);
-
-        $response = str_replace('</w:r></w:p></w:tc><w:tc>', ' ', $response);
-        $response = str_replace('</w:r></w:p>', "\r\n", $response);
-        $response = strip_tags($response);
-
+    
         return $response;
     }
 
@@ -92,13 +82,13 @@ class text_extractor {
      * @return string The extracted text.
      */
     protected static function block_smartedu_pptx_to_text( $path_to_file ) {
-        $zip_handle = new ZipArchive();
         $response   = '';
+        $zip_handle = new \ZipArchive();
 
         if (true === $zip_handle->open($path_to_file)) {
             
             $slide_number = 1; //loop through slide files
-            $doc = new DOMDocument();
+            $doc = new \DOMDocument();
 
             while (($xml_index = $zip_handle->locateName('ppt/slides/slide' . $slide_number . '.xml')) !== false) {
 
