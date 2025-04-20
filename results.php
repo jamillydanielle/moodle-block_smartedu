@@ -26,15 +26,22 @@ require_once('text_extractor.php');
 require_once('content_generator.php');
 require_once('resource_reader.php');
 
-const MAX_QUESTIONS_NUMBER = 7;
-const DEFAULT_QUESTIONS_NUMBER = 5;
+/**
+ * Define the max questions number for a quizz.
+ */
+const BLOCK_SMARTEDU_MAX_QUESTIONS_NUMBER = 7;
+
+/**
+ * Define the default questions number for a quizz.
+ */
+const BLOCK_SMARTEDU_DEFAULT_QUESTIONS_NUMBER = 5;
 
 $PAGE->set_url(new moodle_url('/blocks/smartedu/results.php', ['resourceid' => $resourceid]));
 $PAGE->set_title(get_string('pluginname', 'block_smartedu'));
 
 $resourceid = required_param('resourceid', PARAM_INT);
 $summary_type = optional_param('summarytype', "", PARAM_TEXT);
-$questions_number = optional_param('nquestions', DEFAULT_QUESTIONS_NUMBER, PARAM_INT);
+$questions_number = optional_param('nquestions', BLOCK_SMARTEDU_DEFAULT_QUESTIONS_NUMBER, PARAM_INT);
 
 $has_error = false;
 $error_message = '';
@@ -62,8 +69,8 @@ try {
         $prompt = get_string('prompt:detailedsummary', 'block_smartedu', $res->name);
     } 
     
-    if ($questions_number < 0 || $questions_number > MAX_QUESTIONS_NUMBER) {
-        $questions_number = DEFAULT_QUESTIONS_NUMBER;
+    if ($questions_number < 0 || $questions_number > BLOCK_SMARTEDU_MAX_QUESTIONS_NUMBER) {
+        $questions_number = BLOCK_SMARTEDU_DEFAULT_QUESTIONS_NUMBER;
     } 
     
     $prompt .= get_string('prompt:quizz', 'block_smartedu', $questions_number);
