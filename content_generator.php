@@ -22,9 +22,9 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-class Content_Generator
+class content_generator
 {
-    protected static function generate_with_google( $api_key, $prompt )
+    protected static function block_smartedu_generate_with_google( $api_key, $prompt )
     {
         $api_url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=$api_key";
 
@@ -69,7 +69,7 @@ class Content_Generator
         return $chat_content;
     }
 
-    protected static function generate_with_openai( $api_key, $prompt )
+    protected static function block_smartedu_generate_with_openai( $api_key, $prompt )
     {
         $api_url = "https://api.openai.com/v1/chat/completions";
 
@@ -113,7 +113,7 @@ class Content_Generator
         return $chat_content;
     }
 
-    public static function get_valid_ai_providers()
+    protected static function block_smartedu_get_valid_ai_providers()
     {
         return [
             'openai',
@@ -126,15 +126,15 @@ class Content_Generator
      * @return bool|mixed|string
      * @throws Exception
      */
-    public static function generate( $ai_provider, $api_key, $prompt )
+    public static function block_smartedu_generate( $ai_provider, $api_key, $prompt )
     {
         $response = '';
         
-        $valid_ai_providers = self::get_valid_ai_providers();
+        $valid_ai_providers = self::block_smartedu_get_valid_ai_providers();
         $ai_provider = strtolower($ai_provider);
 
         if (in_array( $ai_provider, $valid_ai_providers )) {
-            $method   = 'generate_with_' . $ai_provider;
+            $method   = 'block_smartedu_generate_with_' . $ai_provider;
             $response = self::$method( $api_key, $prompt );
         } else {
             error_log('AI provider not allowed');

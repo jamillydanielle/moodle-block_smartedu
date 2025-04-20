@@ -69,7 +69,7 @@ try {
     $prompt .= get_string('prompt:quizz', 'block_smartedu', $questions_number);
     $prompt .= get_string('prompt:return', 'block_smartedu', $content);
 
-    $response = Content_Generator::generate($ai_provider, $api_key, $prompt);
+    $response = content_generator::block_smartedu_generate($ai_provider, $api_key, $prompt);
 
     $response = preg_replace('/```json\s*(.*?)\s*```/s', '$1', $response);
     $data = json_decode($response);
