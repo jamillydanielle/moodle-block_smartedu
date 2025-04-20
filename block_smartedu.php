@@ -25,6 +25,12 @@
 require_once('text_extractor.php');
 require_once('resource_reader.php');
 
+/**
+ * Class block_smartedu
+ * 
+ * Defines the block_smartedu plugin functionality.
+ */
+
 class block_smartedu extends block_base {
 
     /**
@@ -93,7 +99,12 @@ class block_smartedu extends block_base {
 
         return $this->content;
     }
-
+    
+    /**
+     * Retrieves the list of resources for the current course.
+     *
+     * @return array List of resources as objects with id, name, and icon_url.
+     */
     private function get_resources_list() {
         global $COURSE;
         
@@ -146,6 +157,11 @@ class block_smartedu extends block_base {
         ];
     }
 
+    /**
+     * Indicates if the block has a global configuration page.
+     *
+     * @return bool True if the block has a configuration page, false otherwise.
+     */
     function has_config() {
         return true;
     }

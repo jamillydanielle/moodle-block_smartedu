@@ -24,12 +24,13 @@
 
 require_once('vendor/autoload.php');
 
-class text_extractor
-{
+class text_extractor {
     /**
-     * @param $path_to_file
-     * @return string
-     * @throws Exception
+     * Extracts text from a PDF file.
+     *
+     * @param string $path_to_file The path to the PDF file.
+     * @return string The extracted text.
+     * @throws Exception If the PDF parser class is not available or an error occurs.
      */
     protected static function block_smartedu_pdf_to_text( $path_to_file ) {
 
@@ -48,10 +49,12 @@ class text_extractor
     }
 
     /**
-     * @return bool|string
+     * Extracts text from a DOCX file.
+     *
+     * @param string $path_to_file The path to the DOCX file.
+     * @return string|bool The extracted text or false if an error occurs.
      */
-    protected static function block_smartedu_docx_to_text( $path_to_file )
-    {
+    protected static function block_smartedu_docx_to_text( $path_to_file ) {
         $response = '';
         $zip      = zip_open($path_to_file);
 
@@ -80,10 +83,12 @@ class text_extractor
     }
 
     /**
-     * @return string
+     * Extracts text from a PPTX file.
+     *
+     * @param string $path_to_file The path to the PPTX file.
+     * @return string The extracted text.
      */
-    protected static function block_smartedu_pptx_to_text( $path_to_file )
-    {
+    protected static function block_smartedu_pptx_to_text( $path_to_file ) {
         $zip_handle = new ZipArchive();
         $response   = '';
 
@@ -111,19 +116,22 @@ class text_extractor
     }
 
     /**
-     * @return string
+     * Extracts text from a TXT file.
+     *
+     * @param string $path_to_file The path to the TXT file.
+     * @return string The extracted text.
      */
-    protected static function block_smartedu_txt_to_text( $path_to_file )
-    {
+    protected static function block_smartedu_txt_to_text( $path_to_file ) {
         $response   = file_get_contents($path_to_file);
         return $response;
     }
 
     /**
-     * @return array
+     * Retrieves the list of valid file types for text extraction.
+     *
+     * @return array List of valid file extensions.
      */
-    public static function block_smartedu_get_valid_file_types()
-    {
+    public static function block_smartedu_get_valid_file_types() {
         return [
             'docx',
             'pptx',
@@ -133,12 +141,13 @@ class text_extractor
     }
 
     /**
-     * @param $path_to_file
-     * @return bool|mixed|string
-     * @throws Exception
+     * Converts a file to text based on its type.
+     *
+     * @param string $path_to_file The path to the file.
+     * @return string The extracted text.
+     * @throws Exception If the file type is invalid or the file does not exist.
      */
-    public static function block_smartedu_convert_to_text( $path_to_file )
-    {
+    public static function block_smartedu_convert_to_text( $path_to_file ) {
         if (isset($path_to_file) && file_exists($path_to_file)) {
 
             $valid_extensions = self::block_smartedu_get_valid_file_types();

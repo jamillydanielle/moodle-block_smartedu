@@ -15,17 +15,23 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Version metadata for the block_smartedu plugin.
+ * Content generator class for the block_smartedu plugin.
  *
  * @package   block_smartedu
  * @copyright 2025, Paulo Júnior <pauloa.junior@ufla.br>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-class content_generator
-{
-    protected static function block_smartedu_generate_with_google( $api_key, $prompt )
-    {
+class content_generator {
+    /**
+     * Generates content using Google's AI API.
+     *
+     * @param string $api_key The API key for Google AI.
+     * @param string $prompt The prompt to send to the AI.
+     * @return string The generated content.
+     * @throws Exception If there is a CURL or HTTP error.
+     */
+    protected static function block_smartedu_generate_with_google( $api_key, $prompt ) {
         $api_url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=$api_key";
 
         $data = [
@@ -69,8 +75,15 @@ class content_generator
         return $chat_content;
     }
 
-    protected static function block_smartedu_generate_with_openai( $api_key, $prompt )
-    {
+    /**
+     * Generates content using OpenAI's API.
+     *
+     * @param string $api_key The API key for OpenAI.
+     * @param string $prompt The prompt to send to the AI.
+     * @return string The generated content.
+     * @throws Exception If there is a CURL or HTTP error.
+     */
+    protected static function block_smartedu_generate_with_openai( $api_key, $prompt ) {
         $api_url = "https://api.openai.com/v1/chat/completions";
 
         $data = [
@@ -113,8 +126,12 @@ class content_generator
         return $chat_content;
     }
 
-    protected static function block_smartedu_get_valid_ai_providers()
-    {
+    /**
+     * Retrieves the list of valid AI providers.
+     *
+     * @return array List of valid AI provider names.
+     */
+    protected static function block_smartedu_get_valid_ai_providers() {
         return [
             'openai',
             'google',
@@ -122,12 +139,15 @@ class content_generator
     }
 
     /**
-     * @param $path_to_file
-     * @return bool|mixed|string
-     * @throws Exception
+     * Generates content using the specified AI provider.
+     *
+     * @param string $ai_provider The name of the AI provider (e.g., 'openai', 'google').
+     * @param string $api_key The API key for the AI provider.
+     * @param string $prompt The prompt to send to the AI.
+     * @return string The generated content.
+     * @throws Exception If the AI provider is not valid or if there is an error during generation.
      */
-    public static function block_smartedu_generate( $ai_provider, $api_key, $prompt )
-    {
+    public static function block_smartedu_generate( $ai_provider, $api_key, $prompt ) {
         $response = '';
         
         $valid_ai_providers = self::block_smartedu_get_valid_ai_providers();

@@ -26,21 +26,37 @@ require_once($CFG->dirroot.'/mod/resource/lib.php');
 require_once($CFG->dirroot.'/mod/resource/locallib.php');
 require_once($CFG->libdir.'/completionlib.php');
 
+/**
+ * Class resource_reader
+ *
+ * Provides functionality to read and retrieve resource details.
+ */
 class resource_reader
 {
 
+    /**
+     * Reads a resource by its ID and retrieves its details.
+     *
+     * @param int $resourceid The ID of the resource to read.
+     * @return stdClass An object containing the resource name and file.
+     * @throws Exception If the resource is not found or the user lacks the required capability.
+     */
     public static function block_smartedu_read( $resourceid ) {
         global $DB, $CFG;
 
+        // Retrieve the course module for the given resource ID.
         if (!$cm = get_coursemodule_from_id('resource', $resourceid)) {
             throw new \Exception(get_string('resourcenotfound', 'block_smartedu'));
         } 
             
+        // Retrieve the resource record from the database.
         $resource = $DB->get_record('resource', array('id'=>$cm->instance), '*', MUST_EXIST);
         $context = context_module::instance($cm->id);
             
+        // Ensure the user has the capability to view the resource.
         require_capability('mod/resource:view', $context);
                    
+        // Retrieve the files associated with the resource.
         $fs = get_file_storage();
         $files = $fs->get_area_files($context->id, 'mod_resource', 'content', 0, 'sortorder DESC, id ASC', false); 
             
@@ -48,9 +64,11 @@ class resource_reader
             throw new \Exception(get_string('resourcenotfound', 'block_smartedu'));
         } 
             
+        // Get the first file in the list.
         $file = reset($files);
         unset($files);
 
+        // Create an object to store the resource details.
         $obj = new StdClass();
         $obj->name = $resource->name;
         $obj->file = $file;
