@@ -65,14 +65,17 @@ try {
     $res = resource_reader::block_smartedu_read($resourceid);
 
     $filename = $res->file->get_filename();
-    $fullpath = "$CFG->tempdir/$filename";
+
+    // Create a temporary directory for the file.
+    $tempdir = make_request_directory('block_smartedu');
+    $fullpath = $tempdir . '/' . $filename;
 
     // Copy the resource content to a temporary file.
     $res->file->copy_content_to($fullpath);
     
     // Extract text content from the resource file.
     $content = text_extractor::block_smartedu_convert_to_text($fullpath);
-    
+
     if ($content == "") {
         throw new \Exception(get_string('resourcenotprocessable', 'block_smartedu'));
     }

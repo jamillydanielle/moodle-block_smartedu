@@ -22,6 +22,9 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+require_once(__DIR__ . '/../../config.php'); 
+require_once($CFG->libdir . '/filelib.php'); 
+
 class content_generator {
     /**
      * Generates content using Google's AI API.
@@ -46,25 +49,21 @@ class content_generator {
         $headers = [
             'Content-Type: application/json',
         ];
+
+        $curl = new curl();
+        $options = [
+            'CURLOPT_HTTPHEADER' => $headers,
+            'CURLOPT_TIMEOUT' => 30,
+        ];
     
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $api_url);
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_TIMEOUT, 30);
-        
-        $response = curl_exec($ch);
-        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        
-        if (curl_errno($ch)) {
-            error_log('CURL error: ' . curl_error($ch));
+        $response = $curl->post($api_url, json_encode($data), $options);
+
+        if ($curl->get_errno()) {
+            error_log('CURL error: ' . $curl->error);
             throw new \Exception(get_string('internalerror', 'block_smartedu'));
         }
         
-        curl_close($ch);
-        
+        $httpCode = $curl->info['http_code'];
         if ($httpCode != 200) {
             error_log('HTTP error: ' . $httpCode);
             throw new \Exception(get_string('internalerror', 'block_smartedu'));
@@ -98,24 +97,20 @@ class content_generator {
             'Authorization: Bearer ' . $api_key, // API Key da OpenAI
         ];
     
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $api_url);
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_TIMEOUT, 30);
-        
-        $response = curl_exec($ch);
-        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        
-        if (curl_errno($ch)) {
-            error_log('CURL error: ' . curl_error($ch));
+        $curl = new curl();
+        $options = [
+            'CURLOPT_HTTPHEADER' => $headers,
+            'CURLOPT_TIMEOUT' => 30,
+        ];
+    
+        $response = $curl->post($api_url, json_encode($data), $options);
+
+        if ($curl->get_errno()) {
+            error_log('CURL error: ' . $curl->error);
             throw new \Exception(get_string('internalerror', 'block_smartedu'));
         }
         
-        curl_close($ch);
-        
+        $httpCode = $curl->info['http_code'];
         if ($httpCode != 200) {
             error_log('HTTP error: ' . $httpCode);
             throw new \Exception(get_string('internalerror', 'block_smartedu'));
