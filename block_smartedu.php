@@ -72,7 +72,6 @@ class block_smartedu extends block_base {
             return $this->content;
         }
 
-
         foreach ($resources as $key => $item) {
             $url = new moodle_url('/blocks/smartedu/results.php', ['resourceid' => $item->id, 'summarytype' => $this->config->summarytype, 'nquestions' => $this->config->nquestions]);
 
