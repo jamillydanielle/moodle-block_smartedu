@@ -26,6 +26,8 @@ require_once('text_extractor.php');
 require_once('content_generator.php');
 require_once('resource_reader.php');
 
+require_login();
+
 /**
  * Define the max questions number for a quizz.
  */
@@ -43,6 +45,17 @@ $PAGE->set_title(get_string('pluginname', 'block_smartedu'));
 $resourceid = required_param('resourceid', PARAM_INT);
 $summary_type = optional_param('summarytype', "", PARAM_TEXT);
 $questions_number = optional_param('nquestions', BLOCK_SMARTEDU_DEFAULT_QUESTIONS_NUMBER, PARAM_INT);
+
+if (!$cm = get_coursemodule_from_id('resource', $resourceid)) {
+    throw new \Exception(get_string('resourcenotfound', 'block_smartedu'));
+} 
+    
+// Retrieve the resource record from the database.
+$context = context_module::instance($cm->id);
+    
+// Ensure the user has the capability to view the resource.
+require_capability('mod/resource:view', $context);
+
 
 $has_error = false;
 $error_message = '';
