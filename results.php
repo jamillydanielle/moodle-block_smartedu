@@ -40,13 +40,13 @@ const BLOCK_SMARTEDU_MAX_QUESTIONS_NUMBER = 7;
  */
 const BLOCK_SMARTEDU_DEFAULT_QUESTIONS_NUMBER = 5;
 
-$PAGE->set_url(new moodle_url('/blocks/smartedu/results.php', ['resourceid' => $resourceid]));
-$PAGE->set_title(get_string('pluginname', 'block_smartedu'));
-
 // Set up the page URL and title.
 $resourceid = required_param('resourceid', PARAM_INT);
 $summary_type = optional_param('summarytype', "", PARAM_TEXT);
 $questions_number = optional_param('nquestions', BLOCK_SMARTEDU_DEFAULT_QUESTIONS_NUMBER, PARAM_INT);
+
+$PAGE->set_url(new moodle_url('/blocks/smartedu/results.php', ['resourceid' => $resourceid]));
+$PAGE->set_title(get_string('pluginname', 'block_smartedu'));
 
 if (!$cm = get_coursemodule_from_id('resource', $resourceid)) {
     throw new \Exception(get_string('resourcenotfound', 'block_smartedu'));
@@ -61,11 +61,11 @@ require_capability('mod/resource:view', $context);
 
 $has_error = false;
 $error_message = '';
+$data_template = [];
 
 try {
     // Read the resource file.
     $res = resource_reader::block_smartedu_read($resourceid);
-
     $filename = $res->file->get_filename();
 
     // Create a temporary directory for the file.
@@ -107,91 +107,39 @@ try {
     $response = preg_replace('/```json\s*(.*?)\s*```/s', '$1', $response);
     $data = json_decode($response);
 
+
+    // Prepare template context.
+    $data_template['has_error'] = false;
+    $data_template['resource_name'] = $res->name;
+    $data_template['summary'] = $data->summary ?? '';
+    $data_template['questions'] = [];
+
+    foreach ($data->questions as $index => $question) {
+        $data_template['questions'][] = [
+            'question_number' => $index + 1,
+            'question_text' => $question->question,
+            'option_a' => $question->options->A,
+            'option_b' => $question->options->B,
+            'option_c' => $question->options->C,
+            'option_d' => $question->options->D,
+        ];
+    }
+
+    $data_template['show_responses'] = true;
+    $data_template['show_responses_label'] = get_string('quizz:showresponses', 'block_smartedu');
+    $data_template['responses'] = '';
+
+    foreach ($data->questions as $index => $question) {
+        $data_template['responses'] .= get_string('quizz:question', 'block_smartedu') . ($index + 1) . ': ' . $question->correct_option . '<br>';
+    }
 } catch (Exception $e) {
     $has_error = true;
     $error_message = $e->getMessage();
+    $data_template['has_error'] = true;
+    $data_template['error_message'] = $error_message;
 }
 
-// Output the page header.
+// Output the page.
 echo $OUTPUT->header();
-
-if ($has_error) {
-    // Display an error message if an exception occurred.
-    $error_component = <<<HTML
-            <div class="alert alert-danger" role="alert">
-                $error_message
-            </div>
-        HTML;
-
-    echo $error_component;
-} else {
-    // Display the summary of the resource.
-    $summary_component = <<<HTML
-            <div class="card">
-                <div class="card-header">
-                    <strong>$res->name</strong>
-                </div>
-                <div class="card-body">
-                    <p class="card-text">$data->summary</p>                    
-                </div>
-            </div>
-        HTML;
-
-    echo $summary_component;
-
-    
-    if ($questions_number != 0) {
-        $index = 0;
-        $quizz_responses = '';    
-
-        // Display the quiz questions and options.
-        foreach($data->questions as $question) {
-            $index++;
-            $quizz_question = get_string('quizz:question', 'block_smartedu') . $index;
-            $quizz_responses .= $quizz_question . ': ' . $question->correct_option . '<br>'; 
-
-            $option_a = $question->options->A;
-            $option_b = $question->options->B;
-            $option_c = $question->options->C;
-            $option_d = $question->options->D;
-
-            $quizz_component = <<<HTML
-                <div class="card mt-2">
-                    <div class="card-header">
-                        <strong>$quizz_question: $question->question</strong>
-                    </div>
-                    <div class="card-body">
-                        <p class="card-text">(A) $option_a</p>
-                        <p class="card-text">(B) $option_b</p>
-                        <p class="card-text">(C) $option_c</p>
-                        <p class="card-text">(D) $option_d</p>
-                    </div>
-                </div>
-                HTML;
-            echo $quizz_component;
-        }
-        
-        // Display the correct answers in a collapsible section.
-        $quizz_showresponses = get_string('quizz:showresponses', 'block_smartedu');
-        $quizz_response = <<<HTML
-                <div class="accordion mt-2" id="myAccordion">
-                    <div class="card">
-                        <div class="card-header">
-                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#colapseOne" aria-expanded="false">
-                                $quizz_showresponses
-                            </button>
-                        </div>
-                        <div id="colapseOne" class="collapse" data-parent="#myAccordion">
-                            <div class="card-body">
-                                $quizz_responses
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                HTML;
-        echo $quizz_response;
-    }
-}
-
-// Output the page footer.
+echo $OUTPUT->render_from_template('block_smartedu/results', $data_template);
 echo $OUTPUT->footer();

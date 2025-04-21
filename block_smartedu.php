@@ -57,45 +57,28 @@ class block_smartedu extends block_base {
         $termsofuse = get_string('termsofuse', 'block_smartedu');
         $noresources = get_string('noresources', 'block_smartedu');
 
-        $this->content = new stdClass();
-        $this->content->footer = <<<HTML
-            <footer class="bg-light text-center text-muted mt-2">
-                <p>$termsofuse</p>
-            </footer>
-            HTML;
-        
-
         $resources = $this->get_resources_list();
-        $resources_content = '';
-
-        if (empty($resources)) {
-            $this->content->text = <<<HTML
-                <div class="alert alert-primary" role="alert">
-                    $noresources
-                </div>
-                HTML;
-
-            return $this->content;
+        $data = [
+            'resources' => [],
+            'termsofuse' => $termsofuse,
+            'noresources' => $noresources,
+        ];
+        
+        foreach ($resources as $item) {
+            $data['resources'][] = [
+                'name' => $item->name,
+                'icon_url' => $item->icon_url,
+                'url' => (new moodle_url('/blocks/smartedu/results.php', [
+                    'resourceid' => $item->id,
+                    'summarytype' => $this->config->summarytype,
+                    'nquestions' => $this->config->nquestions,
+                ]))->out(),
+            ];
         }
 
-        foreach ($resources as $key => $item) {
-            $url = new moodle_url('/blocks/smartedu/results.php', ['resourceid' => $item->id, 'summarytype' => $this->config->summarytype, 'nquestions' => $this->config->nquestions]);
-
-            $resources_content = $resources_content . <<<HTML
-                    <li class="list-group-item d-flex align-items-center">
-                        <img title="teste" class="activityicon mr-2" src="$item->icon_url" alt="teste" />
-                        <a href="$url" target="_blank" class="text-decoration-none">$item->name</a>
-                    </li>
-                    HTML;
-        }     
-
-        $this->content->text = <<<HTML
-            <div>
-                <ul class="list-group">
-                    $resources_content     
-               </ul>
-            </div>   
-        HTML;
+        $this->content = new \stdClass();
+        $this->content->text = $OUTPUT->render_from_template('block_smartedu/block_smartedu', $data);
+        $this->content->footer = '';
 
         return $this->content;
     }

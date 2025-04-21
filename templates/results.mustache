@@ -1,0 +1,49 @@
+<div>
+    {{#has_error}}
+        <div class="alert alert-danger" role="alert">
+            {{{error_message}}}
+        </div>
+    {{/has_error}}
+
+    {{^has_error}}
+        <div class="card">
+            <div class="card-header">
+                <strong>{{resource_name}}</strong>
+            </div>
+            <div class="card-body">
+                <p class="card-text">{{summary}}</p>
+            </div>
+        </div>
+
+        {{#questions}}
+            <div class="card mt-2">
+                <div class="card-header">
+                    <strong>{{question_number}}: {{question_text}}</strong>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">(A) {{option_a}}</p>
+                    <p class="card-text">(B) {{option_b}}</p>
+                    <p class="card-text">(C) {{option_c}}</p>
+                    <p class="card-text">(D) {{option_d}}</p>
+                </div>
+            </div>
+        {{/questions}}
+
+        {{#show_responses}}
+            <div class="accordion mt-2" id="myAccordion">
+                <div class="card">
+                    <div class="card-header">
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#colapseOne" aria-expanded="false">
+                            {{{show_responses_label}}}
+                        </button>
+                    </div>
+                    <div id="colapseOne" class="collapse" data-parent="#myAccordion">
+                        <div class="card-body">
+                            {{{responses}}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {{/show_responses}}
+    {{/has_error}}
+</div>

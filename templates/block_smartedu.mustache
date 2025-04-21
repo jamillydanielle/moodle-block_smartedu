@@ -1,0 +1,20 @@
+<div>
+    <ul class="list-group">
+        {{#resources}}
+            <li class="list-group-item d-flex align-items-center">
+                <img title="{{name}}" class="activityicon mr-2" src="{{icon_url}}" alt="{{name}}" />
+                <a href="{{url}}" target="_blank" class="text-decoration-none">{{name}}</a>
+            </li>
+        {{/resources}}
+    </ul>
+
+    {{^resources}}
+        <div class="alert alert-primary" role="alert">
+            {{{noresources}}}
+        </div>
+    {{/resources}}
+
+    <footer class="bg-light text-center text-muted mt-2">
+        <p>{{{termsofuse}}}</p>
+    </footer>
+</div>
