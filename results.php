@@ -45,18 +45,23 @@ $resourceid = required_param('resourceid', PARAM_INT);
 $summary_type = optional_param('summarytype', "", PARAM_TEXT);
 $questions_number = optional_param('nquestions', BLOCK_SMARTEDU_DEFAULT_QUESTIONS_NUMBER, PARAM_INT);
 
-$PAGE->set_url(new moodle_url('/blocks/smartedu/results.php', ['resourceid' => $resourceid]));
-$PAGE->set_title(get_string('pluginname', 'block_smartedu'));
-
 if (!$cm = get_coursemodule_from_id('resource', $resourceid)) {
     throw new \Exception(get_string('resourcenotfound', 'block_smartedu'));
 } 
     
 // Retrieve the resource record from the database.
 $context = context_module::instance($cm->id);
-    
+$course = get_course($cm->course);
+require_login($course, true, $cm);
+
 // Ensure the user has the capability to view the resource.
 require_capability('mod/resource:view', $context);
+
+
+$PAGE->set_context(context_course::instance($course->id)); // Define o contexto como o curso.
+$PAGE->set_url(new moodle_url('/blocks/smartedu/results.php', ['resourceid' => $resourceid]));
+$PAGE->set_title(get_string('pluginname', 'block_smartedu'));
+$PAGE->set_heading($course->fullname); // Define o título do cabeçalho como o nome do curso.
 
 
 $has_error = false;
