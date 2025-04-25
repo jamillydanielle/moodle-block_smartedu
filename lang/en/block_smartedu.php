@@ -24,6 +24,7 @@
 
 $string['pluginname'] = 'SmartEdu – Intelligent Learning';
 $string['smartedu:addinstance'] = 'Add a new SmartEdu block';
+$string['smartedu:myaddinstance'] = 'Add a new SmartEdu block to the My Moodle page';
 $string['termsofuse'] = 'By using the SmartEdu block, you agree to its <a href="https://github.com/dired-ufla/moodle-block_smartedu/blob/main/terms-of-use.md" target="_blank">Terms of Use</a>.';
 $string['noresources'] = 'No <a href="https://github.com/dired-ufla/moodle-block_smartedu/blob/main/file-formats.md" target="_blank">compatible files</a> are available for this course.';
 $string['aiprovider'] = "Choose your Generative AI provider";

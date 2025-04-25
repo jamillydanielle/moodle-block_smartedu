@@ -23,6 +23,14 @@
  */
 
 $capabilities = [
+    'block/smartedu:myaddinstance' => [
+        'captype' => 'write',
+        'contextlevel' => CONTEXT_SYSTEM,
+        'archetypes' => [
+            // No role has permission to add the block to "My Page".
+        ],
+        'clonepermissionsfrom' => 'moodle/my:manageblocks'
+    ],
     'block/smartedu:addinstance' => [
         'riskbitmask' => RISK_SPAM | RISK_XSS,
         'captype' => 'write',
