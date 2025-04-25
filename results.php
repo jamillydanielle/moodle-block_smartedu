@@ -96,12 +96,15 @@ try {
 
     if ($summary_type == 'detailed') {
         $prompt = get_string('prompt:detailedsummary', 'block_smartedu', $res->name);
-    } 
+    }
+
+
     
     if ($questions_number < 0 || $questions_number > BLOCK_SMARTEDU_MAX_QUESTIONS_NUMBER) {
         $questions_number = BLOCK_SMARTEDU_DEFAULT_QUESTIONS_NUMBER;
     } 
     
+    $prompt .= get_string('prompt:studyscript', 'block_smartedu');
     $prompt .= get_string('prompt:quizz', 'block_smartedu', $questions_number);
     $prompt .= get_string('prompt:return', 'block_smartedu', $content);
 
@@ -112,11 +115,12 @@ try {
     $response = preg_replace('/```json\s*(.*?)\s*```/s', '$1', $response);
     $data = json_decode($response);
 
-
     // Prepare template context.
     $data_template['has_error'] = false;
     $data_template['resource_name'] = $res->name;
     $data_template['summary'] = $data->summary ?? '';
+    $data_template['study_script_title'] = get_string('studyscript:title', 'block_smartedu');
+    $data_template['study_script'] = $data->study_script ?? '';
     $data_template['questions'] = [];
 
     foreach ($data->questions as $index => $question) {
