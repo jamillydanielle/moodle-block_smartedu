@@ -119,7 +119,7 @@ try {
 
         // Parse the AI response.
         $response = preg_replace('/```json\s*(.*?)\s*```/s', '$1', $response);
-        content_generator::block_smartedu_store_response_in_cache($prompt, $response);
+        ai_cache::block_smartedu_store_response_in_cache($prompt, $response);
     }
 
     $data = json_decode($response);
