@@ -8,7 +8,6 @@ Thumbs.db
 config.php
 config.php.local
 config-dist.php
-install.xml
 node_modules/
 composer.lock
 

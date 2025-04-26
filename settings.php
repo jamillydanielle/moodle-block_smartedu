@@ -32,4 +32,5 @@ if ($hassiteconfig) {
     
     $settings->add(new admin_setting_configselect('block_smartedu/aiprovider', get_string('aiprovider', 'block_smartedu'), null, 'google', $options));
     $settings->add(new admin_setting_configtext('block_smartedu/apikey', get_string('apikey', 'block_smartedu'), null, "", PARAM_TEXT));
+    $settings->add(new admin_setting_configcheckbox('block_smartedu/enablecache', get_string('enablecache', 'block_smartedu'), null,  0));
 }

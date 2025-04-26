@@ -25,6 +25,7 @@
 use block_smartedu\text_extractor;
 use block_smartedu\content_generator;
 use block_smartedu\resource_reader;
+use block_smartedu\ai_cache;
 
 require_once(__DIR__ . '/../../config.php');
 
@@ -90,6 +91,7 @@ try {
     // Retrieve API key and AI provider configuration.
     $api_key = get_config('block_smartedu', 'apikey');
     $ai_provider = get_config('block_smartedu', 'aiprovider');
+    $enablecache = get_config('block_smartedu', 'enablecache');
 
     // Generate the prompt for the AI based on the summary type and number of questions.
     $prompt = get_string('prompt:simplesummary', 'block_smartedu', $res->name);
@@ -97,8 +99,6 @@ try {
     if ($summary_type == 'detailed') {
         $prompt = get_string('prompt:detailedsummary', 'block_smartedu', $res->name);
     }
-
-
     
     if ($questions_number < 0 || $questions_number > BLOCK_SMARTEDU_MAX_QUESTIONS_NUMBER) {
         $questions_number = BLOCK_SMARTEDU_DEFAULT_QUESTIONS_NUMBER;
@@ -108,11 +108,20 @@ try {
     $prompt .= get_string('prompt:quizz', 'block_smartedu', $questions_number);
     $prompt .= get_string('prompt:return', 'block_smartedu', $content);
 
-    // Generate the response using the AI provider.
-    $response = content_generator::block_smartedu_generate($ai_provider, $api_key, $prompt);
+    // Check if caching is enabled and if the response is already cached.
+    $cached = $enablecache == 1 ? ai_cache::block_smartedu_get_cached_response($prompt) : null;
 
-    // Parse the AI response.
-    $response = preg_replace('/```json\s*(.*?)\s*```/s', '$1', $response);
+    if ($cached !== null) {
+        $response = $cached;
+    } else {
+        // Generate the response using the AI provider.
+        $response = content_generator::block_smartedu_generate($ai_provider, $api_key, $prompt);
+
+        // Parse the AI response.
+        $response = preg_replace('/```json\s*(.*?)\s*```/s', '$1', $response);
+        content_generator::block_smartedu_store_response_in_cache($prompt, $response);
+    }
+
     $data = json_decode($response);
 
     // Prepare template context.

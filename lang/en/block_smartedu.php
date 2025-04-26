@@ -29,6 +29,7 @@ $string['termsofuse'] = 'By using the SmartEdu block, you agree to its <a href="
 $string['noresources'] = 'No <a href="https://github.com/dired-ufla/moodle-block_smartedu/blob/main/file-formats.md" target="_blank">compatible files</a> are available for this course.';
 $string['aiprovider'] = "Choose your Generative AI provider";
 $string['apikey'] = "Insert your API Key";
+$string['enablecache'] = "Enable prompt cache";
 $string['summarytype'] = "Summary type";
 $string['nquestions'] = "Number of questions";
 $string['summarytype:simple'] = "Simple";
