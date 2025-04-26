@@ -64,8 +64,14 @@ class ai_cache {
     public static function block_smartedu_store_response_in_cache(string $prompt, string $response): void {
         global $DB;
     
+        $hash = hash('sha256', $prompt);
+
+        if ($DB->record_exists('block_smartedu_cache', ['prompthash' => $hash])) {
+            return;
+        }
+
         $record = new \stdClass();
-        $record->prompthash = hash('sha256', $prompt);
+        $record->prompthash = $hash;
         $record->response = $response;
         $record->timecreated = time(); // Adiciona o timestamp atual.
 
