@@ -10,7 +10,7 @@ Current features
 
 - Generates simple or detailed summaries, based on user preference.
 
-- Generate quizzes from lecture notes.
+- Generate quizzes and study guides from lecture notes.
 
 - Currently, the plugin supports the following generative AI providers: Google (Gemini) and OpenAI (ChatGPT). 
 
