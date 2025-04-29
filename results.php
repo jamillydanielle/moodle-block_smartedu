@@ -57,6 +57,7 @@ require_login($course, true, $cm);
 
 // Ensure the user has the capability to view the resource.
 require_capability('mod/resource:view', $context);
+$PAGE->requires->js_call_amd('block_smartedu/results', 'init');
 
 
 $PAGE->set_context(context_course::instance($course->id)); // Define o contexto como o curso.
@@ -140,6 +141,8 @@ try {
             'option_b' => $question->options->B,
             'option_c' => $question->options->C,
             'option_d' => $question->options->D,
+            'correct_option' => $question->correct_option,
+            'feedback' => 'feedback',
         ];
     }
 

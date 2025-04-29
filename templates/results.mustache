@@ -66,7 +66,7 @@
         </div>
 
         {{#questions}}
-            <div class="card mt-2">
+            <div class="card mt-2 question" data-correct="{{correct_option}}" data-feedback="{{feedback}}">
                 <div class="card-header">
                     <strong>{{question_number}}: {{question_text}}</strong>
                 </div>
@@ -76,6 +76,7 @@
                     <p class="card-text">(C) {{option_c}}</p>
                     <p class="card-text">(D) {{option_d}}</p>
                 </div>
+                <div class="feedback"></div>
             </div>
         {{/questions}}
 
@@ -83,7 +84,7 @@
             <div class="accordion mt-2" id="myAccordion">
                 <div class="card">
                     <div class="card-header">
-                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#colapseOne" aria-expanded="false">
+                        <button id="send_responses" class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#colapseOne" aria-expanded="false">
                             {{{show_responses_label}}}
                         </button>
                     </div>
