@@ -57,6 +57,7 @@ require_login($course, true, $cm);
 
 // Ensure the user has the capability to view the resource.
 require_capability('mod/resource:view', $context);
+$PAGE->requires->js_call_amd('block_smartedu/results', 'init');
 
 
 $PAGE->set_context(context_course::instance($course->id)); // Define o contexto como o curso.
@@ -140,16 +141,15 @@ try {
             'option_b' => $question->options->B,
             'option_c' => $question->options->C,
             'option_d' => $question->options->D,
+            'correct_option' => $question->correct_option,
+            'feedback' => 'feedback',
         ];
     }
 
-    $data_template['show_responses'] = true;
-    $data_template['show_responses_label'] = get_string('quizz:showresponses', 'block_smartedu');
-    $data_template['responses'] = '';
-
-    foreach ($data->questions as $index => $question) {
-        $data_template['responses'] .= get_string('quizz:question', 'block_smartedu') . ($index + 1) . ': ' . $question->correct_option . '<br>';
-    }
+    $data_template['send_responses_label'] = get_string('quizz:sendresponses', 'block_smartedu');
+    $data_template['correct_answer_label'] = get_string('quizz:correct', 'block_smartedu');
+    $data_template['wrong_answer_label'] = get_string('quizz:wrong', 'block_smartedu');
+    $data_template['response_label'] = get_string('quizz:showresponse', 'block_smartedu');
 } catch (Exception $e) {
     $has_error = true;
     $error_message = $e->getMessage();
