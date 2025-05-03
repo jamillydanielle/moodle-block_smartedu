@@ -146,13 +146,10 @@ try {
         ];
     }
 
-    $data_template['show_responses'] = true;
-    $data_template['show_responses_label'] = get_string('quizz:showresponses', 'block_smartedu');
-    $data_template['responses'] = '';
-
-    foreach ($data->questions as $index => $question) {
-        $data_template['responses'] .= get_string('quizz:question', 'block_smartedu') . ($index + 1) . ': ' . $question->correct_option . '<br>';
-    }
+    $data_template['send_responses_label'] = get_string('quizz:sendresponses', 'block_smartedu');
+    $data_template['correct_answer_label'] = get_string('quizz:correct', 'block_smartedu');
+    $data_template['wrong_answer_label'] = get_string('quizz:wrong', 'block_smartedu');
+    $data_template['response_label'] = get_string('quizz:showresponse', 'block_smartedu');
 } catch (Exception $e) {
     $has_error = true;
     $error_message = $e->getMessage();

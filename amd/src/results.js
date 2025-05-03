@@ -10,21 +10,17 @@ define(['jquery'], function($) {
 
                     const selected = question.find('input[type=radio]:checked').val();
 
-                    const feedback = question.find('.feedback');
+                    const correct_div = question.find('.correct');
+                    const wrong_div = question.find('.wrong');
 
-                    if (!selected) {
-                        feedback.text('Por favor, selecione uma resposta.');
-                        feedback.addClass('text-primary card-footer');
-                    } else if (selected === correct) {
-                        feedback.text('Resposta correta!');
-                        feedback.addClass('text-success card-footer');
+                    if (!selected || selected !== correct) {
+                        correct_div.addClass('d-none');
+                        wrong_div.removeClass('d-none');
                     } else {
-                        feedback.text('Resposta incorreta.');
-                        feedback.addClass('text-danger card-footer');
+                        wrong_div.addClass('d-none');
+                        correct_div.removeClass('d-none');
                     }
 
-                    // eslint-disable-next-line no-console
-                    console.log('questão');
                 });
             });
         }

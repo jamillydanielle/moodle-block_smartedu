@@ -31,9 +31,7 @@
         - option_b (string): Option B for the question.
         - option_c (string): Option C for the question.
         - option_d (string): Option D for the question.
-    * show_responses (boolean): Indicates if the responses should be displayed.
-    * show_responses_label (string): Label for the button to show responses.
-    * responses (string): The responses or correct answers for the questions.
+    * send_responses_label (string): Label for the button to show responses.
 
     Example context (json):
     {
@@ -76,13 +74,19 @@
                     <label><input type="radio" name="{{question_number}}" value="C"> {{option_c}}</label><br>
                     <label><input type="radio" name="{{question_number}}" value="D"> {{option_d}}</label><br>
                 </div>
-                <div class="feedback"></div>
+                <div class="correct card-footer text-success d-none">
+                    {{correct_answer_label}}
+                </div>
+                <div class="wrong card-footer text-danger d-none">
+                    {{wrong_answer_label}}</br>
+                    {{response_label}} <strong>{{correct_option}}</strong>                    
+                </div>
             </div>
         {{/questions}}
 
         <div class="mt-2">
             <button id="send_responses" class="btn btn-primary" type="button" aria-expanded="false">
-                {{{show_responses_label}}}
+                {{{send_responses_label}}}
             </button>
         </div>
     {{/has_error}}
