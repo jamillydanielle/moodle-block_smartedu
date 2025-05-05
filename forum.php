@@ -68,25 +68,23 @@ try {
 
         // Parse the AI response.
         $response = preg_replace('/```json\s*(.*?)\s*```/s', '$1', $response);
+        
+        if (!mb_check_encoding($response, 'UTF-8')) {
+            $response = utf8_encode($response);
+        }
+        
+        $response = preg_replace('/[[:cntrl:]]/', '', $response);
+        
         ai_cache::block_smartedu_store_response_in_cache($prompt, $response);
     }
 
-    
     $data = json_decode($response);
-    
-    if (json_last_error() !== JSON_ERROR_NONE) {
-        $err = json_last_error_msg();
-        var_dump($err);
-        die();
-    }
 
     $data_template['has_error'] = false;
 
     foreach ($data as $item) {
         $data_template['discussions'][] = $item;
     }
-    
-    
 
 } catch (Exception $e) {
     $has_error = true;
