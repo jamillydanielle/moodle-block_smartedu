@@ -112,7 +112,7 @@ try {
     // Check if caching is enabled and if the response is already cached.
     $cached = $enablecache == 1 ? ai_cache::block_smartedu_get_cached_response($prompt) : null;
 
-    if ($cached !== null) {
+    if ($cached !== null and $cached !== '') {
         $response = $cached;
     } else {
         // Generate the response using the AI provider.
