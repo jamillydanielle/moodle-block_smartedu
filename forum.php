@@ -29,7 +29,6 @@ use block_smartedu\forum_reader;
 require_once(__DIR__ . '/../../config.php');
 
 $forumid = required_param('forumid', PARAM_INT);
-$summary_type = optional_param('summarytype', "", PARAM_TEXT);
 
 try {
 

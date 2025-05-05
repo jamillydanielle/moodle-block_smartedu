@@ -68,7 +68,6 @@ class block_smartedu extends block_base {
             if ($item->type == 'forum') {
                 $url = (new moodle_url('/blocks/smartedu/forum.php', [
                     'forumid' => $item->id,
-                    'summarytype' => $this->config->summarytype,
                 ]))->out();
             } else if ($item->type == 'resource') {
                 $url = (new moodle_url('/blocks/smartedu/results.php', [
