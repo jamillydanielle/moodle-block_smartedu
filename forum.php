@@ -57,6 +57,9 @@ try {
     // Generate the prompt for the AI based on the summary type and number of questions.
     $prompt = get_string('prompt:forum', 'block_smartedu', $json_discussions);
 
+    var_dump($prompt);
+    die();
+
     // Check if caching is enabled and if the response is already cached.
     $cached = $enablecache == 1 ? ai_cache::block_smartedu_get_cached_response($prompt) : null;
 
