@@ -71,16 +71,17 @@ try {
         ai_cache::block_smartedu_store_response_in_cache($prompt, $response);
     }
 
-    var_dump($response);
-    die();
-
+    
     $data = json_decode($response);
+    var_dump($data);
     
     $data_template['has_error'] = false;
 
     foreach ($data as $item) {
         $data_template['discussions'][] = $item;
     }
+    var_dump($data_template);
+    die();
 
 } catch (Exception $e) {
     $has_error = true;
