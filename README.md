@@ -8,6 +8,8 @@ Current features
 
 - Summarizes lecture notes provided by the teacher in various [file formats](file-formats.md).
 
+- Summarizes forum discussions.
+
 - Generates simple or detailed summaries, based on user preference.
 
 - Generate quizzes and study guides from lecture notes.

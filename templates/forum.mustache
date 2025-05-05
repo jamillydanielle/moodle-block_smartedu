@@ -17,21 +17,14 @@
 {{!
     @template block_smartedu/results
 
-    Template to display list of resources of a course.
+    Template to display list of discussions of a forum.
 
     Context variables required for this template:
-    * has_error (boolean): Indicates if there was an error processing the resource.
+    * has_error (boolean): Indicates if there was an error processing the forum.
     * error_message (string): The error message to display if `has_error` is true.
-    * resource_name (string): The name of the resource being summarized.
-    * summary (string): The summary of the resource content.
-    * questions (array): List of questions generated for the resource, where each question contains:
-        - question_number (int): The number of the question.
-        - question_text (string): The text of the question.
-        - option_a (string): Option A for the question.
-        - option_b (string): Option B for the question.
-        - option_c (string): Option C for the question.
-        - option_d (string): Option D for the question.
-    * send_responses_label (string): Label for the button to show responses.
+    * discussions (array): List of discussions in the forum, where each discussion contains:
+        - name (string): The name of the discussion.
+        - content (string): The content of the discussion.
 
     Example context (json):
     {
@@ -48,7 +41,7 @@
         {{#discussions}}
             <div class="card mt-2">
                 <div class="card-header">
-                    <strong>{{name}} - {{description}}</strong>
+                    <strong>{{name}}</strong>
                 </div>
                 <div class="card-body">
                     {{content}}

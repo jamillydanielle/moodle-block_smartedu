@@ -28,7 +28,6 @@ use block_smartedu\forum_reader;
 
 require_once(__DIR__ . '/../../config.php');
 
-// Set up the page URL and title.
 $forumid = required_param('forumid', PARAM_INT);
 $summary_type = optional_param('summarytype', "", PARAM_TEXT);
 
@@ -43,18 +42,42 @@ try {
     $course = get_course($cm->course);
     require_login($course, true, $cm);
 
-    $discussions = forum_reader::block_smartedu_read($forumid);
-
-    $PAGE->set_context($context); // Define o contexto como o curso.
+    $PAGE->set_context($context); 
     $PAGE->set_url(new moodle_url('/blocks/smartedu/forum.php', ['forumid' => $forumid]));
     $PAGE->set_title(get_string('pluginname', 'block_smartedu'));
-    $PAGE->set_heading($course->fullname); // Define o título do cabeçalho como o nome do curso.
+    $PAGE->set_heading($course->fullname); 
 
+    $discussions = forum_reader::block_smartedu_read($forumid);
+    $json_discussions = json_encode($discussions->discussions, JSON_UNESCAPED_UNICODE);
 
+    // Retrieve API key and AI provider configuration.
+    $api_key = get_config('block_smartedu', 'apikey');
+    $ai_provider = get_config('block_smartedu', 'aiprovider');
+    $enablecache = get_config('block_smartedu', 'enablecache');
+
+    // Generate the prompt for the AI based on the summary type and number of questions.
+    $prompt = get_string('prompt:forum', 'block_smartedu', $json_discussions);
+
+    // Check if caching is enabled and if the response is already cached.
+    $cached = $enablecache == 1 ? ai_cache::block_smartedu_get_cached_response($prompt) : null;
+
+    if ($cached !== null) {
+        $response = $cached;
+    } else {
+        // Generate the response using the AI provider.
+        $response = content_generator::block_smartedu_generate($ai_provider, $api_key, $prompt);
+
+        // Parse the AI response.
+        $response = preg_replace('/```json\s*(.*?)\s*```/s', '$1', $response);
+        ai_cache::block_smartedu_store_response_in_cache($prompt, $response);
+    }
+
+    $data = json_decode($response);
+    
     $data_template['has_error'] = false;
 
-    foreach ($discussions as $discussion) {
-        $data_template['discussions'] = $discussion;
+    foreach ($data as $item) {
+        $data_template['discussions'][] = $item;
     }
 
 } catch (Exception $e) {

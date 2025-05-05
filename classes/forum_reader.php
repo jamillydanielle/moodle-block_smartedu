@@ -24,18 +24,20 @@
 namespace block_smartedu;
 
 /**
- * Class resource_reader
+ * Class forum_reader
  *
- * Provides functionality to read and retrieve resource details.
+ * Provides functionality to read and retrieve forum discussions.
  */
 class forum_reader {
 
     /**
-     * Reads a resource by its ID and retrieves its details.
+     * Reads a forum by its ID and retrieves its discussions and posts.
      *
-     * @param int $resourceid The ID of the resource to read.
-     * @return stdClass An object containing the resource name and file.
-     * @throws Exception If the resource is not found or the user lacks the required capability.
+     * @param int $forumid The ID of the forum to read.
+     * @return stdClass An object containing the forum discussions, where each discussion includes:
+     *                  - name (string): The name of the discussion.
+     *                  - content (string): The concatenated and sanitized content of the posts (excluding the first post).
+     * @throws Exception If the forum is not found or the user lacks the required capability.
      */
     public static function block_smartedu_read($forumid) {
         global $DB, $CFG;
@@ -58,22 +60,23 @@ class forum_reader {
         foreach ($discussions as $discussion) {
             $posts = $DB->get_records('forum_posts', ['discussion' => $discussion->id]);
             $first_post = true;
-            $first_post_content = '';
     
             $messages = '';
             foreach ($posts as $post) {
                 if ($first_post) {
-                    $first_post_content = $post->message;
                     $first_post = false;
                     continue;
                 }
             
                 $messages .= $post->message . " ";
             }
+
+            if ($messages === '') {
+                continue;
+            }
     
             $obj->discussions[] = [                
                 'name' => $discussion->name,
-                'description' => strip_tags($first_post_content),
                 'content' => strip_tags($messages), 
             ];
         }

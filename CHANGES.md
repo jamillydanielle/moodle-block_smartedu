@@ -1,6 +1,6 @@
 v.1.3.0
 -------------
-- Works with forum module
+- Summarizes the discussions of a forum
 
 v.1.2.1
 -------------
