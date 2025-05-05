@@ -73,15 +73,20 @@ try {
 
     
     $data = json_decode($response);
-    var_dump($data);
     
+    if (json_last_error() !== JSON_ERROR_NONE) {
+        $err = json_last_error_msg();
+        var_dump($err);
+        die();
+    }
+
     $data_template['has_error'] = false;
 
     foreach ($data as $item) {
         $data_template['discussions'][] = $item;
     }
-    var_dump($data_template);
-    die();
+    
+    
 
 } catch (Exception $e) {
     $has_error = true;
