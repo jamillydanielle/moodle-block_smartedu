@@ -65,7 +65,7 @@ class block_smartedu extends block_base {
         ];        
 
         foreach ($resources as $item) {
-            if (str_starts_with($item->type, 'forum_')) {
+            if (strpos($item->type, 'forum_') === 0) {
                 $url = new moodle_url('/blocks/smartedu/forum.php', [
                     'forumid' => $item->id,
                     'forumtype' => $item->type
