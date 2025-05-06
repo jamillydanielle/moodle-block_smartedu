@@ -65,7 +65,7 @@ class block_smartedu extends block_base {
         ];        
 
         foreach ($resources as $item) {
-            if ($item->type === 'qanda' or $item->type === 'general') {
+            if (str_starts_with($item->type, 'forum_')) {
                 $url = new moodle_url('/blocks/smartedu/forum.php', [
                     'forumid' => $item->id,
                     'forumtype' => $item->type
@@ -127,11 +127,11 @@ class block_smartedu extends block_base {
                 } 
             
                 $forum = $DB->get_record('forum', ['id' => $cm->instance], '*', IGNORE_MISSING);
-                if (!$forum or ($forum->type !== 'qanda' and $forum->type !== 'general')) {
+                if (!$forum or $forum->type === 'blog' or $forum->type === 'news') {
                     continue;
                 }
 
-                $type = $forum->type;
+                $type = 'forum_' . $forum->type;
 
             } else if ($type == 'resource') {
 

@@ -31,7 +31,7 @@ namespace block_smartedu;
 class forum_reader {
 
     /**
-     * Reads a forum by its ID and retrieves its discussions and posts.
+     * Reads a forum by its ID and retrieves each discussion and its posts.
      *
      * @param int $forumid The ID of the forum to read.
      * @return stdClass An object containing the forum discussions, where each discussion includes:
@@ -39,7 +39,7 @@ class forum_reader {
      *                  - content (string): The concatenated and sanitized content of the posts (excluding the first post).
      * @throws Exception If the forum is not found or the user lacks the required capability.
      */
-    public static function block_smartedu_read_qanda($forumid) {
+    protected static function block_smartedu_read_each_discussion($forumid) {
         global $DB, $CFG;
     
         // Retrieve the course module for the given resource ID.
@@ -86,7 +86,7 @@ class forum_reader {
     }
 
     /**
-     * Reads a forum by its ID and retrieves its discussions and posts.
+     * Reads a forum by its ID and retrieves all discussion and its posts.
      *
      * @param int $forumid The ID of the forum to read.
      * @return stdClass An object containing the forum discussions, where each discussion includes:
@@ -94,7 +94,7 @@ class forum_reader {
      *                  - content (string): The concatenated and sanitized content of the posts (excluding the first post).
      * @throws Exception If the forum is not found or the user lacks the required capability.
      */
-    public static function block_smartedu_read_general($forumid) {
+    protected static function block_smartedu_read_all_discussions($forumid) {
         global $DB, $CFG;
     
         // Retrieve the course module for the given resource ID.
@@ -137,24 +137,88 @@ class forum_reader {
     }
 
     /**
+     * Reads a general forum by its ID.
+     *
+     * @param int $forumid The ID of the forum to read.
+     * @return stdClass An object containing the forum discussions, where each discussion includes:
+     *                  - name (string): The name of the discussion.
+     *                  - content (string): The concatenated and sanitized content of the posts (excluding the first post).
+     * @throws Exception If the forum is not found or the user lacks the required capability.
+     */
+    protected static function block_smartedu_read_forum_general( $forumid ) {
+        return self::block_smartedu_read_all_discussions( $forumid );        
+    }
+    
+    /**
+     * Reads a qanda forum by its ID.
+     *
+     * @param int $forumid The ID of the forum to read.
+     * @return stdClass An object containing the forum discussions, where each discussion includes:
+     *                  - name (string): The name of the discussion.
+     *                  - content (string): The concatenated and sanitized content of the posts (excluding the first post).
+     * @throws Exception If the forum is not found or the user lacks the required capability.
+     */
+    protected static function block_smartedu_read_forum_qanda( $forumid ) {
+        return self::block_smartedu_read_each_discussion( $forumid );        
+    }
+
+        /**
+     * Reads a single forum by its ID.
+     *
+     * @param int $forumid The ID of the forum to read.
+     * @return stdClass An object containing the forum discussions, where each discussion includes:
+     *                  - name (string): The name of the discussion.
+     *                  - content (string): The concatenated and sanitized content of the posts (excluding the first post).
+     * @throws Exception If the forum is not found or the user lacks the required capability.
+     */
+    protected static function block_smartedu_read_forum_single( $forumid ) {
+        return self::block_smartedu_read_each_discussion( $forumid );        
+    }
+
+        /**
+     * Reads a eachuser forum by its ID.
+     *
+     * @param int $forumid The ID of the forum to read.
+     * @return stdClass An object containing the forum discussions, where each discussion includes:
+     *                  - name (string): The name of the discussion.
+     *                  - content (string): The concatenated and sanitized content of the posts (excluding the first post).
+     * @throws Exception If the forum is not found or the user lacks the required capability.
+     */
+    protected static function block_smartedu_read_forum_eachuser( $forumid ) {
+        return self::block_smartedu_read_all_discussions( $forumid );        
+    }
+
+    /**
      * Retrieves the list of valid forum types.
      *
      * @return array List of valid forum types.
      */
     protected static function block_smartedu_get_valid_forum_types() {
         return [
-            'qanda',
-            'general',
+            'forum_qanda',
+            'forum_general',
+            'forum_eachuser',
+            'forum_single',
         ];
     }
 
+    /**
+     * Reads a forum by its ID and type, delegating to the appropriate method based on the forum type.
+     *
+     * @param int $forumid The ID of the forum to read.
+     * @param string $forumtype The type of the forum (e.g., 'forum_qanda', 'forum_general').
+     * @return stdClass An object containing the forum discussions, where each discussion includes:
+     *                  - name (string): The name of the discussion or forum.
+     *                  - content (string): The concatenated and sanitized content of the posts.
+     * @throws Exception If the forum type is invalid or the forum is not found.
+     */
     public static function block_smartedu_read($forumid, $forumtype) {
         $response = '';
         
         $valid_forum_types = self::block_smartedu_get_valid_forum_types();
         $forum_type = strtolower($forumtype);
 
-        if (in_array( $forumtype, $valid_forum_types )) {
+        if (in_array( $forumtype, $valid_forum_types )) {           
             $method   = 'block_smartedu_read_' . $forum_type;
             $response = self::$method( $forumid );
         } else {

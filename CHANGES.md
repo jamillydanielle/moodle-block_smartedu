@@ -1,3 +1,7 @@
+v.1.4.0
+-------------
+- Include news types of forum, such as single, qanda and eachuser
+
 v.1.3.0
 -------------
 - Summarizes the discussions of a forum
