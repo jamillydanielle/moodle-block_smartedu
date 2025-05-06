@@ -28,7 +28,10 @@ use block_smartedu\forum_reader;
 
 require_once(__DIR__ . '/../../config.php');
 
+\require_login();
+
 $forumid = required_param('forumid', PARAM_INT);
+$forumtype = required_param('forumtype', PARAM_TEXT);
 
 try {
 
@@ -42,11 +45,11 @@ try {
     require_login($course, true, $cm);
 
     $PAGE->set_context($context); 
-    $PAGE->set_url(new moodle_url('/blocks/smartedu/forum.php', ['forumid' => $forumid]));
+    $PAGE->set_url(new moodle_url('/blocks/smartedu/forum.php', ['forumid' => $forumid, 'forumtype' => $forumtype]));
     $PAGE->set_title(get_string('pluginname', 'block_smartedu'));
     $PAGE->set_heading($course->fullname); 
 
-    $discussions = forum_reader::block_smartedu_read($forumid);
+    $discussions = forum_reader::block_smartedu_read($forumid, $forumtype);
     $json_discussions = json_encode($discussions->discussions, JSON_UNESCAPED_UNICODE);
 
     // Retrieve API key and AI provider configuration.

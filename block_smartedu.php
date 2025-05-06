@@ -65,16 +65,17 @@ class block_smartedu extends block_base {
         ];        
 
         foreach ($resources as $item) {
-            if ($item->type == 'forum') {
-                $url = (new moodle_url('/blocks/smartedu/forum.php', [
+            if ($item->type === 'qanda' or $item->type === 'general') {
+                $url = new moodle_url('/blocks/smartedu/forum.php', [
                     'forumid' => $item->id,
-                ]))->out();
-            } else if ($item->type == 'resource') {
-                $url = (new moodle_url('/blocks/smartedu/results.php', [
+                    'forumtype' => $item->type
+                ]);
+            } else if ($item->type === 'resource') {
+                $url = new moodle_url('/blocks/smartedu/results.php', [
                     'resourceid' => $item->id,
                     'summarytype' => $this->config->summarytype,
-                    'nquestions' => $this->config->nquestions,
-                ]))->out();
+                    'nquestions' => $this->config->nquestions
+                ]);
             } 
 
 
@@ -82,7 +83,7 @@ class block_smartedu extends block_base {
                 'name' => $item->name,
                 'type' => $item->type,
                 'icon_url' => $item->icon_url,
-                'url' => $url,
+                'url' => $url->out(false),
             ];
         }
 
@@ -115,8 +116,10 @@ class block_smartedu extends block_base {
             if ($item->modname != 'resource' && $item->modname != 'forum') {
                 continue;
             }
+
+            $type = $item->modname;
             
-            if ($item->modname == 'forum') {
+            if ($type == 'forum') {
                 
                 // Exlude foruns of the type 'news' 
                 if (!$cm = get_coursemodule_from_id('forum', $item->id)) {
@@ -124,11 +127,13 @@ class block_smartedu extends block_base {
                 } 
             
                 $forum = $DB->get_record('forum', ['id' => $cm->instance], '*', IGNORE_MISSING);
-                if (!$forum or $forum->type === 'news') {
+                if (!$forum or ($forum->type !== 'qanda' and $forum->type !== 'general')) {
                     continue;
                 }
 
-            } else if ($item->modname == 'resource') {
+                $type = $forum->type;
+
+            } else if ($type == 'resource') {
 
                 $res = resource_reader::block_smartedu_read($item->id);
                 $filename = $res->file->get_filename();
@@ -143,8 +148,8 @@ class block_smartedu extends block_base {
             $obj = new stdClass();
             $obj->id = $item->id;
             $obj->name = $item->name;
-            $obj->type = $item->modname;
-            
+            $obj->type = $type;
+           
             if (!$item->visible) {
                 $obj->name .= get_string('studentinvisible', 'block_smartedu'); 
             }

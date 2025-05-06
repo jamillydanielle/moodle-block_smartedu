@@ -39,7 +39,7 @@ class forum_reader {
      *                  - content (string): The concatenated and sanitized content of the posts (excluding the first post).
      * @throws Exception If the forum is not found or the user lacks the required capability.
      */
-    public static function block_smartedu_read($forumid) {
+    public static function block_smartedu_read_qanda($forumid) {
         global $DB, $CFG;
     
         // Retrieve the course module for the given resource ID.
@@ -58,6 +58,7 @@ class forum_reader {
         $obj->discussions = [];
     
         foreach ($discussions as $discussion) {
+    
             $posts = $DB->get_records('forum_posts', ['discussion' => $discussion->id]);
             $first_post = true;
     
@@ -82,6 +83,86 @@ class forum_reader {
         }
     
         return $obj;
+    }
+
+    /**
+     * Reads a forum by its ID and retrieves its discussions and posts.
+     *
+     * @param int $forumid The ID of the forum to read.
+     * @return stdClass An object containing the forum discussions, where each discussion includes:
+     *                  - name (string): The name of the discussion.
+     *                  - content (string): The concatenated and sanitized content of the posts (excluding the first post).
+     * @throws Exception If the forum is not found or the user lacks the required capability.
+     */
+    public static function block_smartedu_read_general($forumid) {
+        global $DB, $CFG;
+    
+        // Retrieve the course module for the given resource ID.
+        if (!$cm = get_coursemodule_from_id('forum', $forumid)) {
+            throw new \Exception(get_string('resourcenotfound', 'block_smartedu'));
+        }     
+        
+        $forum = $DB->get_record('forum', ['id' => $cm->instance], '*', IGNORE_MISSING);
+        if (!$forum) {
+            throw new \Exception(get_string('resourcenotfound', 'block_smartedu'));
+        }
+    
+        $discussions = $DB->get_records('forum_discussions', ['forum' => $forum->id]);
+    
+        $obj = new \StdClass();
+        $obj->discussions = [];
+    
+        $messages = '';
+        foreach ($discussions as $discussion) {
+    
+            $posts = $DB->get_records('forum_posts', ['discussion' => $discussion->id]);
+    
+            foreach ($posts as $post) {                       
+                $messages .= $post->message . " ";
+            }
+
+            if ($messages === '') {
+                continue;
+            }
+    
+            
+        }
+    
+        $obj->discussions[] = [                
+            'name' => $forum->name,
+            'content' => strip_tags($messages), 
+        ];
+
+        return $obj;
+    }
+
+    /**
+     * Retrieves the list of valid forum types.
+     *
+     * @return array List of valid forum types.
+     */
+    protected static function block_smartedu_get_valid_forum_types() {
+        return [
+            'qanda',
+            'general',
+        ];
+    }
+
+    public static function block_smartedu_read($forumid, $forumtype) {
+        $response = '';
+        
+        $valid_forum_types = self::block_smartedu_get_valid_forum_types();
+        $forum_type = strtolower($forumtype);
+
+        if (in_array( $forumtype, $valid_forum_types )) {
+            $method   = 'block_smartedu_read_' . $forum_type;
+            $response = self::$method( $forumid );
+        } else {
+            error_log('Forum type not allowed');
+            throw new \Exception(get_string('internalerror', 'block_smartedu'));
+        }
+
+        return $response;
     }
     
 
