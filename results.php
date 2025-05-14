@@ -43,8 +43,8 @@ const BLOCK_SMARTEDU_DEFAULT_QUESTIONS_NUMBER = 5;
 
 // Set up the page URL and title.
 $resourceid = required_param('resourceid', PARAM_INT);
-$summary_type = optional_param('summarytype', "", PARAM_TEXT);
-$questions_number = optional_param('nquestions', BLOCK_SMARTEDU_DEFAULT_QUESTIONS_NUMBER, PARAM_INT);
+$summary_type = required_param('summarytype', PARAM_TEXT);
+$questions_number = required_param('nquestions', PARAM_INT);
 
 if (!$cm = get_coursemodule_from_id('resource', $resourceid)) {
     throw new \Exception(get_string('resourcenotfound', 'block_smartedu'));
@@ -106,9 +106,14 @@ try {
     } 
     
     $prompt .= get_string('prompt:studyscript', 'block_smartedu');
-    $prompt .= get_string('prompt:quizz', 'block_smartedu', $questions_number);
-    $prompt .= get_string('prompt:return', 'block_smartedu', $content);
-
+    
+    if ($questions_number > 0) {
+        $prompt .= get_string('prompt:quizz', 'block_smartedu', $questions_number);
+        $prompt .= get_string('prompt:returnwithquestions', 'block_smartedu', $content);
+    } else {
+        $prompt .= get_string('prompt:returnwithoutquestions', 'block_smartedu', $content);
+    }
+    
     // Check if caching is enabled and if the response is already cached.
     $cached = $enablecache == 1 ? ai_cache::block_smartedu_get_cached_response($prompt) : null;
 
@@ -126,7 +131,10 @@ try {
     $data = json_decode($response);
 
     // Prepare template context.
+    $num_questions = isset($data->questions) ? count($data->questions) : 0;
+
     $data_template['has_error'] = false;
+    $data_template['has_questions'] = $num_questions > 0 ? true : false;
     $data_template['resource_name'] = $res->name;
     $data_template['summary'] = $data->summary ?? '';
     $data_template['study_script_title'] = get_string('studyscript:title', 'block_smartedu');

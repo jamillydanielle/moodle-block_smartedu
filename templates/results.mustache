@@ -81,13 +81,15 @@
                     {{wrong_answer_label}}</br>
                     {{response_label}} <strong>{{correct_option}}</strong>                    
                 </div>
-            </div>
+            </div>                    
         {{/questions}}
 
-        <div class="mt-2">
-            <button id="send_responses" class="btn btn-primary" type="button" aria-expanded="false">
-                {{{send_responses_label}}}
-            </button>
-        </div>
+        {{#has_questions}}
+            <div class="mt-2">
+                <button id="send_responses" class="btn btn-primary" type="button" aria-expanded="false">
+                    {{{send_responses_label}}}
+                </button>
+            </div>
+        {{/has_questions}}
     {{/has_error}}
 </div>

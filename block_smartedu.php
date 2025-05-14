@@ -73,8 +73,8 @@ class block_smartedu extends block_base {
             } else if ($item->type === 'resource') {
                 $url = new moodle_url('/blocks/smartedu/results.php', [
                     'resourceid' => $item->id,
-                    'summarytype' => $this->config->summarytype,
-                    'nquestions' => $this->config->nquestions
+                    'summarytype' => $this->config->summarytype == '' ? 'simple' : $this->config->summarytype,
+                    'nquestions' => $this->config->nquestions == '' ? 5 : $this->config->nquestions,
                 ]);
             } 
 

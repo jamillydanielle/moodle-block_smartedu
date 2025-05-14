@@ -1,3 +1,7 @@
+v.1.4.1
+-------------
+- Fix "send responses" button visibility
+
 v.1.4.0
 -------------
 - Include news types of forum, such as single, qanda and eachuser
@@ -13,4 +17,3 @@ v.1.2.1
 v.1.1.1
 --------------
 - Fix bootstrap class to be compatible with Moodle 5
-
