@@ -64,7 +64,7 @@
         </div>
 
         {{#questions}}
-            <div class="card mt-2 question" data-correct="{{correct_option}}" data-feedback="{{feedback}}">
+            <div class="card mt-2 question" data-correct="{{correct_option}}">
                 <div class="card-header">
                     <strong>{{question_number}}: {{question_text}}</strong>
                 </div>
@@ -80,6 +80,18 @@
                 <div class="wrong card-footer text-danger d-none">
                     {{wrong_answer_label}}</br>
                     {{response_label}} <strong>{{correct_option}}</strong>                    
+                </div>
+                <div class="feedback-A card-footer text-primary d-none">
+                    {{feedback_a}}
+                </div>
+                <div class="feedback-B card-footer text-primary d-none">
+                    {{feedback_b}}
+                </div>
+                <div class="feedback-C card-footer text-primary d-none">
+                    {{feedback_c}}
+                </div>
+                <div class="feedback-D card-footer text-primary d-none">
+                    {{feedback_d}}
                 </div>
             </div>                    
         {{/questions}}

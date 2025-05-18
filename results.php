@@ -149,8 +149,11 @@ try {
             'option_b' => $question->options->B,
             'option_c' => $question->options->C,
             'option_d' => $question->options->D,
+            'feedback_a' => $question->feedbacks->A,
+            'feedback_b' => $question->feedbacks->B,
+            'feedback_c' => $question->feedbacks->C,
+            'feedback_d' => $question->feedbacks->D,
             'correct_option' => $question->correct_option,
-            'feedback' => 'feedback',
         ];
     }
 

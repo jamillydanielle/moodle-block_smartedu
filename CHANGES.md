@@ -1,3 +1,7 @@
+v.1.5.0
+-------------
+- Show questions feedbacks
+
 v.1.4.1
 -------------
 - Fix "send responses" button visibility

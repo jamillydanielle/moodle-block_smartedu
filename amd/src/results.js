@@ -13,6 +13,7 @@ define(['jquery'], function($) {
                     const correct_div = question.find('.correct');
                     const wrong_div = question.find('.wrong');
 
+
                     if (!selected || selected !== correct) {
                         correct_div.addClass('d-none');
                         wrong_div.removeClass('d-none');
@@ -21,6 +22,23 @@ define(['jquery'], function($) {
                         correct_div.removeClass('d-none');
                     }
 
+                    // Clean feedbacks
+                    const feedbackA_div = question.find('.feedback-A');
+                    const feedbackB_div = question.find('.feedback-B');
+                    const feedbackC_div = question.find('.feedback-C');
+                    const feedbackD_div = question.find('.feedback-D');
+                    feedbackA_div.addClass('d-none');
+                    feedbackB_div.addClass('d-none');
+                    feedbackC_div.addClass('d-none');
+                    feedbackD_div.addClass('d-none');
+
+                    let feedback_div;
+                    if (!selected || selected === correct) {
+                        feedback_div =  question.find('.feedback-' + correct);
+                    } else {
+                        feedback_div =  question.find('.feedback-' + selected);
+                    }
+                    feedback_div.removeClass('d-none');
                 });
             });
         }
