@@ -59,6 +59,21 @@ require_login($course, true, $cm);
 require_capability('mod/resource:view', $context);
 $PAGE->requires->js_call_amd('block_smartedu/results', 'init');
 
+$jsonMap = [
+    'nodeData' => [
+        'id' => 'root',
+        'topic' => 'Título da Aula',
+        'children' => [
+            ['id' => '1', 'topic' => 'Subtema 1'],
+            ['id' => '2', 'topic' => 'Subtema 2']
+        ]
+    ]
+];
+
+
+$PAGE->requires->js_call_amd('block_smartedu/mindmap', 'init', [
+    'jsonData' => json_encode($jsonMap),
+]);
 
 $PAGE->set_context(context_course::instance($course->id)); // Define o contexto como o curso.
 $PAGE->set_url(new moodle_url('/blocks/smartedu/results.php', ['resourceid' => $resourceid]));

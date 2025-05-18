@@ -1,6 +1,10 @@
+v.1.6.0
+-------------
+- Works with mindmaps
+
 v.1.5.0
 -------------
-- Show questions feedbacks
+- Shows questions feedbacks
 
 v.1.4.1
 -------------

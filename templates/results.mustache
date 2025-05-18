@@ -45,6 +45,7 @@
     {{/has_error}}
 
     {{^has_error}}
+
         <div class="card">
             <div class="card-header">
                 <strong>{{resource_name}}</strong>
@@ -60,6 +61,15 @@
             </div>
             <div class="card-body">
                 <p class="card-text">{{{study_script}}}</p>
+            </div>
+        </div>
+
+        <div class="card mt-2">
+            <div class="card-header">
+                <strong>Mapa mental</strong>
+            </div>
+            <div class="card-body">
+                <div id="mapaMental" style="width:100%;height:500px;"></div>
             </div>
         </div>
 
