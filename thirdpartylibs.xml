@@ -22,4 +22,15 @@
         <issuesurl>https://github.com/symfony/polyfill-mbstring/issues</issuesurl>
         <credits>Symfony</credits>
     </library>
+    <library>
+        <name>MindElixir</name>
+        <version>0.22.0</version> <!-- Substitua pela versão que você está usando -->
+        <license>MIT</license>
+        <licenseurl>https://opensource.org/licenses/MIT</licenseurl>
+        <origin>https://github.com/ssshooter/mind-elixir-core</origin>
+        <homepage>https://github.com/ssshooter/mind-elixir-core</homepage>
+        <downloadurl>https://github.com/ssshooter/mind-elixir-core/releases</downloadurl>
+        <issuesurl>https://github.com/ssshooter/mind-elixir-core/issues</issuesurl>
+        <credits>ssshooter</credits>
+    </library>
 </thirdpartylibs>
