@@ -59,22 +59,6 @@ require_login($course, true, $cm);
 require_capability('mod/resource:view', $context);
 $PAGE->requires->js_call_amd('block_smartedu/results', 'init');
 
-$jsonMap = [
-    'nodeData' => [
-        'id' => 'root',
-        'topic' => 'Título da Aula',
-        'children' => [
-            ['id' => '1', 'topic' => 'Subtema 1'],
-            ['id' => '2', 'topic' => 'Subtema 2']
-        ]
-    ]
-];
-
-
-$PAGE->requires->js_call_amd('block_smartedu/mindmap', 'init', [
-    'jsonData' => json_encode($jsonMap),
-]);
-
 $PAGE->set_context(context_course::instance($course->id)); // Define o contexto como o curso.
 $PAGE->set_url(new moodle_url('/blocks/smartedu/results.php', ['resourceid' => $resourceid]));
 $PAGE->set_title(get_string('pluginname', 'block_smartedu'));
@@ -121,6 +105,7 @@ try {
     } 
     
     $prompt .= get_string('prompt:studyscript', 'block_smartedu');
+    $prompt .= get_string('prompt:mindmap', 'block_smartedu');
     
     if ($questions_number > 0) {
         $prompt .= get_string('prompt:quizz', 'block_smartedu', $questions_number);
@@ -153,6 +138,7 @@ try {
     $data_template['resource_name'] = $res->name;
     $data_template['summary'] = $data->summary ?? '';
     $data_template['study_script_title'] = get_string('studyscript:title', 'block_smartedu');
+    $data_template['mind_map_title'] = get_string('mindmap:title', 'block_smartedu');
     $data_template['study_script'] = $data->study_script ?? '';
     $data_template['questions'] = [];
 
@@ -176,6 +162,11 @@ try {
     $data_template['correct_answer_label'] = get_string('quizz:correct', 'block_smartedu');
     $data_template['wrong_answer_label'] = get_string('quizz:wrong', 'block_smartedu');
     $data_template['response_label'] = get_string('quizz:showresponse', 'block_smartedu');
+
+    $PAGE->requires->js_call_amd('block_smartedu/mindmap', 'init', [
+        'mindMapData' => $data->mind_map ?? '',
+    ]);
+
 } catch (Exception $e) {
     $has_error = true;
     $error_message = $e->getMessage();
