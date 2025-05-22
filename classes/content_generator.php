@@ -65,7 +65,7 @@ class content_generator {
         $httpCode = $curl->info['http_code'];
         if ($httpCode != 200) {
             error_log('HTTP error: ' . $httpCode);
-            throw new \Exception(get_string('internalerror', 'block_smartedu'));
+            throw new \Exception(get_string('aiprovidererror', 'block_smartedu'));
         }
         
         $chat_response = json_decode($response, true);
@@ -112,7 +112,7 @@ class content_generator {
         $httpCode = $curl->info['http_code'];
         if ($httpCode != 200) {
             error_log('HTTP error: ' . $httpCode);
-            throw new \Exception(get_string('internalerror', 'block_smartedu'));
+            throw new \Exception(get_string('aiprovidererror', 'block_smartedu'));
         }
         
         $chat_response = json_decode($response, true);
@@ -152,7 +152,7 @@ class content_generator {
             $response = self::$method( $api_key, $prompt );
         } else {
             error_log('AI provider not allowed');
-            throw new \Exception(get_string('internalerror', 'block_smartedu'));
+            throw new \Exception(get_string('invalidaiprovider', 'block_smartedu'));
         }
 
 

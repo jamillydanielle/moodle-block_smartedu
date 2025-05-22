@@ -1,3 +1,7 @@
+v.1.6.1
+-------------
+- Improve plugin error messages
+
 v.1.6.0
 -------------
 - Works with mindmaps

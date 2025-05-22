@@ -69,7 +69,8 @@ class text_extractor {
             }
             $zip->close();
         } else {
-            throw new \Exception('Error opening DOCX file.');
+            error_log('Error while parsing DOCX file: ' . $e->getMessage());
+            throw new \Exception(get_string('resourcenotprocessable', 'block_smartedu') ); 
         }
     
         return $response;
@@ -103,6 +104,9 @@ class text_extractor {
             
             $zip_handle->close();
             
+        } else {
+            error_log('Error while parsing PPTX file: ' . $e->getMessage());
+            throw new \Exception(get_string('resourcenotprocessable', 'block_smartedu') ); 
         }
         
         return $response;
@@ -156,10 +160,9 @@ class text_extractor {
 
             } else {
                 error_log('Error invalid file type');
-                throw new \Exception(get_string('resourcenotprocessable', 'block_smartedu'));
+                throw new \Exception(get_string('invalidtypefile', 'block_smartedu'));
 
             }
-
         } else {
             error_log('Error file does not exist');
             throw new \Exception(get_string('resourcenotfound', 'block_smartedu'));
