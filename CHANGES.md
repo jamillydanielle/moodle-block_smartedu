@@ -1,3 +1,7 @@
+v.1.6.3
+-------------
+- Fix extra commas in mindmap JSON 
+
 v.1.6.2
 -------------
 - Fix chatGPT prompts
