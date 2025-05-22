@@ -1,3 +1,7 @@
+v.1.6.2
+-------------
+- Fix chatGPT prompts
+
 v.1.6.1
 -------------
 - Improve plugin error messages
