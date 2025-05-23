@@ -166,9 +166,7 @@ class text_extractor {
         } else {
             error_log('Error file does not exist');
             throw new \Exception(get_string('resourcenotfound', 'block_smartedu'));
-
-        }
-        
+        }        
 
         return $response;
     }

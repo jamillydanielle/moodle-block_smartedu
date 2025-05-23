@@ -113,9 +113,10 @@ class block_smartedu extends block_base {
                 continue;
             }
 
-            if ($item->modname != 'resource' && $item->modname != 'forum') {
+            if ($item->modname != 'resource' && $item->modname != 'forum' && $item->modname != 'url') {
                 continue;
             }
+
 
             $type = $item->modname;
             
@@ -143,6 +144,19 @@ class block_smartedu extends block_base {
                     continue;
                 }
 
+            } else if ($type == 'url') {
+                $url = $DB->get_record('url', ['id' => $item->instance], '*', IGNORE_MISSING);
+                if (!$url) {
+                    continue;
+                }
+
+                $externalurl = $url->externalurl;
+                $pattern = '/https:\/\/docs\.google\.com\/presentation\/d\/[^\/]+/i';
+                $is_google_slides = preg_match($pattern, $externalurl);
+
+                if (!$is_google_slides) {
+                    continue;
+                }
             }
 
             $obj = new stdClass();

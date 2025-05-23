@@ -1,3 +1,7 @@
+v.1.7.0
+-------------
+- Works with Google Slides 
+
 v.1.6.3
 -------------
 - Fix extra commas in mindmap JSON 
