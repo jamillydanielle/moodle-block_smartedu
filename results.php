@@ -43,10 +43,15 @@ const BLOCK_SMARTEDU_DEFAULT_QUESTIONS_NUMBER = 5;
 
 // Set up the page URL and title.
 $resourceid = required_param('resourceid', PARAM_INT);
+$resourcetype = required_param('resourcetype', PARAM_TEXT);
 $summary_type = required_param('summarytype', PARAM_TEXT);
 $questions_number = required_param('nquestions', PARAM_INT);
 
-if (!$cm = get_coursemodule_from_id('resource', $resourceid)) {
+if ($resourcetype != 'resource' && $resourcetype != 'url') {
+    throw new \Exception(get_string('resourcenotfound', 'block_smartedu'));
+}
+
+if (!$cm = get_coursemodule_from_id($resourcetype, $resourceid)) {
     throw new \Exception(get_string('resourcenotfound', 'block_smartedu'));
 } 
     
@@ -70,16 +75,42 @@ $error_message = '';
 $data_template = [];
 
 try {
-    // Read the resource file.
-    $res = resource_reader::block_smartedu_read($resourceid);
-    $filename = $res->file->get_filename();
 
-    // Create a temporary directory for the file.
-    $tempdir = make_request_directory('block_smartedu');
-    $fullpath = $tempdir . '/' . $filename;
+    if ($resourcetype == 'resource') {
+        // Read the resource file.
+        $res = resource_reader::block_smartedu_read($resourceid);
+        $filename = $res->file->get_filename();
 
-    // Copy the resource content to a temporary file.
-    $res->file->copy_content_to($fullpath);
+        // Create a temporary directory for the file.
+        $tempdir = make_request_directory('block_smartedu');
+        $fullpath = $tempdir . '/' . $filename;
+
+        // Copy the resource content to a temporary file.
+        $res->file->copy_content_to($fullpath);
+    } else {
+        // Retrieve the resource record from the database.
+        $url = $DB->get_record('url', array('id'=>$cm->instance), '*', MUST_EXIST);
+        $external_url = $url->externalurl;
+
+        if (preg_match('#^(https://docs\.google\.com/[^/]+/d/[^/]+)#', $external_url, $matches)) {
+           $external_url = $matches[1];
+        }
+        
+        // Read the resource file.
+        $pdf_content = file_get_contents("$external_url/export/pdf");
+        if ($pdf_content === false) {
+            throw new \Exception(get_string('resourcenotprocessable', 'block_smartedu'));
+        }
+
+        // Create a temporary directory for the file.
+        $tempdir = make_request_directory('block_smartedu');
+        $filename = 'file_' . time() . '.pdf';
+        $fullpath = $tempdir . '/' . $filename;
+        
+        // Copy the resource content to a temporary file.
+        file_put_contents($fullpath, $pdf_content);
+    }
+
     
     // Extract text content from the resource file.
     $content = text_extractor::block_smartedu_convert_to_text($fullpath);

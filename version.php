@@ -24,7 +24,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version = 2025052300;
+$plugin->version = 2025052301;
 $plugin->requires = 2020061500;
 $plugin->release = 'v.1.7.0';
 $plugin->component = 'block_smartedu';

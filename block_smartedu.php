@@ -73,6 +73,14 @@ class block_smartedu extends block_base {
             } else if ($item->type === 'resource') {
                 $url = new moodle_url('/blocks/smartedu/results.php', [
                     'resourceid' => $item->id,
+                    'resourcetype' => 'resource',
+                    'summarytype' => $this->config->summarytype == '' ? 'simple' : $this->config->summarytype,
+                    'nquestions' => $this->config->nquestions == '' ? 5 : $this->config->nquestions,
+                ]);
+            } else if ($item->type === 'url') {
+                $url = new moodle_url('/blocks/smartedu/results.php', [
+                    'resourceid' => $item->id,
+                    'resourcetype' => 'url',
                     'summarytype' => $this->config->summarytype == '' ? 'simple' : $this->config->summarytype,
                     'nquestions' => $this->config->nquestions == '' ? 5 : $this->config->nquestions,
                 ]);
@@ -157,6 +165,8 @@ class block_smartedu extends block_base {
                 if (!$is_google_slides) {
                     continue;
                 }
+
+                $type = 'url';
             }
 
             $obj = new stdClass();
