@@ -52,7 +52,7 @@ class content_generator {
         $curl = new \curl();
         $options = [
             'CURLOPT_HTTPHEADER' => $headers,
-            'CURLOPT_TIMEOUT' => 30,
+            'CURLOPT_TIMEOUT' => 60,
         ];
     
         $response = $curl->post($api_url, json_encode($data), $options);
@@ -99,7 +99,7 @@ class content_generator {
         $curl = new \curl();
         $options = [
             'CURLOPT_HTTPHEADER' => $headers,
-            'CURLOPT_TIMEOUT' => 30,
+            'CURLOPT_TIMEOUT' => 60,
         ];
     
         $response = $curl->post($api_url, json_encode($data), $options);
