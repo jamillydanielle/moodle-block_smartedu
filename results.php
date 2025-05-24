@@ -75,6 +75,7 @@ $error_message = '';
 $data_template = [];
 
 try {
+    $class_title = '';
 
     if ($resourcetype == 'resource') {
         // Read the resource file.
@@ -87,10 +88,13 @@ try {
 
         // Copy the resource content to a temporary file.
         $res->file->copy_content_to($fullpath);
+
+        $class_title = $res->name;
     } else {
         // Retrieve the resource record from the database.
         $url = $DB->get_record('url', array('id'=>$cm->instance), '*', MUST_EXIST);
         $external_url = $url->externalurl;
+        $class_title = $url->name;
 
         if (preg_match('#^(https://docs\.google\.com/[^/]+/d/[^/]+)#', $external_url, $matches)) {
            $external_url = $matches[1];
@@ -111,7 +115,6 @@ try {
         file_put_contents($fullpath, $pdf_content);
     }
 
-    
     // Extract text content from the resource file.
     $content = text_extractor::block_smartedu_convert_to_text($fullpath);
 
@@ -125,10 +128,10 @@ try {
     $enablecache = get_config('block_smartedu', 'enablecache');
 
     // Generate the prompt for the AI based on the summary type and number of questions.
-    $prompt = get_string('prompt:simplesummary', 'block_smartedu', $res->name);
+    $prompt = get_string('prompt:simplesummary', 'block_smartedu', $class_title);
 
     if ($summary_type == 'detailed') {
-        $prompt = get_string('prompt:detailedsummary', 'block_smartedu', $res->name);
+        $prompt = get_string('prompt:detailedsummary', 'block_smartedu', $class_title);
     }
     
     if ($questions_number < 0 || $questions_number > BLOCK_SMARTEDU_MAX_QUESTIONS_NUMBER) {
@@ -166,7 +169,7 @@ try {
 
     $data_template['has_error'] = false;
     $data_template['has_questions'] = $num_questions > 0 ? true : false;
-    $data_template['resource_name'] = $res->name;
+    $data_template['resource_name'] = $class_title;
     $data_template['summary'] = $data->summary ?? '';
     $data_template['study_script_title'] = get_string('studyscript:title', 'block_smartedu');
     $data_template['mind_map_title'] = get_string('mindmap:title', 'block_smartedu');

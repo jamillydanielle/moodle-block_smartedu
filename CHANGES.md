@@ -1,3 +1,8 @@
+v.1.7.1
+-------------
+- Set request timeout higher 
+- Shows Google Slides title
+
 v.1.7.0
 -------------
 - Works with Google Slides 
