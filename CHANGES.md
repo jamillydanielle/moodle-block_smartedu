@@ -1,3 +1,7 @@
+v.1.8.0
+-------------
+- Allow users to hide items from the plugin using the tag 'smartedu-hide'
+
 v.1.7.1
 -------------
 - Set request timeout higher 

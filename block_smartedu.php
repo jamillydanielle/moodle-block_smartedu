@@ -25,6 +25,8 @@
  use block_smartedu\text_extractor;
  use block_smartedu\resource_reader;
 
+ require_once($CFG->dirroot . '/tag/lib.php');
+
 /**
  * Class block_smartedu
  * 
@@ -115,9 +117,22 @@ class block_smartedu extends block_base {
         $resourses = array();
 
         foreach ($course_info->cms as $key => $item) {
-           
+
             // Exclude resources invisible for users 
             if (!$item->uservisible) {
+                continue;
+            }
+
+            // Exclude resources with tag 'smartedu_hide'
+            $exclude = false;
+            $tags = \core_tag_tag::get_item_tags('core', 'course_modules', $item->id);
+            foreach ($tags as $tag) {
+                if ($tag->name === 'smartedu-hide') {
+                    $exclude = true;
+                    break;
+                }
+            }    
+            if ($exclude) {
                 continue;
             }
 
@@ -125,11 +140,9 @@ class block_smartedu extends block_base {
                 continue;
             }
 
-
             $type = $item->modname;
             
             if ($type == 'forum') {
-                
                 // Exlude foruns of the type 'news' 
                 if (!$cm = get_coursemodule_from_id('forum', $item->id)) {
                     continue;
@@ -143,15 +156,13 @@ class block_smartedu extends block_base {
                 $type = 'forum_' . $forum->type;
 
             } else if ($type == 'resource') {
-
                 $res = resource_reader::block_smartedu_read($item->id);
                 $filename = $res->file->get_filename();
                 $file_extension = substr(strrchr($filename, '.'), 1);
-                
+              
                 if (!in_array(strtolower($file_extension), $allowed_extensions)) {
                     continue;
                 }
-
             } else if ($type == 'url') {
                 $url = $DB->get_record('url', ['id' => $item->instance], '*', IGNORE_MISSING);
                 if (!$url) {
@@ -173,12 +184,11 @@ class block_smartedu extends block_base {
             $obj->id = $item->id;
             $obj->name = $item->name;
             $obj->type = $type;
+            $obj->icon_url = $item->get_icon_url();
            
             if (!$item->visible) {
                 $obj->name .= get_string('studentinvisible', 'block_smartedu'); 
             }
-            
-            $obj->icon_url = $item->get_icon_url();
 
             $resourses[] = $obj;
         }

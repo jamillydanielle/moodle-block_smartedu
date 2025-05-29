@@ -6,7 +6,7 @@ A Moodle LMS block plugin that leverages the potential of AI to enhance educatio
 Current features
 --------
 
-- Summarizes lecture notes provided by the teacher in various [file formats](file-formats.md).
+- Summarizes lecture notes provided by the teacher in various [file formats](file-formats.md). Users can hide items from the plugin by using tag `smartedu-hide` in the resource settings.
 
 - Summarizes forum discussions.
 
