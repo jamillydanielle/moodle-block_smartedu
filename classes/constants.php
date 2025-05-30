@@ -13,19 +13,26 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+/**
+* Quizz page for the block_smartedu plugin.
+*
+* @package   block_smartedu
+* @copyright 2025, Paulo Júnior <pauloa.junior@ufla.br>
+* @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+*/
+
+namespace block_smartedu;
 
 /**
- * Version metadata for the block_smartedu plugin.
+ * Class constants
  *
- * @package   block_smartedu
- * @copyright 2025, Paulo Júnior <pauloa.junior@ufla.br>
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * Provides constants used by the plugin.
  */
+class constants {
+  
+    /**
+     * Tag used to hide resources in the block.
+     */
+    public const TAG_HIDE = 'smartedu-hide';
 
-defined('MOODLE_INTERNAL') || die();
-
-$plugin->version = 2025053002;
-$plugin->requires = 2020061500;
-$plugin->release = 'v.1.9.0';
-$plugin->component = 'block_smartedu';
-$plugin->maturity = MATURITY_STABLE;
+}

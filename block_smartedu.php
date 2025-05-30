@@ -24,8 +24,7 @@
 
  use block_smartedu\text_extractor;
  use block_smartedu\resource_reader;
-
- require_once($CFG->dirroot . '/tag/lib.php');
+ use block_smartedu\constants;
 
 /**
  * Class block_smartedu
@@ -127,7 +126,7 @@ class block_smartedu extends block_base {
             $exclude = false;
             $tags = \core_tag_tag::get_item_tags('core', 'course_modules', $item->id);
             foreach ($tags as $tag) {
-                if ($tag->name === 'smartedu-hide') {
+                if ($tag->name === constants::TAG_HIDE) {
                     $exclude = true;
                     break;
                 }

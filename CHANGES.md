@@ -1,3 +1,7 @@
+v.1.9.0
+-------------
+- Automatically create the 'smartedu-hide' tag that can be used by users
+
 v.1.8.0
 -------------
 - Allow users to hide items from the plugin using the tag 'smartedu-hide'

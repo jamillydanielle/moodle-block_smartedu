@@ -15,17 +15,17 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Version metadata for the block_smartedu plugin.
+ * Install script for the block_smartedu plugin.
  *
  * @package   block_smartedu
  * @copyright 2025, Paulo Júnior <pauloa.junior@ufla.br>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
+use block_smartedu\constants;
 
-$plugin->version = 2025053002;
-$plugin->requires = 2020061500;
-$plugin->release = 'v.1.9.0';
-$plugin->component = 'block_smartedu';
-$plugin->maturity = MATURITY_STABLE;
+function xmldb_block_smartedu_install() {
+    $tagcollid = \core_tag_area::get_collection('core', 'course');
+    $tagname = constants::TAG_HIDE;
+    \core_tag_tag::create_if_missing($tagcollid, [$tagname], true);
+}

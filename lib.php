@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Version metadata for the block_smartedu plugin.
+ * Lib file for the block_smartedu plugin.
  *
  * @package   block_smartedu
  * @copyright 2025, Paulo Júnior <pauloa.junior@ufla.br>
@@ -24,8 +24,4 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version = 2025053002;
-$plugin->requires = 2020061500;
-$plugin->release = 'v.1.9.0';
-$plugin->component = 'block_smartedu';
-$plugin->maturity = MATURITY_STABLE;
+define('BLOCK_SMARTEDU_TAG_HIDE', 'smartedu-hide');
