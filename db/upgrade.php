@@ -26,12 +26,12 @@ use block_smartedu\constants;
 
 function xmldb_block_smartedu_upgrade($oldversion) {
 
-    if ($oldversion < 2025053002) {
+    if ($oldversion < 2025053003) {
         $tagcollid = \core_tag_area::get_collection('core', 'course');
         $tagname = constants::TAG_HIDE;
         \core_tag_tag::create_if_missing($tagcollid, [$tagname], true);        
 
-        upgrade_plugin_savepoint(true, 2025053002, 'block', 'smartedu');
+        upgrade_plugin_savepoint(true, 2025053003, 'block', 'smartedu');
     }
 
     return true;
