@@ -1,3 +1,7 @@
+v.1.9.1
+-------------
+- Fix plugin URL
+
 v.1.9.0
 -------------
 - Automatically create the 'smartedu-hide' tag that can be used by users

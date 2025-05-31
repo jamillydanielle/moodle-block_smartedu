@@ -45,7 +45,11 @@ try {
     require_login($course, true, $cm);
 
     $PAGE->set_context($context); 
-    $PAGE->set_url(new moodle_url('/blocks/smartedu/forum.php', ['forumid' => $forumid, 'forumtype' => $forumtype]));
+    $PAGE->set_url(new moodle_url('/blocks/smartedu/forum.php', [
+        'forumid' => $forumid, 
+        'forumtype' => $forumtype,
+    ]));
+    
     $PAGE->set_title(get_string('pluginname', 'block_smartedu'));
     $PAGE->set_heading($course->fullname); 
 

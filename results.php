@@ -65,7 +65,13 @@ require_capability('mod/resource:view', $context);
 $PAGE->requires->js_call_amd('block_smartedu/results', 'init');
 
 $PAGE->set_context(context_course::instance($course->id)); // Define o contexto como o curso.
-$PAGE->set_url(new moodle_url('/blocks/smartedu/results.php', ['resourceid' => $resourceid]));
+$PAGE->set_url(new moodle_url('/blocks/smartedu/results.php', [
+    'resourceid' => $resourceid,
+    'resourcetype' => $resourcetype,
+    'summarytype' => $summary_type,
+    'nquestions' => $questions_number,
+]));
+
 $PAGE->set_title(get_string('pluginname', 'block_smartedu'));
 $PAGE->set_heading($course->fullname); // Define o título do cabeçalho como o nome do curso.
 
