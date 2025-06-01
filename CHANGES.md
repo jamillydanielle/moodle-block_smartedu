@@ -1,3 +1,7 @@
+v.1.10.1
+-------------
+- Prevent save cache when AI fails
+
 v.1.10.0
 -------------
 - Fix plugin URL

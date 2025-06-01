@@ -79,6 +79,14 @@ class prompt_generator {
             $prompt = get_string('prompt:detailedsummary', 'block_smartedu', $class_title);
         }
         
+        if ($questions_number < 0 || $questions_number > self::BLOCK_SMARTEDU_MAX_QUESTIONS_NUMBER) {
+            $questions_number = self::BLOCK_SMARTEDU_DEFAULT_QUESTIONS_NUMBER;
+        } 
+        
+        if ($questions_number > 0) {
+            $prompt .= get_string('prompt:quizz', 'block_smartedu', $questions_number);
+        }
+        
         if ($generatestudyguide) {
             $prompt .= get_string('prompt:studyscript', 'block_smartedu');
         }
@@ -87,15 +95,6 @@ class prompt_generator {
             $prompt .= get_string('prompt:mindmap', 'block_smartedu');
         }
 
-        if ($questions_number < 0 || $questions_number > self::BLOCK_SMARTEDU_MAX_QUESTIONS_NUMBER) {
-            $questions_number = self::BLOCK_SMARTEDU_DEFAULT_QUESTIONS_NUMBER;
-        } 
-        
-        
-        if ($questions_number > 0) {
-            $prompt .= get_string('prompt:quizz', 'block_smartedu', $questions_number);
-        }
-        
         $prompt .= get_string('prompt:return', 'block_smartedu', $content);
 
         return $prompt;

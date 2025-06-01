@@ -145,62 +145,72 @@ try {
 
     if ($cached !== null and $cached !== '') {
         $response = $cached;
+        $data = json_decode($response);
     } else {
         // Generate the response using the AI provider.
         $response = content_generator::block_smartedu_generate($ai_provider, $api_key, $prompt);
 
         // Parse the AI response.
         $response = preg_replace('/```json\s*(.*?)\s*```/s', '$1', $response);
-        ai_cache::block_smartedu_store_response_in_cache($prompt, $response);
+        $data = json_decode($response);
+
+        if (json_last_error() == JSON_ERROR_NONE) {
+            ai_cache::block_smartedu_store_response_in_cache($prompt, $response);
+        }            
     }
 
-    $data = json_decode($response);
+    if (json_last_error() !== JSON_ERROR_NONE) {
+        $data_template['has_error'] = true;
+        $data_template['error_message'] = get_string('aiprovidererror', 'block_smartedu');
+    } else {
+        // Prepare template context.
+        $data_template['has_error'] = false;
+        $data_template['resource_name'] = $class_title;
+        $data_template['summary'] = $data->summary ?? '';
 
-    // Prepare template context.
-    $num_questions = isset($data->questions) ? count($data->questions) : 0;
+        $num_questions = isset($data->questions) ? count($data->questions) : 0;
+        $data_template['has_questions'] = $num_questions > 0 ? true : false;
+        $data_template['questions'] = [];
+        foreach ($data->questions as $index => $question) {
+            $data_template['questions'][] = [
+                'question_number' => $index + 1,
+                'question_text' => $question->question,
+                'option_a' => $question->options->A,
+                'option_b' => $question->options->B,
+                'option_c' => $question->options->C,
+                'option_d' => $question->options->D,
+                'feedback_a' => $question->feedbacks->A,
+                'feedback_b' => $question->feedbacks->B,
+                'feedback_c' => $question->feedbacks->C,
+                'feedback_d' => $question->feedbacks->D,
+                'correct_option' => $question->correct_option,
+            ];
+        }
 
-    $data_template['has_error'] = false;
-    $data_template['has_questions'] = $num_questions > 0 ? true : false;
-    $data_template['resource_name'] = $class_title;
-    $data_template['summary'] = $data->summary ?? '';
-    $data_template['has_studyguide'] = $generatestudyguide ? true: false;
-    $data_template['has_mindmap'] = $generatemindmap ? true: false;
+        $data_template['has_studyguide'] = $generatestudyguide ? true: false;
+        $data_template['has_mindmap'] = $generatemindmap ? true: false;
 
-    if ($generatestudyguide) {
-        $data_template['study_script_title'] = get_string('studyscript:title', 'block_smartedu');
-        $data_template['study_script'] = $data->study_script ?? '';
-    }    
+        if ($generatestudyguide) {
+            $data_template['study_script_title'] = get_string('studyscript:title', 'block_smartedu');
+            $data_template['study_script'] = $data->study_script ?? '';
+        }    
 
-    if ($generatemindmap) {
-        $data_template['mind_map_title'] = get_string('mindmap:title', 'block_smartedu');
-        $PAGE->requires->js_call_amd('block_smartedu/mindmap', 'init', [
-            'mindMapData' => $data->mind_map ?? '',
-        ]);
+        if ($generatemindmap) {
+            $data_template['mind_map_title'] = get_string('mindmap:title', 'block_smartedu');
+            
+            $mind_map_json = isset($data->mind_map) ? json_encode($data->mind_map) : '';
+
+            $PAGE->requires->js_call_amd('block_smartedu/mindmap', 'init', [
+                'mindMapData' => $mind_map_json,
+            ]);
+        }
+
+        $data_template['send_responses_label'] = get_string('quizz:sendresponses', 'block_smartedu');
+        $data_template['correct_answer_label'] = get_string('quizz:correct', 'block_smartedu');
+        $data_template['wrong_answer_label'] = get_string('quizz:wrong', 'block_smartedu');
+        $data_template['response_label'] = get_string('quizz:showresponse', 'block_smartedu');
+
     }
-
-    $data_template['questions'] = [];
-
-    foreach ($data->questions as $index => $question) {
-        $data_template['questions'][] = [
-            'question_number' => $index + 1,
-            'question_text' => $question->question,
-            'option_a' => $question->options->A,
-            'option_b' => $question->options->B,
-            'option_c' => $question->options->C,
-            'option_d' => $question->options->D,
-            'feedback_a' => $question->feedbacks->A,
-            'feedback_b' => $question->feedbacks->B,
-            'feedback_c' => $question->feedbacks->C,
-            'feedback_d' => $question->feedbacks->D,
-            'correct_option' => $question->correct_option,
-        ];
-    }
-
-    $data_template['send_responses_label'] = get_string('quizz:sendresponses', 'block_smartedu');
-    $data_template['correct_answer_label'] = get_string('quizz:correct', 'block_smartedu');
-    $data_template['wrong_answer_label'] = get_string('quizz:wrong', 'block_smartedu');
-    $data_template['response_label'] = get_string('quizz:showresponse', 'block_smartedu');
-
 
 } catch (Exception $e) {
     $has_error = true;
