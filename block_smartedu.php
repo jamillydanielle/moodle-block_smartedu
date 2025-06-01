@@ -66,27 +66,36 @@ class block_smartedu extends block_base {
         ];        
 
         foreach ($resources as $item) {
+            $summarytype = $this->config->summarytype == '' ? 'simple' : $this->config->summarytype;
+            $nquestions = $this->config->nquestions == '' ? 5 : $this->config->nquestions;
+            $generatestudyguide = $this->config->generatestudyguide == '' ? 1 : $this->config->generatestudyguide;
+            $generatemindmapp = $this->config->generatemindmap == '' ? 1 : $this->config->generatemindmap;
+
             if (strpos($item->type, 'forum_') === 0) {
                 $url = new moodle_url('/blocks/smartedu/forum.php', [
                     'forumid' => $item->id,
-                    'forumtype' => $item->type
+                    'forumtype' => $item->type,
+                    'summarytype' => $summarytype,
                 ]);
             } else if ($item->type === 'resource') {
                 $url = new moodle_url('/blocks/smartedu/results.php', [
                     'resourceid' => $item->id,
                     'resourcetype' => 'resource',
-                    'summarytype' => $this->config->summarytype == '' ? 'simple' : $this->config->summarytype,
-                    'nquestions' => $this->config->nquestions == '' ? 5 : $this->config->nquestions,
+                    'summarytype' => $summarytype,
+                    'nquestions' => $nquestions,
+                    'generatestudyguide' => $generatestudyguide,
+                    'generatemindmap' => $generatemindmapp,
                 ]);
             } else if ($item->type === 'url') {
                 $url = new moodle_url('/blocks/smartedu/results.php', [
                     'resourceid' => $item->id,
                     'resourcetype' => 'url',
-                    'summarytype' => $this->config->summarytype == '' ? 'simple' : $this->config->summarytype,
-                    'nquestions' => $this->config->nquestions == '' ? 5 : $this->config->nquestions,
+                    'summarytype' => $summarytype,
+                    'nquestions' => $nquestions,
+                    'generatestudyguide' => $generatestudyguide,
+                    'generatemindmap' => $generatemindmapp,
                 ]);
             } 
-
 
             $data['resources'][] = [
                 'name' => $item->name,

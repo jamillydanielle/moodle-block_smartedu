@@ -25,6 +25,7 @@
 use block_smartedu\content_generator;
 use block_smartedu\ai_cache;
 use block_smartedu\forum_reader;
+use block_smartedu\prompt_generator;
 
 require_once(__DIR__ . '/../../config.php');
 
@@ -32,6 +33,7 @@ require_once(__DIR__ . '/../../config.php');
 
 $forumid = required_param('forumid', PARAM_INT);
 $forumtype = required_param('forumtype', PARAM_TEXT);
+$summary_type = required_param('summarytype', PARAM_TEXT);
 
 try {
 
@@ -48,6 +50,7 @@ try {
     $PAGE->set_url(new moodle_url('/blocks/smartedu/forum.php', [
         'forumid' => $forumid, 
         'forumtype' => $forumtype,
+        'summarytype' => $summary_type,
     ]));
     
     $PAGE->set_title(get_string('pluginname', 'block_smartedu'));
@@ -62,7 +65,11 @@ try {
     $enablecache = get_config('block_smartedu', 'enablecache');
 
     // Generate the prompt for the AI based on the summary type and number of questions.
-    $prompt = get_string('prompt:forum', 'block_smartedu', $json_discussions);
+    $config = [
+        'summary_type' => $summary_type,
+    ];
+
+    $prompt = prompt_generator::block_smartedu_generate('forum', $config, $json_discussions);
 
     // Check if caching is enabled and if the response is already cached.
     $cached = $enablecache == 1 ? ai_cache::block_smartedu_get_cached_response($prompt) : null;

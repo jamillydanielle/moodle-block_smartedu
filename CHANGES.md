@@ -1,6 +1,7 @@
-v.1.9.1
+v.1.10.0
 -------------
 - Fix plugin URL
+- Add new types of user configurations
 
 v.1.9.0
 -------------

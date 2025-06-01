@@ -26,26 +26,20 @@ use block_smartedu\text_extractor;
 use block_smartedu\content_generator;
 use block_smartedu\resource_reader;
 use block_smartedu\ai_cache;
+use block_smartedu\prompt_generator;
 
 require_once(__DIR__ . '/../../config.php');
 
 \require_login();
 
-/**
- * Define the max questions number for a quizz.
- */
-const BLOCK_SMARTEDU_MAX_QUESTIONS_NUMBER = 7;
-
-/**
- * Define the default questions number for a quizz.
- */
-const BLOCK_SMARTEDU_DEFAULT_QUESTIONS_NUMBER = 5;
 
 // Set up the page URL and title.
 $resourceid = required_param('resourceid', PARAM_INT);
 $resourcetype = required_param('resourcetype', PARAM_TEXT);
 $summary_type = required_param('summarytype', PARAM_TEXT);
 $questions_number = required_param('nquestions', PARAM_INT);
+$generatestudyguide = required_param('generatestudyguide', PARAM_INT);
+$generatemindmap = required_param('generatemindmap', PARAM_INT);
 
 if ($resourcetype != 'resource' && $resourcetype != 'url') {
     throw new \Exception(get_string('resourcenotfound', 'block_smartedu'));
@@ -70,6 +64,8 @@ $PAGE->set_url(new moodle_url('/blocks/smartedu/results.php', [
     'resourcetype' => $resourcetype,
     'summarytype' => $summary_type,
     'nquestions' => $questions_number,
+    'generatestudyguide' => $generatestudyguide,
+    'generatemindmap' => $generatemindmap,
 ]));
 
 $PAGE->set_title(get_string('pluginname', 'block_smartedu'));
@@ -134,25 +130,15 @@ try {
     $enablecache = get_config('block_smartedu', 'enablecache');
 
     // Generate the prompt for the AI based on the summary type and number of questions.
-    $prompt = get_string('prompt:simplesummary', 'block_smartedu', $class_title);
+    $config = [
+        'summary_type' => $summary_type,
+        'questions_number' => $questions_number,
+        'class_title' => $class_title,
+        'generatestudyguide' => $generatestudyguide,
+        'generatemindmap' => $generatemindmap,
+    ];
 
-    if ($summary_type == 'detailed') {
-        $prompt = get_string('prompt:detailedsummary', 'block_smartedu', $class_title);
-    }
-    
-    if ($questions_number < 0 || $questions_number > BLOCK_SMARTEDU_MAX_QUESTIONS_NUMBER) {
-        $questions_number = BLOCK_SMARTEDU_DEFAULT_QUESTIONS_NUMBER;
-    } 
-    
-    $prompt .= get_string('prompt:studyscript', 'block_smartedu');
-    $prompt .= get_string('prompt:mindmap', 'block_smartedu');
-    
-    if ($questions_number > 0) {
-        $prompt .= get_string('prompt:quizz', 'block_smartedu', $questions_number);
-        $prompt .= get_string('prompt:returnwithquestions', 'block_smartedu', $content);
-    } else {
-        $prompt .= get_string('prompt:returnwithoutquestions', 'block_smartedu', $content);
-    }
+    $prompt = prompt_generator::block_smartedu_generate('resource', $config, $content);
     
     // Check if caching is enabled and if the response is already cached.
     $cached = $enablecache == 1 ? ai_cache::block_smartedu_get_cached_response($prompt) : null;
@@ -177,9 +163,21 @@ try {
     $data_template['has_questions'] = $num_questions > 0 ? true : false;
     $data_template['resource_name'] = $class_title;
     $data_template['summary'] = $data->summary ?? '';
-    $data_template['study_script_title'] = get_string('studyscript:title', 'block_smartedu');
-    $data_template['mind_map_title'] = get_string('mindmap:title', 'block_smartedu');
-    $data_template['study_script'] = $data->study_script ?? '';
+    $data_template['has_studyguide'] = $generatestudyguide ? true: false;
+    $data_template['has_mindmap'] = $generatemindmap ? true: false;
+
+    if ($generatestudyguide) {
+        $data_template['study_script_title'] = get_string('studyscript:title', 'block_smartedu');
+        $data_template['study_script'] = $data->study_script ?? '';
+    }    
+
+    if ($generatemindmap) {
+        $data_template['mind_map_title'] = get_string('mindmap:title', 'block_smartedu');
+        $PAGE->requires->js_call_amd('block_smartedu/mindmap', 'init', [
+            'mindMapData' => $data->mind_map ?? '',
+        ]);
+    }
+
     $data_template['questions'] = [];
 
     foreach ($data->questions as $index => $question) {
@@ -203,9 +201,6 @@ try {
     $data_template['wrong_answer_label'] = get_string('quizz:wrong', 'block_smartedu');
     $data_template['response_label'] = get_string('quizz:showresponse', 'block_smartedu');
 
-    $PAGE->requires->js_call_amd('block_smartedu/mindmap', 'init', [
-        'mindMapData' => $data->mind_map ?? '',
-    ]);
 
 } catch (Exception $e) {
     $has_error = true;

@@ -48,7 +48,7 @@
         
         // Add a dropdown for selecting the summary type.
         $select1 = $mform->addElement('select', 'config_summarytype', get_string('summarytype', 'block_smartedu'), $options);
-        $select1->setSelected('simple'); 
+        $select1->setSelected('simple');
 
         // Options for the number of questions dropdown.
         $nquestions = array(
@@ -69,5 +69,13 @@
         // Set default values for the form elements.
         $mform->setDefault('config_summarytype', 'simple');
         $mform->setDefault('config_nquestions', 5);
+
+        // Checkbox for enabling the feature generate study guide.
+        $mform->addElement('advcheckbox', 'config_generatestudyguide', get_string('generatestudyguide', 'block_smartedu'));
+        $mform->setDefault('config_generatestudyguide', 1);
+
+        // Checkbox for enabling the feature generate mind map.
+        $mform->addElement('advcheckbox', 'config_generatemindmap', get_string('generatemindmap', 'block_smartedu'));
+        $mform->setDefault('config_generatemindmap', 1);
     }
 }
