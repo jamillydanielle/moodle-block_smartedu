@@ -20,10 +20,18 @@
  * @package   block_smartedu
  * @copyright 2025, Paulo Júnior <pauloa.junior@ufla.br>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
+*/
 
 use block_smartedu\constants;
 
+/*
+ * Install function for the block_smartedu plugin.
+ *
+ * This function is called during the installation of the plugin to set up necessary
+ * configurations, such as creating a tag for hiding courses.
+ *
+ * @return void
+*/
 function xmldb_block_smartedu_install() {
     $tagcollid = \core_tag_area::get_collection('core', 'course');
     $tagname = constants::TAG_HIDE;

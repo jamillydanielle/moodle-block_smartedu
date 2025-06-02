@@ -24,6 +24,15 @@
 
 use block_smartedu\constants;
 
+
+/*
+ * Upgrade function for the block_smartedu plugin.
+ *
+ * This function is called during the upgrade process of the plugin to apply necessary changes,
+ * such as creating a tag for hiding courses if it does not already exist.
+ *
+ * @return void
+*/
 function xmldb_block_smartedu_upgrade($oldversion) {
 
     if ($oldversion < 2025053003) {
