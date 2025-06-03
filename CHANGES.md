@@ -1,3 +1,7 @@
+v.1.10.2
+-------------
+- Change Gemini model from 2.0-flash to 1.5-flash, because it has a lot of resources
+
 v.1.10.1
 -------------
 - Prevent save cache when AI fails
