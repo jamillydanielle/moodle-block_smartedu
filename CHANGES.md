@@ -1,6 +1,10 @@
+v.1.11.0
+-------------
+- Provide support for Spanish language 
+
 v.1.10.2
 -------------
-- Change Gemini model from 2.0-flash to 1.5-flash, because it has a lot of resources
+- Change Gemini model from 2.0-flash to 1.5-flash, because of 2.0-flash instability. In future releases, we intent to provide automatic model selection.
 
 v.1.10.1
 -------------
