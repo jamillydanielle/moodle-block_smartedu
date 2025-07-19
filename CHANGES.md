@@ -1,3 +1,7 @@
+v.1.11.1
+-------------
+- Fix set context bug 
+
 v.1.11.0
 -------------
 - Provide support for Spanish language 

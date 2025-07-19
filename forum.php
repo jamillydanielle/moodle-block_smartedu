@@ -43,10 +43,11 @@ try {
     } 
         
     $context = context_module::instance($cm->id);
-    $course = get_course($cm->course);
+    $PAGE->set_context($context); 
+        $course = get_course($cm->course);
+    
     require_login($course, true, $cm);
 
-    $PAGE->set_context($context); 
     $PAGE->set_url(new moodle_url('/blocks/smartedu/forum.php', [
         'forumid' => $forumid, 
         'forumtype' => $forumtype,

@@ -52,13 +52,14 @@ if (!$cm = get_coursemodule_from_id($resourcetype, $resourceid)) {
 // Retrieve the resource record from the database.
 $context = context_module::instance($cm->id);
 $course = get_course($cm->course);
+$PAGE->set_context(context_course::instance($course->id)); // Define o contexto como o curso.
+
 require_login($course, true, $cm);
 
 // Ensure the user has the capability to view the resource.
 require_capability('mod/resource:view', $context);
 $PAGE->requires->js_call_amd('block_smartedu/results', 'init');
 
-$PAGE->set_context(context_course::instance($course->id)); // Define o contexto como o curso.
 $PAGE->set_url(new moodle_url('/blocks/smartedu/results.php', [
     'resourceid' => $resourceid,
     'resourcetype' => $resourcetype,
