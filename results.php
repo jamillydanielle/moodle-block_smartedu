@@ -141,24 +141,15 @@ try {
 
     $prompt = prompt_generator::block_smartedu_generate('resource', $config, $content);
     
-    // Check if caching is enabled and if the response is already cached.
-    $cached = $enablecache == 1 ? ai_cache::block_smartedu_get_cached_response($prompt) : null;
+    $cg = new content_generator($ai_provider, null, null, $api_key, $enablecache);
 
-    if ($cached !== null and $cached !== '') {
-        $response = $cached;
-        $data = json_decode($response);
-    } else {
-        // Generate the response using the AI provider.
-        $response = content_generator::block_smartedu_generate($ai_provider, $api_key, $prompt);
+    // Generate the response using the AI provider.
+    $response = $cg->block_smartedu_generate($prompt);
 
-        // Parse the AI response.
-        $response = preg_replace('/```json\s*(.*?)\s*```/s', '$1', $response);
-        $data = json_decode($response);
+    // Parse the AI response.
+    $response = preg_replace('/```json\s*(.*?)\s*```/s', '$1', $response);
+    $data = json_decode($response);
 
-        if (json_last_error() == JSON_ERROR_NONE) {
-            ai_cache::block_smartedu_store_response_in_cache($prompt, $response);
-        }            
-    }
 
     if (json_last_error() !== JSON_ERROR_NONE) {
         $data_template['has_error'] = true;

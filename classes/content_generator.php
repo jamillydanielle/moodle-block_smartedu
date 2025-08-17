@@ -24,7 +24,26 @@
 
 namespace block_smartedu;
 
+use block_smartedu\ai_cache;
+
 class content_generator {
+
+    private $ai_provider;
+    private $ai_model;
+    private $api_base_url;
+    private $api_key;
+    private $enable_cache;
+
+    // Generate a construct that receives the AI provider, AI model, API Base URL, API key and a Boolean to indicate if the cache is enabled.
+    public function __construct($ai_provider, $ai_model, $api_base_url, $api_key, $enable_cache) {
+        $this->ai_provider = $ai_provider;
+        $this->ai_model = $ai_model;
+        $this->api_base_url = $api_base_url;
+        $this->api_key = $api_key;
+        $this->enable_cache = $enable_cache;
+    }
+
+
     /**
      * Generates content using Google's AI API.
      *
@@ -33,8 +52,8 @@ class content_generator {
      * @return string The generated content.
      * @throws Exception If there is a CURL or HTTP error.
      */
-    protected static function block_smartedu_generate_with_google( $api_key, $prompt ) {
-        $api_url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=$api_key";
+    protected function block_smartedu_generate_with_google( $prompt ) {
+        $api_url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={$this->api_key}";
 
         $data = [
             'contents' => 
@@ -81,7 +100,7 @@ class content_generator {
      * @return string The generated content.
      * @throws Exception If there is a CURL or HTTP error.
      */
-    protected static function block_smartedu_generate_with_openai( $api_key, $prompt ) {
+    protected function block_smartedu_generate_with_openai( $prompt ) {
         $api_url = "https://api.openai.com/v1/chat/completions";
 
         $data = [
@@ -93,7 +112,7 @@ class content_generator {
         
         $headers = [
             'Content-Type: application/json',
-            'Authorization: Bearer ' . $api_key, // API Key da OpenAI
+            'Authorization: Bearer ' . $this->api_key, // API Key da OpenAI
         ];
     
         $curl = new \curl();
@@ -121,18 +140,6 @@ class content_generator {
     }
 
     /**
-     * Retrieves the list of valid AI providers.
-     *
-     * @return array List of valid AI provider names.
-     */
-    protected static function block_smartedu_get_valid_ai_providers() {
-        return [
-            'openai',
-            'google',
-        ];
-    }
-
-    /**
      * Generates content using the specified AI provider.
      *
      * @param string $ai_provider The name of the AI provider (e.g., 'openai', 'google').
@@ -141,22 +148,36 @@ class content_generator {
      * @return string The generated content.
      * @throws Exception If the AI provider is not valid or if there is an error during generation.
      */
-    public static function block_smartedu_generate( $ai_provider, $api_key, $prompt ) {
-        $response = '';
-        
-        $valid_ai_providers = self::block_smartedu_get_valid_ai_providers();
-        $ai_provider = strtolower($ai_provider);
+    public function block_smartedu_generate( $prompt ) {
 
-        if (in_array( $ai_provider, $valid_ai_providers )) {
-            $method   = 'block_smartedu_generate_with_' . $ai_provider;
-            $response = self::$method( $api_key, $prompt );
+        $response = '';
+
+        // Check if caching is enabled and if the response is already cached.
+        $response = $this->enable_cache == 1 ? ai_cache::block_smartedu_get_cached_response($prompt) : null;
+
+        if ($response !== null and $response !== '') {
+            return $response;
+        } 
+        
+        $valid_ai_providers = [
+            'openai',
+            'google',
+        ];
+    
+        $this->ai_provider = strtolower($this->ai_provider);
+
+        if (in_array( $this->ai_provider, $valid_ai_providers )) {
+            $method   = 'block_smartedu_generate_with_' . $this->ai_provider;
+            $response = $this->$method( $prompt );
+                
+            if ($response !== '') {
+                ai_cache::block_smartedu_store_response_in_cache($prompt, $response);
+            }
+
+            return $response;
         } else {
             error_log('AI provider not allowed');
             throw new \Exception(get_string('invalidaiprovider', 'block_smartedu'));
         }
-
-
-        return $response;
     }
-
 }

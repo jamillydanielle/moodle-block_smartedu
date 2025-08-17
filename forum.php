@@ -72,27 +72,20 @@ try {
 
     $prompt = prompt_generator::block_smartedu_generate('forum', $config, $json_discussions);
 
-    // Check if caching is enabled and if the response is already cached.
-    $cached = $enablecache == 1 ? ai_cache::block_smartedu_get_cached_response($prompt) : null;
+    $cg = new content_generator($ai_provider, null, null, $api_key, $enablecache);
 
-    if ($cached !== null and $cached !== '') {
-        $response = $cached;
-    } else {
-        // Generate the response using the AI provider.
-        $response = content_generator::block_smartedu_generate($ai_provider, $api_key, $prompt);
+    // Generate the response using the AI provider.
+    $response = $cg->block_smartedu_generate($prompt);
 
-        // Parse the AI response.
-        $response = preg_replace('/```json\s*(.*?)\s*```/s', '$1', $response);
-        
-        if (!mb_check_encoding($response, 'UTF-8')) {
-            $response = utf8_encode($response);
-        }
-        
-        $response = preg_replace('/[[:cntrl:]]/', '', $response);
-        
-        ai_cache::block_smartedu_store_response_in_cache($prompt, $response);
+    // Parse the AI response.
+    $response = preg_replace('/```json\s*(.*?)\s*```/s', '$1', $response);
+    
+    if (!mb_check_encoding($response, 'UTF-8')) {
+        $response = utf8_encode($response);
     }
-
+    
+    $response = preg_replace('/[[:cntrl:]]/', '', $response);
+        
     $data = json_decode($response);
 
     $data_template['has_error'] = false;
