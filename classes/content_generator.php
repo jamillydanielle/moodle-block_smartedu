@@ -53,7 +53,7 @@ class content_generator {
      * @throws Exception If there is a CURL or HTTP error.
      */
     protected function block_smartedu_generate_with_google( $prompt, $format_json ) {
-        $api_url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={$this->api_key}";
+        $api_url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={$this->api_key}";
 
         $data = [
             'contents' => 

@@ -173,17 +173,21 @@ try {
             'mindMapData' => $response,
         ]);
     }
+    
+    $data_template['has_questions'] = $questions_number > 0 ? true : false;
+    if ($questions_number > 0) {
+        //$num_questions = isset($data->questions) ? count($data->questions) : 0;
+        $params = [
+            'numquestions' => $questions_number,
+            'classcontent' => $content
+        ];
 
-    // Content generation finished.
-    $data_template['has_error'] = false;
-    $data_template['resource_name'] = $class_title;
+        $prompt = get_string('prompt:quizz', 'block_smartedu', $params);
+        $response = $cg->block_smartedu_generate($prompt, true);       
 
-    $data_template['has_questions'] = $num_questions > 0 ? true : false;
-
+        $data = json_decode($response);
 
 
-    if ($num_questions > 0) {
-        $num_questions = isset($data->questions) ? count($data->questions) : 0;
         $data_template['questions'] = [];
         foreach ($data->questions as $index => $question) {
             $data_template['questions'][] = [
@@ -201,6 +205,11 @@ try {
             ];
         }
     }
+
+
+    // Content generation finished.
+    $data_template['has_error'] = false;
+    $data_template['resource_name'] = $class_title;
 
 
     $data_template['send_responses_label'] = get_string('quizz:sendresponses', 'block_smartedu');

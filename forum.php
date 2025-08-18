@@ -70,17 +70,17 @@ try {
         'summary_type' => $summary_type,
     ];
 
-    $prompt = prompt_generator::block_smartedu_generate('forum', $config, $json_discussions);
-
+    //$prompt = prompt_generator::block_smartedu_generate('forum', $config, $json_discussions);
     $cg = new content_generator($ai_provider, null, null, $api_key, $enablecache);
 
-    // Generate the response using the AI provider.
+    $prompt = get_string('prompt:forum', 'block_smartedu', $json_discussions);
     $response = $cg->block_smartedu_generate($prompt, true);
+
     $data = json_decode($response);
 
     $data_template['has_error'] = false;
 
-    foreach ($data as $item) {
+    foreach ($data->summaries as $item) {
         $data_template['discussions'][] = $item;
     }
 
