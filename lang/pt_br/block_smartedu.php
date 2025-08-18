@@ -27,9 +27,16 @@ $string['smartedu:addinstance'] = 'Adicione um novo bloco SmartEdu';
 $string['smartedu:myaddinstance'] = 'Adicione um novo bloco SmartEdu à página Meu Moodle';
 $string['termsofuse'] = 'Ao utilizar o bloco SmartEdu, você concorda com seus <a href="https://github.com/dired-ufla/moodle-block_smartedu/blob/main/terms-of-use.md" target="_blank">termos de uso</a>.';
 $string['noresources'] = 'Não há <a href="https://github.com/dired-ufla/moodle-block_smartedu/blob/main/file-formats.md" target="_blank">arquivos compatíveis</a> para utilização neste curso.';
+
+// Adim Settings
 $string['aiprovider'] = "Escolha seu provedor de IA generativa";
 $string['apikey'] = "Informe sua chave de API";
 $string['enablecache'] = "Habilitar cache de prompts";
+$string['apiurl'] = "Informe a URL do seu servidor local";
+$string['apiurl:example'] = "http://localhost:11434/api/chat";
+$string['aimodel'] = "Informe o modelo do seu servidor local";
+$string['aimodel:example'] = "gemma3:4b, gemini-2.0-flash, gpt-4o-mini, etc.";
+
 $string['summarytype'] = "Tipo de resumo (para foruns e recursos)";
 $string['nquestions'] = "Quantidade de questões";
 $string['summarytype:simple'] = "Simples";

@@ -27,9 +27,17 @@ $string['smartedu:addinstance'] = 'Agregar un nuevo bloque SmartEdu';
 $string['smartedu:myaddinstance'] = 'Agregar un nuevo bloque SmartEdu a la página Mi Moodle';
 $string['termsofuse'] = 'Al utilizar el bloque SmartEdu, aceptas sus <a href="https://github.com/dired-ufla/moodle-block_smartedu/blob/main/terms-of-use.md" target="_blank">Términos de uso</a>.';
 $string['noresources'] = 'No hay <a href="https://github.com/dired-ufla/moodle-block_smartedu/blob/main/file-formats.md" target="_blank">archivos compatibles</a> disponibles para este curso.';
+
+// Admin settings
 $string['aiprovider'] = "Elija su proveedor de IA Generativa";
 $string['apikey'] = "Ingrese su clave API";
 $string['enablecache'] = "Habilitar caché de prompts";
+$string['apiurl'] = "Informe a URL do seu servidor local";
+$string['apiurl:example'] = "http://localhost:11434/api/chat";
+$string['aimodel'] = "Informe o modelo do seu servidor local";
+$string['aimodel:example'] = "gemma3:4b, gemini-2.0-flash, gpt-4o-mini, etc.";
+
+
 $string['summarytype'] = "Tipo de resumen (para foros y recursos)";
 $string['nquestions'] = "Número de preguntas";
 $string['summarytype:simple'] = "Simple";

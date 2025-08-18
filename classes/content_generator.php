@@ -43,6 +43,61 @@ class content_generator {
         $this->enable_cache = $enable_cache;
     }
 
+    /**
+     * Generates content using Ollama API.
+     *
+     * @param string $api_key The API key for Google AI.
+     * @param string $prompt The prompt to send to the AI.
+     * @return string The generated content.
+     * @throws Exception If there is a CURL or HTTP error.
+     */
+    protected function block_smartedu_generate_with_ollama( $prompt, $format_json ) {
+        $data = [
+            'model' => $this->ai_model, // Model name for the local AI service
+            'stream'   => false, // Disable streaming for local AI
+            'messages' => [
+                [
+                    'role' => 'user',
+                    'content' =>  $prompt,
+                ]
+            ]
+        ];
+
+        if ($format_json) {
+            $data['format'] = [
+                'type' => 'json'
+            ];
+        }
+        
+        $headers = [
+            'Content-Type: application/json',
+        ];
+
+        $options = [
+            'CURLOPT_HTTPHEADER' => $headers,
+            'CURLOPT_TIMEOUT' => 180,
+        ];
+    
+        $curl = new \curl();
+        $response = $curl->post($this->api_base_url, json_encode($data), $options);
+
+        if ($curl->get_errno()) {
+            error_log('CURL error: ' . $curl->error);
+            throw new \Exception(get_string('internalerror', 'block_smartedu'));
+        }
+        
+        $httpCode = $curl->info['http_code'];
+        if ($httpCode != 200) {
+            error_log('HTTP error: ' . $httpCode);
+            throw new \Exception(get_string('aiprovidererror', 'block_smartedu'));
+        }
+        
+        $chat_response = json_decode($response, true);
+        $chat_content = $chat_response['message']['content'];
+
+        return $chat_content;
+    }
+
 
     /**
      * Generates content using Google's AI API.
@@ -53,7 +108,7 @@ class content_generator {
      * @throws Exception If there is a CURL or HTTP error.
      */
     protected function block_smartedu_generate_with_google( $prompt, $format_json ) {
-        $api_url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={$this->api_key}";
+        $api_url = "https://generativelanguage.googleapis.com/v1beta/models/{$this->ai_model}:generateContent?key={$this->api_key}";
 
         $data = [
             'contents' => 
@@ -110,7 +165,7 @@ class content_generator {
         $api_url = "https://api.openai.com/v1/chat/completions";
 
         $data = [
-            'model' => 'gpt-4o-mini', 
+            'model' => $this->ai_model, 
             'messages' => [
                 ['role' => 'user', 'content' => $prompt],
             ]
@@ -174,6 +229,7 @@ class content_generator {
         $valid_ai_providers = [
             'openai',
             'google',
+            'ollama',
         ];
     
         $this->ai_provider = strtolower($this->ai_provider);
