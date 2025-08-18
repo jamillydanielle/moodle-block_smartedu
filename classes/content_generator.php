@@ -52,7 +52,7 @@ class content_generator {
      * @return string The generated content.
      * @throws Exception If there is a CURL or HTTP error.
      */
-    protected function block_smartedu_generate_with_google( $prompt ) {
+    protected function block_smartedu_generate_with_google( $prompt, $format_json ) {
         $api_url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={$this->api_key}";
 
         $data = [
@@ -63,6 +63,12 @@ class content_generator {
                     ]
                 ]
         ];
+
+        if ($format_json) {
+            $data['generationConfig'] = [
+                'responseMimeType' => 'application/json'
+            ];
+        }
         
         $headers = [
             'Content-Type: application/json',
@@ -100,7 +106,7 @@ class content_generator {
      * @return string The generated content.
      * @throws Exception If there is a CURL or HTTP error.
      */
-    protected function block_smartedu_generate_with_openai( $prompt ) {
+    protected function block_smartedu_generate_with_openai( $prompt, $format_json ) {
         $api_url = "https://api.openai.com/v1/chat/completions";
 
         $data = [
@@ -109,6 +115,12 @@ class content_generator {
                 ['role' => 'user', 'content' => $prompt],
             ]
         ];
+
+        if ($format_json) {
+            $data['response_format'] = [
+                'type' => 'json_object'
+            ];
+        }
         
         $headers = [
             'Content-Type: application/json',
@@ -148,7 +160,7 @@ class content_generator {
      * @return string The generated content.
      * @throws Exception If the AI provider is not valid or if there is an error during generation.
      */
-    public function block_smartedu_generate( $prompt ) {
+    public function block_smartedu_generate( $prompt, $format_json = false ) {
 
         $response = '';
 
@@ -168,7 +180,7 @@ class content_generator {
 
         if (in_array( $this->ai_provider, $valid_ai_providers )) {
             $method   = 'block_smartedu_generate_with_' . $this->ai_provider;
-            $response = $this->$method( $prompt );
+            $response = $this->$method( $prompt, $format_json );
                 
             if ($response !== '') {
                 ai_cache::block_smartedu_store_response_in_cache($prompt, $response);
