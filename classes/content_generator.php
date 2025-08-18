@@ -165,7 +165,7 @@ class content_generator {
         $response = '';
 
         // Check if caching is enabled and if the response is already cached.
-        $response = $this->enable_cache == 1 ? ai_cache::block_smartedu_get_cached_response($prompt) : null;
+        $response = $this->enable_cache ? ai_cache::block_smartedu_get_cached_response($prompt) : null;
 
         if ($response !== null and $response !== '') {
             return $response;
@@ -182,7 +182,7 @@ class content_generator {
             $method   = 'block_smartedu_generate_with_' . $this->ai_provider;
             $response = $this->$method( $prompt, $format_json );
                 
-            if ($response !== '') {
+            if ($this->enable_cache and $response !== '') {
                 ai_cache::block_smartedu_store_response_in_cache($prompt, $response);
             }
 
