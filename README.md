@@ -14,7 +14,8 @@ Current features
 
 - Generate quizzes, study guides and mind maps from lecture notes.
 
-- Currently, the plugin supports the following generative AI providers: Google (Gemini) and OpenAI (ChatGPT). 
+- Currently, the plugin supports the following generative AI providers: Google (Gemini), OpenAI (ChatGPT) and Local (Ollama). 
+
 
 Requirements
 ------------
@@ -29,7 +30,10 @@ Simply install the plugin and add the block to a course page.
 What type of generative AI does the SmartEdu plugin use?
 -------------------------------------
 
-Currently, the plugin only supports Gemini and ChatGPT. There are plans to include other types of generative AI providers in the future.
+Currently, the plugin only supports Gemini, ChatGPT and Local (Ollama). 
+
+**Note:** The plugin has been best tested with Google Gemini. For local AI providers (Ollama), it works best with instruct-type models, which are optimized for following instructions and generating educational content.
+
 
 What aspects should be considered when using the plugin?
 ------------------------------------

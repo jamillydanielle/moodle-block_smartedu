@@ -26,7 +26,6 @@ use block_smartedu\text_extractor;
 use block_smartedu\content_generator;
 use block_smartedu\resource_reader;
 use block_smartedu\ai_cache;
-use block_smartedu\prompt_generator;
 
 require_once(__DIR__ . '/../../config.php');
 
@@ -132,17 +131,6 @@ try {
     $api_url = get_config('block_smartedu', 'apiurl');
     $enablecache = get_config('block_smartedu', 'enablecache');
 
-    // Generate the prompt for the AI based on the summary type and number of questions.
-    $config = [
-        'summary_type' => $summary_type,
-        'questions_number' => $questions_number,
-        'class_title' => $class_title,
-        'generatestudyguide' => $generatestudyguide,
-        'generatemindmap' => $generatemindmap,
-    ];
-
-    //$prompt = prompt_generator::block_smartedu_generate('resource', $config, $content);
-    
     $cg = new content_generator($ai_provider, $ai_model, $api_url, $api_key, $enablecache);
 
     // Generate summary.

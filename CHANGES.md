@@ -1,3 +1,7 @@
+v.2.0.0
+-------------
+- Now the plugin works with local AI providers 
+
 v.1.11.1
 -------------
 - Fix set context bug 

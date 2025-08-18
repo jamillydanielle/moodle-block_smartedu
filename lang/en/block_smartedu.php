@@ -29,12 +29,12 @@ $string['termsofuse'] = 'By using the SmartEdu block, you agree to its <a href="
 $string['noresources'] = 'No <a href="https://github.com/dired-ufla/moodle-block_smartedu/blob/main/file-formats.md" target="_blank">compatible files</a> are available for this course.';
 
 // Admin settings
-$string['aiprovider'] = "Choose your Generative AI provider";
-$string['apikey'] = "Insert your API Key";
+$string['aiprovider'] = "Choose your AI provider";
+$string['apikey'] = "Enter the API key for your AI provider";
 $string['enablecache'] = "Enable prompt cache";
-$string['apiurl'] = "Informe a URL do seu servidor local";
+$string['apiurl'] = "Enter the API URL for your AI provider (local)";
 $string['apiurl:example'] = "http://localhost:11434/api/chat";
-$string['aimodel'] = "Informe o modelo do seu servidor local";
+$string['aimodel'] = "Enter the model for your AI provider";
 $string['aimodel:example'] = "gemma3:4b, gemini-2.0-flash, gpt-4o-mini, etc.";
 
 $string['summarytype'] = "Summary type (for foruns and resources)";
@@ -57,12 +57,12 @@ $string['quizz:correct'] = "Correct answer";
 $string['quizz:wrong'] = "Wrong answer";
 $string['studyscript:title'] = "Study guide";
 $string['mindmap:title'] = "Mind map";
-$string['prompt:simplesummary'] = 'Based on the following content of the lecture titled "{$a}", write a simple summary of no more than 10 sentences, highlighting the main concepts in a clear and objective way for an undergraduate student. Return the summary in the following format: "summary": "Lecture summary". ';
-$string['prompt:detailedsummary'] = 'Based on the following content of the lecture titled "{$a}", write a detailed summary of no more than 20 sentences, highlighting and explaining the main concepts for an undergraduate student. Return the summary in the following format: "summary": "Lecture summary". ';
-$string['prompt:studyscript'] = 'Also write a study guide for this lecture, containing the main topic, the objectives of the text, the subjects that need to be learned, and what the student should be able to understand after reading the text. Return the study guide in the following format: "study_script": "Lecture study guide". ';
-$string['prompt:mindmap'] = 'Also create a mind map of the main concepts from the lecture, in a format that can be correctly read by the JavaScript library MindElixir, and return the mind map in the following format: "mind_map": {"nodeData": {"id": "root", "topic": "root", "children": [{"id": "sub1", "topic": "sub1", "children": [{"id": "sub2", "topic": "sub2"}]}]}}. ';
-$string['prompt:quizz'] = 'Create {$a} multiple-choice questions in JSON format, with 4 options (A, B, C, D), only one of which is correct. For each option, provide a brief explanation of why it is correct or incorrect, without using the words Correct or Incorrect before the explanation. Return the questions in the following format: "questions": [{"question": "Question text", "options": {"A": "Option A text", "B": "Option B text", "C": "Option C text", "D": "Option D text"}, "feedbacks": {"A": "Explanation for option A", "B": "Explanation for option B", "C": "Explanation for option C", "D": "Explanation for option D"}, "correct_option": "Letter of the correct option"}]. ';
-$string['prompt:return'] = 'Gather all the previous results into a single file in JSON format enclosed in curly braces. Lecture content: {$a}';
+
+$string['prompt:simplesummary'] = 'Based on the content of the following lesson, write a simple summary of no more than 10 sentences, highlighting the main concepts addressed in an objective and clear manner for an undergraduate student. Return the summary in plain text, without formatting. Lesson content: {$a}';
+$string['prompt:detailedsummary'] = 'Based on the content of the following lesson, write a detailed summary of no more than 30 sentences, highlighting and explaining the main concepts addressed for an undergraduate student. Return the summary in plain text, without formatting. Lesson content: {$a}';
+$string['prompt:studyscript'] = 'Based on the content of the following lesson, write a study script for this lesson, containing the main theme, the objectives of the text, which subjects need to be learned, and what the student should be able to know after reading the text. Return the study script in HTML format, using the <h5> tag for titles and <ul> for lists. Lesson content: {$a}';
+$string['prompt:mindmap'] = 'Based on the content of the following lesson, develop a mind map of the main concepts of the lesson. Return the mind map in a JSON format that can be correctly read by the MindElixir JavaScript library, according to the following example: {"nodeData": {"id": "root", "topic": "root", "children": [{"id": "sub1", "topic": "sub1", "children": [{"id": "sub2", "topic": "sub2"}]}]}}. Lesson content: {$a}';
+$string['prompt:quizz'] = 'Based on the content of the following lesson, develop {$a->numquestions} multiple-choice questions, with 4 alternatives (A, B, C, D), with only one correct. For each alternative, provide a brief explanation of why it is correct or incorrect, without mentioning the word Correct or Incorrect before the explanation. Return the questions in JSON format, according to the following example: {"questions": [{"question": "Question text", "options": {"A": "Alternative A text", "B": "Alternative B text", "C": "Alternative C text", "D": "Alternative D text"}, "feedbacks": {"A": "Explanation of alternative A", "B": "Explanation of alternative B", "C": "Explanation of alternative C", "D": "Explanation of alternative D"}, "correct_option": "Letter of the correct alternative"}]}. Lesson content: {$a->classcontent}';
+$string['prompt:forum'] = 'Based on the following forum discussions, write simple summaries of no more than 10 sentences about the content of each discussion. Return the summaries in JSON format, according to the following example: {"summaries": [{"name": "Forum discussion title", "content": "Forum messages related to the discussion"}]}. Forum discussions: {$a}';
+
 $string['privacy:metadata'] = 'The SmartEdu block only displays existing course data.';
-$string['prompt:forum'] = 'You will receive a series of forum discussions in JSON format, as shown in the following example: [{"name": "Forum discussion title", "content": "Forum messages related to the discussion"}]. Your task is to write a simple summary of no more than 10 sentences about the content of the discussions and return a JSON in the same format, highlighting the main points discussed and the conclusions reached. Forum messages: {$a}';
-$string['prompt:detailedforum'] = 'You will receive a series of forum discussions in JSON format, as shown in the following example: [{"name": "Forum discussion title", "content": "Forum messages related to the discussion"}]. Your task is to write a detailed summary of no more than 20 sentences about the content of the discussions and return a JSON in the same format, highlighting the main points discussed and the conclusions reached. Forum messages: {$a}';

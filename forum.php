@@ -25,7 +25,6 @@
 use block_smartedu\content_generator;
 use block_smartedu\ai_cache;
 use block_smartedu\forum_reader;
-use block_smartedu\prompt_generator;
 
 require_once(__DIR__ . '/../../config.php');
 
@@ -72,7 +71,6 @@ try {
         'summary_type' => $summary_type,
     ];
 
-    //$prompt = prompt_generator::block_smartedu_generate('forum', $config, $json_discussions);
     $cg = new content_generator($ai_provider, $ai_model, $api_url, $api_key, $enablecache);
 
     $prompt = get_string('prompt:forum', 'block_smartedu', $json_discussions);

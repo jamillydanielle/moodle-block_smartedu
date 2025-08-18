@@ -29,12 +29,12 @@ $string['termsofuse'] = 'Al utilizar el bloque SmartEdu, aceptas sus <a href="ht
 $string['noresources'] = 'No hay <a href="https://github.com/dired-ufla/moodle-block_smartedu/blob/main/file-formats.md" target="_blank">archivos compatibles</a> disponibles para este curso.';
 
 // Admin settings
-$string['aiprovider'] = "Elija su proveedor de IA Generativa";
-$string['apikey'] = "Ingrese su clave API";
+$string['aiprovider'] = "Elige tu proveedor de IA";
+$string['apikey'] = "Introduce la clave API de tu proveedor de IA";
 $string['enablecache'] = "Habilitar caché de prompts";
-$string['apiurl'] = "Informe a URL do seu servidor local";
+$string['apiurl'] = "Introduce la URL de la API de tu proveedor de IA (local)";
 $string['apiurl:example'] = "http://localhost:11434/api/chat";
-$string['aimodel'] = "Informe o modelo do seu servidor local";
+$string['aimodel'] = "Introduce el modelo de tu proveedor de IA";
 $string['aimodel:example'] = "gemma3:4b, gemini-2.0-flash, gpt-4o-mini, etc.";
 
 
@@ -58,12 +58,12 @@ $string['quizz:correct'] = "Respuesta correcta";
 $string['quizz:wrong'] = "Respuesta incorrecta";
 $string['studyscript:title'] = "Guía de estudio";
 $string['mindmap:title'] = "Mapa mental";
-$string['prompt:simplesummary'] = 'Con base en el siguiente contenido de la clase titulada "{$a}", redacta un resumen simple de no más de 10 oraciones, destacando los conceptos principales de forma clara y objetiva para un estudiante de grado. Devuelve el resumen en el siguiente formato: "summary": "Resumen de la clase". ';
-$string['prompt:detailedsummary'] = 'Con base en el siguiente contenido de la clase titulada "{$a}", redacta un resumen detallado de no más de 20 oraciones, destacando y explicando los conceptos principales para un estudiante de grado. Devuelve el resumen en el siguiente formato: "summary": "Resumen de la clase". ';
-$string['prompt:studyscript'] = 'Además, redacta una guía de estudio para esta clase que contenga el tema principal, los objetivos del texto, los temas que se deben aprender y lo que el estudiante debería ser capaz de comprender después de leer el texto. Devuelve la guía de estudio en el siguiente formato: "study_script": "Guía de estudio de la clase". ';
-$string['prompt:mindmap'] = 'Además, crea un mapa mental de los conceptos principales de la clase, en un formato que pueda ser leído correctamente por la biblioteca JavaScript MindElixir, y devuelve el mapa mental en el siguiente formato: "mind_map": {"nodeData": {"id": "root", "topic": "root", "children": [{"id": "sub1", "topic": "sub1", "children": [{"id": "sub2", "topic": "sub2"}]}]}}. ';
-$string['prompt:quizz'] = 'Crea {$a} preguntas de opción múltiple en formato JSON, con 4 opciones (A, B, C, D), de las cuales solo una es correcta. Para cada opción, proporciona una breve explicación de por qué es correcta o incorrecta, sin utilizar las palabras Correcta o Incorrecta antes de la explicación. Devuelve las preguntas en el siguiente formato: "questions": [{"question": "Texto de la pregunta", "options": {"A": "Texto de la opción A", "B": "Texto de la opción B", "C": "Texto de la opción C", "D": "Texto de la opción D"}, "feedbacks": {"A": "Explicación de la opción A", "B": "Explicación de la opción B", "C": "Explicación de la opción C", "D": "Explicación de la opción D"}, "correct_option": "Letra de la opción correcta"}]. ';
-$string['prompt:return'] = 'Reúne todos los resultados anteriores en un único archivo en formato JSON encerrado entre llaves. Contenido de la clase: {$a}';
+
+$string['prompt:simplesummary'] = 'Con base en el contenido de la clase a continuación, escribe un resumen simple de máximo 10 frases, destacando los principales conceptos abordados de forma objetiva y clara para un estudiante de grado. Devuelve el resumen en texto plano, sin formato. Contenido de la clase: {$a}';
+$string['prompt:detailedsummary'] = 'Con base en el contenido de la clase a continuación, escribe un resumen detallado de máximo 30 frases, destacando y explicando los principales conceptos abordados para un estudiante de grado. Devuelve el resumen en texto plano, sin formato. Contenido de la clase: {$a}';
+$string['prompt:studyscript'] = 'Con base en el contenido de la clase a continuación, escribe una guía de estudio para esta clase, incluyendo el tema principal, los objetivos del texto, los temas que deben ser aprendidos y lo que el estudiante debe ser capaz de saber después de leer el texto. Devuelve la guía de estudio en formato HTML, utilizando la etiqueta <h5> para títulos y <ul> para listas. Contenido de la clase: {$a}';
+$string['prompt:mindmap'] = 'Con base en el contenido de la clase a continuación, elabora un mapa mental de los principales conceptos de la clase. Devuelve el mapa mental en formato JSON que pueda ser leído correctamente por la biblioteca JavaScript MindElixir, según el siguiente ejemplo: {"nodeData": {"id": "root", "topic": "root", "children": [{"id": "sub1", "topic": "sub1", "children": [{"id": "sub2", "topic": "sub2"}]}]}}. Contenido de la clase: {$a}';
+$string['prompt:quizz'] = 'Con base en el contenido de la clase a continuación, elabora {$a->numquestions} preguntas de opción múltiple, con 4 alternativas (A, B, C, D), siendo solo una correcta. Para cada alternativa, proporciona una breve explicación de por qué es correcta o incorrecta, sin mencionar la palabra Correcta o Incorrecta antes de la explicación. Devuelve las preguntas en formato JSON, según el siguiente ejemplo: {"questions": [{"question": "Texto de la pregunta", "options": {"A": "Texto de la alternativa A", "B": "Texto de la alternativa B", "C": "Texto de la alternativa C", "D": "Texto de la alternativa D"}, "feedbacks": {"A": "Explicación de la alternativa A", "B": "Explicación de la alternativa B", "C": "Explicación de la alternativa C", "D": "Explicación de la alternativa D"}, "correct_option": "Letra de la alternativa correcta"}]}. Contenido de la clase: {$a->classcontent}';
+$string['prompt:forum'] = 'Con base en las discusiones de foro a continuación, escribe resúmenes simples de máximo 10 frases sobre el contenido de cada discusión. Devuelve los resúmenes en formato JSON, según el siguiente ejemplo: {"summaries": [{"name": "Título de la discusión del foro", "content": "Mensajes del foro relacionados con la discusión"}]}. Discusiones del foro: {$a}';
+
 $string['privacy:metadata'] = 'El bloque SmartEdu solo muestra datos existentes del curso.';
-$string['prompt:forum'] = 'Recibirás una serie de discusiones de foro en formato JSON, como se muestra en el siguiente ejemplo: [{"name": "Título de la discusión del foro", "content": "Mensajes del foro relacionados con la discusión"}]. Tu tarea es redactar un resumen simple de no más de 10 oraciones sobre el contenido de las discusiones y devolver un JSON en el mismo formato, destacando los puntos principales debatidos y las conclusiones alcanzadas. Mensajes del foro: {$a}';
-$string['prompt:detailedforum'] = 'Recibirás una serie de discusiones de foro en formato JSON, como se muestra en el siguiente ejemplo: [{"name": "Título de la discusión del foro", "content": "Mensajes del foro relacionados con la discusión"}]. Tu tarea es redactar un resumen detallado de no más de 20 oraciones sobre el contenido de las discusiones y devolver un JSON en el mismo formato, destacando los puntos principales debatidos y las conclusiones alcanzadas. Mensajes del foro: {$a}';

@@ -29,12 +29,12 @@ $string['termsofuse'] = 'Ao utilizar o bloco SmartEdu, você concorda com seus <
 $string['noresources'] = 'Não há <a href="https://github.com/dired-ufla/moodle-block_smartedu/blob/main/file-formats.md" target="_blank">arquivos compatíveis</a> para utilização neste curso.';
 
 // Adim Settings
-$string['aiprovider'] = "Escolha seu provedor de IA generativa";
-$string['apikey'] = "Informe sua chave de API";
+$string['aiprovider'] = "Escolha seu provedor de IA";
+$string['apikey'] = "Informe a chave de API do seu provedor de IA";
 $string['enablecache'] = "Habilitar cache de prompts";
-$string['apiurl'] = "Informe a URL do seu servidor local";
+$string['apiurl'] = "Informe a URL da API do seu provedor de IA (local)";
 $string['apiurl:example'] = "http://localhost:11434/api/chat";
-$string['aimodel'] = "Informe o modelo do seu servidor local";
+$string['aimodel'] = "Informe o modelo do seu provedor de IA";
 $string['aimodel:example'] = "gemma3:4b, gemini-2.0-flash, gpt-4o-mini, etc.";
 
 $string['summarytype'] = "Tipo de resumo (para foruns e recursos)";
@@ -63,8 +63,6 @@ $string['prompt:detailedsummary'] = 'Com base no conteúdo da aula a seguir, esc
 $string['prompt:studyscript'] = 'Com base no conteúdo da aula a seguir, escreva um roteiro de estudo para esta aula, contendo o tema principal, os objetivos do texto, quais os assuntos que precisam ser aprendidos e o que o estudante deve ser capaz de saber após a leitura do texto. Retorne o roteiro de estudo em formato HTML, utilizando a tag <h5> para títulos e <ul> para listas. Conteúdo da aula: {$a}';
 $string['prompt:mindmap'] = 'Com base no conteúdo da aula a seguir, elabore um mapa mental dos principais conceitos da aula. Retorne o mapa mental em um formato JSON que possa ser lido corretamente pela biblioteca JavaScript MindElixir, conforme o seguinte exemplo: {"nodeData": {"id": "root", "topic": "root", "children": [{"id": "sub1", "topic": "sub1", "children": [{"id": "sub2", "topic": "sub2"}]}]}}. Conteúdo da aula: {$a}';
 $string['prompt:quizz'] = 'Com base no conteúdo da aula a seguir, elabore {$a->numquestions} questões de múltipla escolha, com 4 alternativas (A, B, C, D), sendo apenas uma correta. Para cada alternativa, forneça uma breve explicação do porquê ela é correta ou incorreta, sem mencionar a palavra Correta ou Incorreta antes da explicação. Retorne as questões no formato JSON, conforme o seguinte exemplo: {"questions": [{"question": "Texto da pergunta", "options": {"A": "Texto da alternativa A", "B": "Texto da alternativa B", "C": "Texto da alternativa C", "D": "Texto da alternativa D"}, "feedbacks": {"A": "Explicação da alternativa A", "B": "Explicação da alternativa B", "C": "Explicação da alternativa C", "D": "Explicação da alternativa D"}, "correct_option": "Letra da alternativa correta"}]}. Conteúdo da aula: {$a->classcontent}';
-$string['prompt:return'] = 'Reuna todos os resultados anteriores em um só arquivo no formato JSON entre chaves. Conteúdo da aula: {$a}';
-
 $string['prompt:forum'] = 'Com base nas discussões de fórum a seguir, escreva resumos simples de no máximo 10 frases sobre o conteúdo de cada discussão. Retorne os resumos no formato JSON, conforme o seguinte exemplo: {"summaries": [{"name": "Título da discussão do fórum", "content": "Mensagens do fórum relacionadas à discussão"}]}. Discussões do fórum: {$a}';
 
 $string['privacy:metadata'] = 'O bloco SmartEdu apenas exibe dados do curso já existentes.';

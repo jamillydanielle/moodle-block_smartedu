@@ -60,13 +60,18 @@ class content_generator {
                     'role' => 'user',
                     'content' =>  $prompt,
                 ]
+            ],
+            'options' => [
+                    'num_ctx' => 8192,
+                    'num_keep' => 512,
+                    'temperature' => 0.2,
+                    'top_p' => 0.9,
+                    'repeat_penalty' => 1.1
             ]
         ];
 
         if ($format_json) {
-            $data['format'] = [
-                'type' => 'json'
-            ];
+            $data['format'] = 'json';
         }
         
         $headers = [
