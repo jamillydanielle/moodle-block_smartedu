@@ -38,7 +38,7 @@ $string['aimodel'] = "Introduce el modelo de tu proveedor de IA";
 $string['aimodel:example'] = "gemma3:4b, gemini-2.0-flash, gpt-4o-mini, etc.";
 
 
-$string['summarytype'] = "Tipo de resumen (para foros y recursos)";
+$string['summarytype'] = "Tipo de resumen";
 $string['nquestions'] = "Número de preguntas";
 $string['summarytype:simple'] = "Simple";
 $string['summarytype:detailed'] = "Detallado";
@@ -49,8 +49,8 @@ $string['invalidtypefile'] = "Tipo de recurso no compatible.";
 $string['invalidaiprovider'] = "Proveedor de IA no compatible.";
 $string['aiprovidererror'] = "Parece que ocurrió un error al intentar utilizar el servicio de IA. Por favor, inténtelo de nuevo en unos minutos. Si el problema persiste, contacte al soporte.";
 $string['internalerror'] = "Error interno del sistema.";
-$string['generatestudyguide'] = "Generar guía de estudio (para recursos)";
-$string['generatemindmap'] = "Generar mapa mental (para recursos)";
+$string['generatestudyguide'] = "Generar guía de estudio";
+$string['generatemindmap'] = "Generar mapa mental";
 $string['quizz:question'] = "Pregunta ";
 $string['quizz:showresponse'] = "La respuesta correcta es: ";
 $string['quizz:sendresponses'] = "Enviar respuestas";
