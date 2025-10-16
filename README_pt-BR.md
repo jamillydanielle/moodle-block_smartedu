@@ -1,7 +1,7 @@
 SmartEdu (block_smartedu) 
 ====================
 
-Um plugin de bloco do Moodle LMS que aproveita o potencial da IA para aprimorar a educação.
+Plugin de bloco do Moodle LMS que aproveita o potencial da IA para aprimorar a educação.
 
 ## ✨ Features atuais
 
