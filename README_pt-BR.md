@@ -1,22 +1,22 @@
 SmartEdu (block_smartedu) 
 ====================
 
-A Moodle LMS block plugin that leverages the potential of AI to enhance education.
+Um plugin de bloco do Moodle LMS que aproveita o potencial da IA para aprimorar a educação.
 
-## ✨ Current Features
+## ✨ Features atuais
 
-- Summarizes lecture notes provided by the teacher in various [file formats](file-formats.md). Users can hide items from the plugin by using tag `smartedu-hide` in the resource settings.
+- Resume as anotações de aula fornecidas pelo professor em vários [formatos de arquivo](file-formats.md). Usuários podem ocultar itens do plugin usando a tag `smartedu-hide` nas configurações do recurso.
 
-- Summarizes forum discussions.
+- Resume discussões de fórum.
 
-- Generates simple or detailed summaries, based on user preference.
+- Gera resumos simples ou detalhados, conforme a preferência do usuário.
 
-- Generate quizzes, study guides and mind maps from lecture notes.
+- Gera questionários, guias de estudo e mapas mentais a partir das anotações de aula.
 
-- Currently, the plugin supports the following generative AI providers: Google (Gemini), OpenAI (ChatGPT) and Local (Ollama). 
+- Atualmente, o plugin oferece suporte aos seguintes provedores de IA generativa: Google (Gemini), OpenAI (ChatGPT) e Local (Ollama).
 
 
-## 📦 Requirements
+## 📦 Requisitos
 
 Moodle 3.9 or greater.
 
