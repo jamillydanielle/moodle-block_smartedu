@@ -20,199 +20,185 @@ Plugin de bloco do Moodle LMS que aproveita o potencial da IA para aprimorar a e
 
 Moodle 3.9 or greater.
 
-## 🚀 Installation
+## 🚀 Instalação
 
-Simply install the plugin and add the block to a course page. 
+Basta instalar o plugin e adicionar o bloco a uma página do curso. 
 
-## ⚙️ Administrator Settings
+## ⚙️ Configurações do Administrador
 
-After installing the plugin, administrators can configure the integration with generative AI providers.  
-Navigate to: `Site administration > Plugins > Blocks > SmartEdu`
+Após instalar o plugin, os administradores podem configurar a integração com provedores de IA generativa.  
+Acesse: `Site administration > Plugins > Blocks > SmartEdu`
 
 
-You will see the following configuration page:
+Você verá a seguinte página de configuração:
 
-![Administrator Settings](docs/images/admin-settings.png)
+![Configurações do Administrador](docs/images/admin-settings.png)
 
-The available settings are:
+As configurações disponíveis são:
 
-- **Choose your AI provider**  
-  Select the provider to be used by the plugin. Currently supported options are **Google (Gemini)**, **OpenAI (ChatGPT)**, and **Local (Ollama)**.  
-  *Default:* Google (Gemini)
+- **Escolha seu provedor de IA**  
+  Selecione o provedor que será utilizado pelo plugin. As opções atualmente suportadas são **Google (Gemini)**, **OpenAI (ChatGPT)** e **Local (Ollama)**.  
+  *Padrão:* Google (Gemini)
 
-- **Enter the API key for your AI provider**  
-  Insert the API key obtained from the chosen provider. Depending on the provider, you may need to create an account and purchase a plan to obtain a valid API key (e.g., Google Gemini or OpenAI).  
-  *Default:* Empty
+- **Insira a chave de API do seu provedor de IA**  
+  Insira a chave de API obtida do provedor escolhido. Dependendo do provedor, pode ser necessário criar uma conta e adquirir um plano para obter uma chave válida (por exemplo, Google Gemini ou OpenAI).  
+  *Padrão:* Vazio
 
-- **Enter the model for your AI provider**  
-  Define the specific model you want to use (e.g., `gemini-2.0-flash`, `gpt-4o-mini`, `gemma3:4b`).  
-  *Default:* Empty
+- **Insira o modelo do seu provedor de IA**  
+  Defina o modelo específico que deseja usar (por exemplo, `gemini-2.0-flash`, `gpt-4o-mini`, `gemma3:4b`).  
+  *Padrão:* Vazio
 
-- **Enter the API URL for your AI provider (local)**  
-  Required only when using local AI providers such as Ollama. Example:  
+- **Insira a URL da API do seu provedor de IA (local)**  
+  Necessário apenas ao utilizar provedores de IA locais, como o Ollama. Exemplo:  
   `http://localhost:11434/api/chat`  
-  *Default:* Empty
+  *Padrão:* Vazio
 
-- **Enable prompt cache**  
-  When enabled, the plugin caches previous prompts to improve performance and
+- **Ativar cache de prompts**  
+  Quando ativado, o plugin armazena em cache prompts anteriores para melhorar o desempenho.
 
-## 📚 Using the Plugin
+## 📚 Usando o Plugin
 
-Teachers can add the **SmartEdu** block to any course they are responsible for.  
-Once added, the block will appear on the **right-hand side of the course page**, as shown below:
+Os professores podem adicionar o bloco **SmartEdu** a qualquer curso pelo qual sejam responsáveis.  
+Depois de adicionado, o bloco aparecerá na **lateral direita da página do curso**, conforme mostrado abaixo:
 
-![SmartEdu Block Example](docs/images/block-example.png)
+![Exemplo do Bloco SmartEdu](docs/images/block-example.png)
 
-In this example, the block displays two course resources:
+Neste exemplo, o bloco exibe dois recursos do curso:
 
-- **Information Security – Part 1 (PDF)**  
-  A lecture note file uploaded by the teacher. SmartEdu can summarize this document and generate additional study materials (summaries, study guides, quizzes, or mind maps).
+- **Segurança da Informação – Parte 1 (PDF)**  
+  Um arquivo de notas de aula enviado pelo professor. O SmartEdu pode resumir esse documento e gerar materiais de estudo adicionais (resumos, guias de estudo, questionários ou mapas mentais).
 
-- **Discussion about Privacy (Forum)**  
-  A discussion forum created within the course. SmartEdu can automatically summarize forum discussions, helping students quickly capture the key points.
+- **Discussão sobre Privacidade (Fórum)**  
+  Um fórum de discussão criado dentro do curso. O SmartEdu pode resumir automaticamente as discussões, ajudando os alunos a capturar rapidamente os pontos principais.
 
-At the bottom of the block, a message reminds users that by using the SmartEdu block, they agree to its [terms of use](terms-of-use.md). This ensures transparency about how the plugin interacts with generative AI services and handles educational content.
-
-------------
-
-### Example: Automatic Summaries and Study Guides
-
-When a teacher uploads lecture notes, SmartEdu can automatically generate **summaries** and **study guides** to support student learning.  
-
-The example below shows content generated from the resource *Information Security – Part 1*:
-
-![Generated Summary and Study Guide](docs/images/generated-study-guide.png)
-
-- The **summary** condenses the main ideas of the lecture notes into a clear and concise format.  
-- The **study guide** highlights:
-  - **Main Theme** of the lesson;
-  - **Objectives** to guide student learning;
-  - **Subjects to Learn**, organized with key definitions, concepts, and categories, etc.
-
-These resources help students focus on the most important aspects of the material and prepare more effectively for discussions, quizzes, and exams.
+Na parte inferior do bloco, uma mensagem lembra os usuários de que, ao utilizar o bloco SmartEdu, eles concordam com seus [termos de uso](terms-of-use.md). Isso garante transparência sobre como o plugin interage com os serviços de IA generativa e lida com o conteúdo educacional.
 
 ------------
 
-### Example: Automatic Mind Maps
+### Exemplo: Resumos Automáticos e Guias de Estudo
 
-In addition to summaries and study guides, SmartEdu can also generate **interactive mind maps** from lecture notes.  
+Quando o professor envia as notas de aula, o SmartEdu pode gerar automaticamente **resumos** e **guias de estudo** para apoiar o aprendizado dos alunos.  
 
-These mind maps provide a **visual representation** of the key concepts, helping students to quickly grasp relationships between ideas and navigate through complex topics.
+O exemplo abaixo mostra o conteúdo gerado a partir do recurso *Segurança da Informação – Parte 1*:
 
-The example below was generated from the same resource *Information Security – Part 1*:
+![Resumo e Guia de Estudo Gerados](docs/images/generated-study-guide.png)
 
-![Generated Mind Map](docs/images/generated-mindmap.png)
+- O **resumo** condensa as principais ideias das notas de aula em um formato claro e conciso.  
+- O **guia de estudo** destaca:
+  - **Tema principal** da aula;  
+  - **Objetivos** para orientar o aprendizado do aluno;  
+  - **Assuntos para estudar**, organizados com definições, conceitos e categorias principais.
 
-- The **central node** represents the main theme of the lecture (*Basics of Information Security*).  
-- **Branches** expand into related concepts, such as types of security attacks, services, and mechanisms.  
-- Students can explore the map interactively, zooming in and out, and expanding/collapsing branches to focus on specific details.  
-
-Mind maps are especially useful for learners who benefit from **visual study aids** and for reviewing material in a more engaging and memorable way.
-
-------------
-
-### Example: Interactive Quizzes
-
-Another key feature of SmartEdu is the ability to generate **interactive quizzes** directly from lecture notes.  
-
-These quizzes allow students to **practice their knowledge** by answering multiple-choice questions. At the end, they can submit their answers and immediately receive feedback.
-
-The example below shows a quiz generated from the lecture *Information Security – Part 1*:
-
-![Generated Quiz](docs/images/generated-quiz.png)
-
-- Each question presents **four alternatives (A, B, C, D)**.  
-- After selecting an answer, students receive **instant feedback**:  
-  - Whether the answer is correct or incorrect.  
-  - A short explanation clarifying why the chosen option is right or wrong.  
-
-This interactive approach helps students:  
-- Reinforce what they learned in class.  
-- Identify misconceptions or knowledge gaps.  
-- Learn from their mistakes by reading the feedback provided for each option.
+Esses recursos ajudam os alunos a focar nos aspectos mais importantes do conteúdo e a se preparar de forma mais eficaz para discussões, questionários e provas.
 
 ------------
 
-### Example: Forum Summaries
+### Exemplo: Mapas Mentais Automáticos
 
-SmartEdu can also process **forum discussions** and automatically generate concise summaries of the main points raised by participants.  
+Além de resumos e guias de estudo, o SmartEdu também pode gerar **mapas mentais interativos** a partir das notas de aula.  
 
-This is especially useful in courses with active discussions, where it may be difficult for students and teachers to keep track of every message.
+Esses mapas mentais fornecem uma **representação visual** dos principais conceitos, ajudando os alunos a compreender rapidamente as relações entre ideias e navegar por tópicos complexos.
 
-The example below shows a summary generated from a forum on *Discussion about Privacy*:
+O exemplo abaixo foi gerado a partir do mesmo recurso *Segurança da Informação – Parte 1*:
 
-![Generated Forum Summary](docs/images/generated-forum-summary.png)
+![Mapa Mental Gerado](docs/images/generated-mindmap.png)
 
-By condensing long threads into clear takeaways, SmartEdu helps students focus on the **most relevant insights** from the discussion, while allowing teachers to quickly gauge the overall direction of the debate.
+- O **nó central** representa o tema principal da aula (*Fundamentos da Segurança da Informação*).  
+- Os **ramos** se expandem em conceitos relacionados, como tipos de ataques, serviços e mecanismos de segurança.  
+- Os alunos podem explorar o mapa de forma interativa, aplicando zoom e expandindo/recolhendo ramos para focar em detalhes específicos.  
 
-## 🧑‍🏫 Teacher Settings
+Os mapas mentais são especialmente úteis para estudantes que se beneficiam de **recursos visuais de estudo** e para revisar o conteúdo de forma mais envolvente e memorável.
 
-In addition to the administrator settings, each teacher can customize how the **SmartEdu block** behaves in their course.  
-To do this, they can open the block’s configuration panel, as shown below:
+------------
 
-![Teacher Settings](docs/images/teacher-settings.png)
+### Exemplo: Questionários Interativos
 
-The available options include:
+Outro recurso importante do SmartEdu é a capacidade de gerar **questionários interativos** diretamente a partir das notas de aula.  
 
-- **Summary type**  
-  Defines how summaries will be generated. Teachers can choose between:
-  - *Simple*: Produces a short, concise summary.  
-  - *Detailed*: Produces a longer, more comprehensive summary.  
+Esses questionários permitem que os alunos **pratiquem seus conhecimentos** respondendo a perguntas de múltipla escolha. Ao final, eles podem enviar suas respostas e receber feedback imediato.
 
-- **Number of questions**  
-  Sets the number of quiz questions to be generated from the selected resource.  
-  Teachers can also set this value to **0**, meaning that **no quiz will be generated**.  
+O exemplo abaixo mostra um questionário gerado a partir da aula *Segurança da Informação – Parte 1*:
 
-- **Generate study guide**  
-  When enabled, SmartEdu creates a structured **study guide** alongside the summary.  
+![Questionário Gerado](docs/images/generated-quiz.png)
+
+- Cada pergunta apresenta **quatro alternativas (A, B, C, D)**.  
+- Após selecionar uma resposta, o aluno recebe **feedback instantâneo**:  
+  - Se a resposta está correta ou incorreta.  
+  - Uma breve explicação esclarecendo por que a opção escolhida está certa ou errada.  
+
+Essa abordagem interativa ajuda os alunos a:  
+- Reforçar o que foi aprendido em aula.  
+- Identificar equívocos ou lacunas de conhecimento.  
+- Aprender com os erros por meio das explicações fornecidas para cada alternativa.
+
+------------
+
+### Exemplo: Resumos de Fóruns
+
+O SmartEdu também pode processar **discussões em fóruns** e gerar automaticamente resumos concisos dos principais pontos levantados pelos participantes.  
+
+Isso é especialmente útil em cursos com discussões ativas, onde pode ser difícil para alunos e professores acompanharem todas as mensagens.
+
+O exemplo abaixo mostra um resumo gerado a partir de um fórum sobre *Discussão sobre Privacidade*:
+
+![Resumo de Fórum Gerado](docs/images/generated-forum-summary.png)
+
+Ao condensar longas conversas em conclusões claras, o SmartEdu ajuda os alunos a focar nos **insights mais relevantes** da discussão, enquanto permite que os professores compreendam rapidamente a direção geral do debate.
+
+## 🧑‍🏫 Configurações do Professor
+
+Além das configurações do administrador, cada professor pode personalizar como o **bloco SmartEdu** se comporta em seu curso.  
+Para isso, ele pode abrir o painel de configuração do bloco, conforme mostrado abaixo:
+
+![Configurações do Professor](docs/images/teacher-settings.png)
+
+As opções disponíveis incluem:
+
+- **Tipo de resumo**  
+  Define como os resumos serão gerados. Os professores podem escolher entre:
+  - *Simples*: Produz um resumo curto e conciso.  
+  - *Detalhado*: Produz um resumo mais longo e abrangente.  
+
+- **Número de perguntas**  
+  Define a quantidade de perguntas do questionário a serem geradas a partir do recurso selecionado.  
+  Os professores também podem definir este valor como **0**, indicando que **nenhum questionário será gerado**.  
+
+- **Gerar guia de estudo**  
+  Quando ativado, o SmartEdu cria um **guia de estudo estruturado** junto com o resumo.  
+
+- **Gerar mapa mental**  
+  Quando ativado, o SmartEdu gera um **mapa mental interativo** a partir do recurso.   
   
-- **Generate mind map**  
-  When enabled, SmartEdu generates an **interactive mind map** from the resource.  
-  
 ------------
 
-### Hidden Resources
+### Excluindo Recursos do Plugin
 
-If a teacher marks a resource as **hidden from students** in Moodle, SmartEdu respects this configuration.  
-In this case:  
+Em alguns casos, o professor pode adicionar recursos ao curso que **não devem ser processados pelo SmartEdu**.  
+Exemplos incluem:  
+- A descrição de uma atividade prática.  
+- Um plano ou ementa do curso.  
+- Qualquer documento que não contenha conteúdo didático.  
 
-- The resource will **not appear** for students in the SmartEdu block.  
-- The teacher will still see the resource listed, with the suffix **“– hidden from students”**, indicating that it is invisible to learners.  
+Por padrão, se o recurso estiver em um formato de arquivo compatível, o SmartEdu tentará processá-lo e disponibilizá-lo aos alunos. Para evitar isso, existe uma **tag especial** chamada: `smartedu-hide`
 
-![Hidden Resource Example](docs/images/hidden-resource.png)
+Quando essa tag é aplicada a um recurso, o plugin **ignora completamente** esse conteúdo, ou seja, ele não aparecerá no bloco SmartEdu para os alunos.
 
-This ensures consistency with Moodle’s visibility rules while still giving teachers full awareness of which resources are available (or not) to students.
+![Tag para Ocultar Recurso](docs/images/smartedu-hide-tag.png)
 
-------------
+Isso oferece aos professores maior controle sobre quais recursos serão incluídos nos resumos, guias de estudo, questionários e mapas mentais do SmartEdu.
 
-### Excluding Resources from the Plugin
+## 📌 Considerações
 
-In some cases, a teacher may add resources to the course that are **not intended for SmartEdu processing**.  
-Examples include:  
-- A description of a practical assignment.  
-- A course syllabus or plan.  
-- Any document that does not contain actual teaching content.  
+### Que tipo de IA generativa o plugin SmartEdu utiliza?
 
-By default, if a resource is in a supported file format, SmartEdu will attempt to process it and make it available to students. To prevent this, we provide a **special tag** called: `smartedu-hide`
+Atualmente, o plugin oferece suporte apenas a Gemini, ChatGPT e Local (Ollama).  
 
-When this tag is applied to a resource, the plugin will **ignore it entirely**, meaning it will not appear in the SmartEdu block for students.
+**Observação:** O plugin foi mais testado com o Google Gemini. Para provedores locais de IA (Ollama), ele funciona melhor com modelos do tipo *instruct*, que são otimizados para seguir instruções e gerar conteúdo educacional.
 
-![Hide Resource Tag](docs/images/smartedu-hide-tag.png)
+### Quais aspectos devem ser considerados ao usar o plugin?
 
-This gives teachers greater control over which resources are included in SmartEdu’s summaries, study guides, quizzes, and mind maps.
+Essas e outras questões estão abordadas nos [termos de uso](terms-of-use.md) do plugin.
 
-## 📌 Considerations
+## 📜 Licença
 
-### What type of generative AI does the SmartEdu plugin use?
-
-Currently, the plugin only supports Gemini, ChatGPT and Local (Ollama). 
-
-**Note:** The plugin has been best tested with Google Gemini. For local AI providers (Ollama), it works best with instruct-type models, which are optimized for following instructions and generating educational content.
-
-### What aspects should be considered when using the plugin?
-
-These and other questions are covered in the plugin's [terms of use](terms-of-use.md).
-
-## 📜 License
-
-Licensed under the [GNU GPL License](LICENSE).
+Licenciado sob a [Licença GNU GPL](LICENSE).
