@@ -1,39 +1,39 @@
-# Terms of Use for the SmartEdu (block_smartedu) Plugin for Moodle
+# Termos de Uso do Plugin SmartEdu (block_smartedu) para Moodle
 
-## 1. Acceptance of Terms  
-By using this plugin, you automatically agree to the terms outlined here. If you do not agree, do not use the plugin.  
+## 1. Aceitação dos Termos  
+Ao utilizar este plugin, você concorda automaticamente com os termos aqui descritos. Caso não concorde, não utilize o plugin.  
 
-## 2. Purpose  
-This plugin aims to assist teachers and students on Moodle by automatically generating summaries of files uploaded to the platform.  
+## 2. Finalidade  
+Este plugin tem como objetivo auxiliar professores e alunos no Moodle, gerando automaticamente resumos dos arquivos enviados para a plataforma.  
 
-## 3. File Processing  
-The plugin only processes uploaded files and does not store copies of them.  
+## 3. Processamento de Arquivos  
+O plugin processa apenas os arquivos enviados e não armazena cópias deles.  
 
-Processing is carried out using third-party artificial intelligence (AI) services.  
+O processamento é realizado por meio de serviços de inteligência artificial (IA) de terceiros.  
 
-## 4. Privacy and Security  
-The plugin does not retain user data or processed files.  
+## 4. Privacidade e Segurança  
+O plugin não retém dados de usuários nem os arquivos processados.  
 
-Users should be aware of the privacy policies of the AI services used.  
+Os usuários devem estar cientes das políticas de privacidade dos serviços de IA utilizados.  
 
-## 5. Responsibility  
-Generated summaries may contain inaccuracies or misinterpretations.  
+## 5. Responsabilidade  
+Os resumos gerados podem conter imprecisões ou interpretações equivocadas.  
 
-The user is solely responsible for reviewing and using the information provided by the plugin.  
+O usuário é o único responsável por revisar e utilizar as informações fornecidas pelo plugin.  
 
-The plugin developer is not responsible for any damage or loss resulting from the use of the summaries.  
+O desenvolvedor do plugin não se responsabiliza por quaisquer danos ou perdas resultantes do uso dos resumos.  
 
-## 6. License and Usage  
-This plugin is open-source and may be used and modified according to its distribution license.  
+## 6. Licença e Uso  
+Este plugin é de código aberto e pode ser utilizado e modificado de acordo com sua licença de distribuição.  
 
-The use of the plugin may be subject to additional terms and limitations imposed by the integrated AI services.  
+O uso do plugin pode estar sujeito a termos e limitações adicionais impostos pelos serviços de IA integrados.  
 
-## 7. Changes to the Terms  
-These terms may be modified at any time without prior notice. It is the user's responsibility to review them periodically.  
+## 7. Alterações nos Termos  
+Estes termos podem ser modificados a qualquer momento, sem aviso prévio. É responsabilidade do usuário revisá-los periodicamente.  
 
-## 8. Contact  
-For questions or suggestions, contact the plugin developer.  
+## 8. Contato  
+Em caso de dúvidas ou sugestões, entre em contato com o desenvolvedor do plugin.  
 
 ---  
 
-By continuing to use the plugin, you confirm your acceptance of these terms.  
+Ao continuar utilizando o plugin, você confirma a aceitação destes termos.
