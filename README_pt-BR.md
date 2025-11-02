@@ -1,3 +1,5 @@
+<img src="https://flagcdn.com/w20/br.png" width="20" alt="Brasil"> <sub><sup>PT-BR</sup></sub>
+
 SmartEdu (block_smartedu) 
 ====================
 
