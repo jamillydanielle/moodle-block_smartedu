@@ -5,15 +5,11 @@ SmartEdu (block_smartedu)
 
 Plugin de bloco do Moodle LMS que aproveita o potencial da IA para aprimorar a educação.
 
----
-
 ## 📘 Documentação em Inglês (EN)
 
 Para acessar a versão em inglês desta documentação, clique abaixo:
 
-[➡️ Leia o README em Inglês](README.md)
-
----
+[➡️ Leia o README em Inglês](README.md) <img src="https://flagcdn.com/w20/gb.png" width="20" alt="English"> <sub><sup>EN</sup></sub>
 
 ## ✨ Features atuais
 
