@@ -1,6 +1,6 @@
-# Accepted File Formats for the SmartEdu (block_smartedu) Plugin in Moodle
+# Formatos de Arquivos Aceitos pelo Plugin SmartEdu (block_smartedu) no Moodle
 
-## Current Accepted File Formats  
+## Formatos de Arquivos Atualmente Aceitos  
 
 - PDF
 
@@ -8,4 +8,4 @@
 
 - TXT
 
-> Even files supported by the plugin may not be processed, for example, PDF files that consist only of images.
+> Mesmo arquivos suportados pelo plugin podem não ser processados, por exemplo, arquivos PDF que consistem apenas em imagens.
