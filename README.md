@@ -1,17 +1,15 @@
+🌐 Language: [🇧🇷 PT-BR](README_pt-BR.md) | **🇺🇸 EN**
+
 SmartEdu (block_smartedu) 
 ====================
 
 A Moodle LMS block plugin that leverages the potential of AI to enhance education.
 
----
-
-## 📘 Documentation in Portuguese (pt-BR)
+## 📘 Documentation in Portuguese (PT-BR)
 
 To access the Portuguese version of this documentation, click below:
 
-[➡️ Read the README in pt-BR](README_pt-BR.md)
-
----
+[➡️ Read the README in Portuguese](README_pt-BR.md)
 
 ## ✨ Current Features
 

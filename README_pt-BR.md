@@ -1,21 +1,19 @@
+🌐 Linguagem: **🇧🇷 PT-BR** | [🇺🇸 EN](README.md)
+
 SmartEdu (block_smartedu) 
 ====================
 
 Plugin de bloco do Moodle LMS que aproveita o potencial da IA para aprimorar a educação.
 
----
+## 📘 Documentação em Inglês (EN)
 
-## 📘 Documentation in Portuguese (pt-BR)
+Para acessar a versão em inglês desta documentação, clique abaixo:
 
-To access the Portuguese version of this documentation, click below:
-
-[➡️ Read the README in pt-BR](README_pt-BR.md)
-
----
+[➡️ Leia o README em Inglês](README.md)
 
 ## ✨ Features atuais
 
-- Resume as anotações de aula fornecidas pelo professor em vários [formatos de arquivo](file-formats.md). Usuários podem ocultar itens do plugin usando a tag `smartedu-hide` nas configurações do recurso.
+- Resume as anotações de aula fornecidas pelo professor em vários [formatos de arquivo](file-formats_pt-BR.md). Usuários podem ocultar itens do plugin usando a tag `smartedu-hide` nas configurações do recurso.
 
 - Resume discussões de fórum.
 
@@ -28,7 +26,7 @@ To access the Portuguese version of this documentation, click below:
 
 ## 📦 Requisitos
 
-Moodle 3.9 or greater.
+Moodle 3.9 ou superior.
 
 ## 🚀 Instalação
 
@@ -81,7 +79,7 @@ Neste exemplo, o bloco exibe dois recursos do curso:
 - **Discussão sobre Privacidade (Fórum)**  
   Um fórum de discussão criado dentro do curso. O SmartEdu pode resumir automaticamente as discussões, ajudando os alunos a capturar rapidamente os pontos principais.
 
-Na parte inferior do bloco, uma mensagem lembra os usuários de que, ao utilizar o bloco SmartEdu, eles concordam com seus [termos de uso](terms-of-use.md). Isso garante transparência sobre como o plugin interage com os serviços de IA generativa e lida com o conteúdo educacional.
+Na parte inferior do bloco, uma mensagem lembra os usuários de que, ao utilizar o bloco SmartEdu, eles concordam com seus [termos de uso](terms-of-use_pt-BR.md). Isso garante transparência sobre como o plugin interage com os serviços de IA generativa e lida com o conteúdo educacional.
 
 ------------
 
@@ -207,7 +205,7 @@ Atualmente, o plugin oferece suporte apenas a Gemini, ChatGPT e Local (Ollama).
 
 ### Quais aspectos devem ser considerados ao usar o plugin?
 
-Essas e outras questões estão abordadas nos [termos de uso](terms-of-use.md) do plugin.
+Essas e outras questões estão abordadas nos [termos de uso](terms-of-use_pt-BR.md) do plugin.
 
 ## 📜 Licença
 
