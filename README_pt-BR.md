@@ -1,4 +1,4 @@
-🌐 **Linguagem:** 🇧🇷 PT-BR | [🇺🇸 EN](README.md)
+🌐 Linguagem: **🇧🇷 PT-BR** | [🇺🇸 EN](README.md)
 
 SmartEdu (block_smartedu) 
 ====================
