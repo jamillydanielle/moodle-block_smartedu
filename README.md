@@ -1,4 +1,4 @@
-<img src="https://flagcdn.com/w20/gb.png" width="20" alt="English"> <sub><sup>EN</sup></sub>
+🌐 Language: [🇧🇷 PT-BR](README_pt-BR.md) | **🇺🇸 EN**
 
 SmartEdu (block_smartedu) 
 ====================
@@ -9,7 +9,7 @@ A Moodle LMS block plugin that leverages the potential of AI to enhance educatio
 
 To access the Portuguese version of this documentation, click below:
 
-[➡️ Read the README in Portuguese](README_pt-BR.md) <img src="https://flagcdn.com/w20/br.png" width="20" alt="Brasil"> <sub><sup>PT-BR</sup></sub>
+[➡️ Read the README in Portuguese](README_pt-BR.md)
 
 ## ✨ Current Features
 
