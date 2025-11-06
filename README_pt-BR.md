@@ -40,7 +40,7 @@ Acesse: `Site administration > Plugins > Blocks > SmartEdu`
 
 Você verá a seguinte página de configuração:
 
-![Configurações do Administrador](docs/images/admin-settings.png)
+![Configurações do Administrador](docs/images/admin-settings_pt-BR.png)
 
 As configurações disponíveis são:
 
@@ -69,15 +69,17 @@ As configurações disponíveis são:
 Os professores podem adicionar o bloco **SmartEdu** a qualquer curso pelo qual sejam responsáveis.  
 Depois de adicionado, o bloco aparecerá na **lateral direita da página do curso**, conforme mostrado abaixo:
 
-![Exemplo do Bloco SmartEdu](docs/images/block-example.png)
+![Exemplo do Bloco SmartEdu](docs/images/block-example_pt-BR.png)
 
-Neste exemplo, o bloco exibe dois recursos do curso:
+Neste exemplo, o bloco exibe os recursos do curso, como:
 
-- **Segurança da Informação – Parte 1 (PDF)**  
-  Um arquivo de notas de aula enviado pelo professor. O SmartEdu pode resumir esse documento e gerar materiais de estudo adicionais (resumos, guias de estudo, questionários ou mapas mentais).
-
-- **Discussão sobre Privacidade (Fórum)**  
+- **Discussão sobre o filme (Fórum)**  
   Um fórum de discussão criado dentro do curso. O SmartEdu pode resumir automaticamente as discussões, ajudando os alunos a capturar rapidamente os pontos principais.
+
+Além de poder contar com recursos adicionais, como por exemplo:
+
+- **Arquivo sobre matéria da aula (PDF)**  
+  Um arquivo de notas de aula enviado pelo professor. O SmartEdu pode resumir esse documento e gerar materiais de estudo adicionais (resumos, guias de estudo, questionários ou mapas mentais).
 
 Na parte inferior do bloco, uma mensagem lembra os usuários de que, ao utilizar o bloco SmartEdu, eles concordam com seus [termos de uso](terms-of-use_pt-BR.md). Isso garante transparência sobre como o plugin interage com os serviços de IA generativa e lida com o conteúdo educacional.
 
@@ -89,7 +91,7 @@ Quando o professor envia as notas de aula, o SmartEdu pode gerar automaticamente
 
 O exemplo abaixo mostra o conteúdo gerado a partir do recurso *Segurança da Informação – Parte 1*:
 
-![Resumo e Guia de Estudo Gerados](docs/images/generated-study-guide.png)
+![Resumo e Guia de Estudo Gerados](docs/images/generated-study-guide_pt-BR.png)
 
 - O **resumo** condensa as principais ideias das notas de aula em um formato claro e conciso.  
 - O **guia de estudo** destaca:
@@ -109,7 +111,7 @@ Esses mapas mentais fornecem uma **representação visual** dos principais conce
 
 O exemplo abaixo foi gerado a partir do mesmo recurso *Segurança da Informação – Parte 1*:
 
-![Mapa Mental Gerado](docs/images/generated-mindmap.png)
+![Mapa Mental Gerado](docs/images/generated-mindmap_pt-BR.png)
 
 - O **nó central** representa o tema principal da aula (*Fundamentos da Segurança da Informação*).  
 - Os **ramos** se expandem em conceitos relacionados, como tipos de ataques, serviços e mecanismos de segurança.  
@@ -127,7 +129,7 @@ Esses questionários permitem que os alunos **pratiquem seus conhecimentos** res
 
 O exemplo abaixo mostra um questionário gerado a partir da aula *Segurança da Informação – Parte 1*:
 
-![Questionário Gerado](docs/images/generated-quiz.png)
+![Questionário Gerado](docs/images/generated-quiz_pt-BR.png)
 
 - Cada pergunta apresenta **quatro alternativas (A, B, C, D)**.  
 - Após selecionar uma resposta, o aluno recebe **feedback instantâneo**:  
@@ -147,9 +149,9 @@ O SmartEdu também pode processar **discussões em fóruns** e gerar automaticam
 
 Isso é especialmente útil em cursos com discussões ativas, onde pode ser difícil para alunos e professores acompanharem todas as mensagens.
 
-O exemplo abaixo mostra um resumo gerado a partir de um fórum sobre *Discussão sobre Privacidade*:
+O exemplo abaixo mostra um resumo gerado a partir de um fórum sobre *Discussão sobre o filme*:
 
-![Resumo de Fórum Gerado](docs/images/generated-forum-summary.png)
+![Resumo de Fórum Gerado](docs/images/generated-forum-summary_pt-BR.png)
 
 Ao condensar longas conversas em conclusões claras, o SmartEdu ajuda os alunos a focar nos **insights mais relevantes** da discussão, enquanto permite que os professores compreendam rapidamente a direção geral do debate.
 
@@ -158,7 +160,7 @@ Ao condensar longas conversas em conclusões claras, o SmartEdu ajuda os alunos 
 Além das configurações do administrador, cada professor pode personalizar como o **bloco SmartEdu** se comporta em seu curso.  
 Para isso, ele pode abrir o painel de configuração do bloco, conforme mostrado abaixo:
 
-![Configurações do Professor](docs/images/teacher-settings.png)
+![Configurações do Professor](docs/images/teacher-settings_pt-BR.png)
 
 As opções disponíveis incluem:
 
@@ -191,7 +193,7 @@ Por padrão, se o recurso estiver em um formato de arquivo compatível, o SmartE
 
 Quando essa tag é aplicada a um recurso, o plugin **ignora completamente** esse conteúdo, ou seja, ele não aparecerá no bloco SmartEdu para os alunos.
 
-![Tag para Ocultar Recurso](docs/images/smartedu-hide-tag.png)
+![Tag para Ocultar Recurso](docs/images/smartedu-hide-tag_pt-BR.png)
 
 Isso oferece aos professores maior controle sobre quais recursos serão incluídos nos resumos, guias de estudo, questionários e mapas mentais do SmartEdu.
 
