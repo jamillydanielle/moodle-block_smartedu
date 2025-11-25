@@ -52,16 +52,16 @@ As configurações disponíveis são:
   Insira a chave de API obtida do provedor escolhido. Dependendo do provedor, pode ser necessário criar uma conta e adquirir um plano para obter uma chave válida (por exemplo, Google Gemini ou OpenAI).  
   *Padrão:* Vazio
 
-- **Insira o modelo do seu provedor de IA**  
+- **Informe o modelo do seu provedor de IA**  
   Defina o modelo específico que deseja usar (por exemplo, `gemini-2.0-flash`, `gpt-4o-mini`, `gemma3:4b`).  
   *Padrão:* Vazio
 
-- **Insira a URL da API do seu provedor de IA (local)**  
+- **Informe a URL da API do seu provedor de IA (local)**  
   Necessário apenas ao utilizar provedores de IA locais, como o Ollama. Exemplo:  
   `http://localhost:11434/api/chat`  
   *Padrão:* Vazio
 
-- **Ativar cache de prompts**  
+- **Habilitar cache de prompts**  
   Quando ativado, o plugin armazena em cache prompts anteriores para melhorar o desempenho.
 
 ## 📚 Usando o Plugin
@@ -73,7 +73,7 @@ Depois de adicionado, o bloco aparecerá na **lateral direita da página do curs
 
 Neste exemplo, o bloco exibe os recursos do curso, como:
 
-- **Discussão sobre o filme (Fórum)**  
+- **Discussão sobre o filme "Piratas do Vale do Silício"**  
   Um fórum de discussão criado dentro do curso. O SmartEdu pode resumir automaticamente as discussões, ajudando os alunos a capturar rapidamente os pontos principais.
 
 Além de poder contar com recursos adicionais, como por exemplo:
@@ -93,11 +93,10 @@ O exemplo abaixo mostra o conteúdo gerado a partir do recurso *Segurança da In
 
 ![Resumo e Guia de Estudo Gerados](docs/images/generated-study-guide_pt-BR.png)
 
-- O **resumo** condensa as principais ideias das notas de aula em um formato claro e conciso.  
-- O **guia de estudo** destaca:
+- A **Introdução** condensa as principais ideias das notas de aula em um formato claro e conciso.  
+- O **Roteiro de Estudo** destaca:
   - **Tema principal** da aula;  
-  - **Objetivos** para orientar o aprendizado do aluno;  
-  - **Assuntos para estudar**, organizados com definições, conceitos e categorias principais.
+  - **Objetivos** para orientar o aprendizado do aluno;
 
 Esses recursos ajudam os alunos a focar nos aspectos mais importantes do conteúdo e a se preparar de forma mais eficaz para discussões, questionários e provas.
 
@@ -113,8 +112,8 @@ O exemplo abaixo foi gerado a partir do mesmo recurso *Segurança da Informaçã
 
 ![Mapa Mental Gerado](docs/images/generated-mindmap_pt-BR.png)
 
-- O **nó central** representa o tema principal da aula (*Fundamentos da Segurança da Informação*).  
-- Os **ramos** se expandem em conceitos relacionados, como tipos de ataques, serviços e mecanismos de segurança.  
+- O **nó central** representa o tema principal da aula (*Segurança, Auditoria e Avaliação de Sistemas de Informação*).  
+- Os **ramos** se expandem em conceitos relacionados, como Informação e sua impotância e O que é Segurança da Informação.
 - Os alunos podem explorar o mapa de forma interativa, aplicando zoom e expandindo/recolhendo ramos para focar em detalhes específicos.  
 
 Os mapas mentais são especialmente úteis para estudantes que se beneficiam de **recursos visuais de estudo** e para revisar o conteúdo de forma mais envolvente e memorável.
@@ -127,7 +126,7 @@ Outro recurso importante do SmartEdu é a capacidade de gerar **questionários i
 
 Esses questionários permitem que os alunos **pratiquem seus conhecimentos** respondendo a perguntas de múltipla escolha. Ao final, eles podem enviar suas respostas e receber feedback imediato.
 
-O exemplo abaixo mostra um questionário gerado a partir da aula *Segurança da Informação – Parte 1*:
+O exemplo abaixo mostra um questionário gerado a partir da aula *Segurança da Informação*:
 
 ![Questionário Gerado](docs/images/generated-quiz_pt-BR.png)
 
@@ -169,11 +168,11 @@ As opções disponíveis incluem:
   - *Simples*: Produz um resumo curto e conciso.  
   - *Detalhado*: Produz um resumo mais longo e abrangente.  
 
-- **Número de perguntas**  
+- **Quantidade de questões**  
   Define a quantidade de perguntas do questionário a serem geradas a partir do recurso selecionado.  
   Os professores também podem definir este valor como **0**, indicando que **nenhum questionário será gerado**.  
 
-- **Gerar guia de estudo**  
+- **Gerar roteiro de estudo**  
   Quando ativado, o SmartEdu cria um **guia de estudo estruturado** junto com o resumo.  
 
 - **Gerar mapa mental**  
